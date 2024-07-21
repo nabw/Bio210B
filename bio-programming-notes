@@ -1,0 +1,150 @@
+####### W1
+# C1: Intro a programación
+    - Motivación con datos artritis
+    - Motivación de cómo pensar (PC es tonto)
+    - Distintos sistemas operativos, consola/terminal como punto de acceso
+
+# C2: Explorando tu PC
+    - Estructura de carpetas
+    - Tipos de archivos, estado y permisos
+    - Comandos de navegación (cd,ls,pwd,mkdir,--help,etc)
+    - Concepto de programas
+
+L1,2: UNIX desde distintos sistemas: WSL, etc. Explicar diferencias entre todo.
+
+####### W2
+# C3: Lenguajes de programación
+    - Concepto de compilación
+    - Lenguajes comilados vs interpretados
+    - Ver pros y cons
+    ** Orientado a objetos o no lo vemos más adelante
+
+# C4: Python como lenguaje e interprete (REPL)
+    - Mostrar un poco del contexto de Python
+    - Tipos básicos (int,float,char,string como conjunto de chars)
+    - Comentarios 
+
+L3,4: IDE, Jupyter, Collab. Que nadie se queje de no poder correr Python nunca más.
+
+####### W3
+# C5: Funciones
+    - Motivación: Encapsular complejidad
+    - Sintaxis y type hinting
+    - Ver hartos ejemplos de funciones y funciones anidadas
+    - Ejemplo MUY útil: print()
+
+# C6: Strings
+    - Operaciones en strings
+    - Primer módulo: string
+    - Complicaciones de string: '', "", """ """
+
+L5,6: Desarrollo de primeros códigos
+
+####### W4
+# C7: Loops sobre estructuras de datos; listas, tuplas y conjuntos
+    - Motivación y sintaxis de 'for'
+    - Operaciones en estructuras de datos, listas de listas
+    - Tipos no-básicos, referencias y modificaciones in-place
+    - List comprehensions para mayor eficiencia (vs append)
+
+# C8: Iteraciones
+    - for vs while
+    - Truquitos: contadores, while True
+    - Enumeraciones (zip,map,enumerate) *para evitar problemas de memoria: yield*
+
+L7,8: Ver hartos ejemplos. Propongo rehacer funciones de strings y listas a mano.
+
+####### W5
+# C9: IO
+    - open y r/w
+    - Lectura y escritura
+    - Ejemplos
+
+# C10: Programa interactivo y validación
+    - input vs argv
+    - type checking
+    - try/except; assert
+    - static check
+
+L9,10: Leer una base de datos con entradas malas y calcular algo (tipo la media)
+
+####### W6
+# C11: Módulos
+    - Ver qué es un módulo y cómo crearlos
+    - Ejemplos hasta ahora: sys, string
+
+# C12: Python científico: Numpy, Matplotlib
+    - Mostrar impacto en velocidad
+
+L11,12: ??
+
+####### W7
+# C13,14: Python científico II: Estadística y manejo de datos
+    - scipy
+    - statistics
+    - pandas (numpy para representar datos)
+
+L13,14: Agarrar una base de datos, hacer un ajuste lineal y/o cuadrático (ej: imc), graficar varias cosas.
+
+####### W8
+# C15,16: Clases y polimorfismo
+    - Motivación y sintaxis
+    - Ver ejemplos simples: Familia, Figuras geométricas
+    - Funciones de base: __init__, __add__, __mult__, __getitem__, etc
+
+L15,16: Algún bioejemplo
+
+####### W9
+# C17: Documentación
+    - Motivar MUCHO
+    - docstrings, README
+    - help
+
+# C18: Desarrollo colaborativo
+    - git
+
+L17,18: Hacer algo colaborativo en clase donde tod@s aporten a un repositorio común.
+
+####### W10
+# C19: Lenguaje para estadística: R
+    - Contexto de R e instalación (Rstudio)
+    - Diferencias con Python (ver column-wise compare de sintaxis)
+   
+# C20: Uso de R
+    - Lectura de datos (o carga de datos libremente disponibles)
+    - Creación y ajuste de modelo estadístico
+    - Lectura de indicadores
+
+L19,20: Hacer algo con R, tipo ajustes polinomiales para funciones no triviales.
+
+####### W11
+# C21: Bash y orquestación 
+    - Navegación y autocomplete
+    - Variables y funciones
+    - Scripts, source vs bash
+
+# C22: Bash
+    - Orquestación de programas
+    - Pipes y flujos: cat, sed, |, <, <<, >, >>
+
+L21,22: Crear dos programas en R y Python que se comuniquen con un script en Bash. ** Mencionar que se pueden ejecutar programas desde python (probablemente desde R también).
+
+####### W12--
+
+-- Temas de proyectos:
+
+5. Estructuras de datos biológicos
+5.1 Formatos de datos de secuencia
+5.2 Formatos de datos estructurales (?)
+5.3 Formato de datos de redes de interacción biológicas
+
+6. Importantes algoritmos bioinformáticos
+6.1 Agrupamiento jerárquico y grafos de árboles
+6.3 Curvas ROC y clasificación
+6.4 Programación dinámica y alineamiento de secuencias
+
+7. Resolución de problemas prácticos utilizando herramientas bioinformáticas
+7.1 Ejercicios y tareas simples individuales
+7.2 Ejercicios y tareas complejas en grupos
+7.3 Apoyo y soporte en resolución de problemas
+
