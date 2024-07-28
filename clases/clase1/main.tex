@@ -1,0 +1,123 @@
+\documentclass[14pt,aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimplePlus}
+
+\title[short title]{Clase 1: Introducción a la programación}
+\subtitle{}
+\author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
+\institute[UC|CMM] 
+{
+    Pontificia Universidad Católica de Chile \\
+    Centro de Modelamiento Matemático
+}
+
+\titlegraphic{
+    \vspace{-1.8cm}
+    \begin{flushright}
+      \includegraphics[height=2.5cm]{../images/logos/puc.png} 
+    \end{flushright}
+}
+
+%\date{26/07/2024, Vancouver, WCCM}
+\setbeamercovered{transparent}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \maketitle
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introducción a la programación}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t]\frametitle{Qué es programar}
+  \idea{ Hacer que el computador haga algo a partir de instrucciones}
+
+\begin{itemize}
+    \item Instrucciones: \emph{lenguaje de programación}
+    \item Ejs: 
+        \begin{itemize}
+            \item Web (HTML,CSS,PHP,JS)
+            \item Apps (Java)
+            \item {\only<2>{\bf\color{MediumGreen}}Ciencia (Python,R,Julia,MATLAB)}
+            \item Esta presentación (\LaTeX)
+        \end{itemize}
+\end{itemize}
+
+\vspace{1cm}
+\pause \alertGreen{El foco del curso estará en programación científica}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Lectura muy recomendada}
+\texttt{https://swcarpentry.github.io/python-novice-inflammation/}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t]\frametitle{Ejemplo: Artritis}
+Imaginen que tenemos una cura milagrosa para la artritis que actúa en 3 semanas. 
+\begin{itemize}
+    \item<1-> Seguimiento pacientes: Dosis después de primer síntoma
+    \item<2-> Datos: Nro de inflamaciones por día
+        \only<2>{
+            \begin{flushright}
+                \includegraphics[width=0.5\textwidth]{../images/datos-artritis.png}
+            \end{flushright}
+        }
+    \item<3-> Visualización
+        \only<3>{
+            \begin{flushright}
+                \includegraphics[width=0.3\textwidth]{../images/datos-artritis2.png}
+            \end{flushright}
+        }
+    \item<4-> Concluir!
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Ej II: Pensamiento algorítmico}
+Supongamos que quiero salir de acá, pero solo sé hacer dos cosas: 
+    \begin{enumerate}
+        \item Dar un paso adelante
+        \item Girar a la derecha en $90$ grados
+    \end{enumerate}
+
+\vspace{1cm}
+Ejercicio:
+    \begin{enumerate}
+        \item<+-> Cómo girar a la izquierda?
+        \item<+-> Cómo dar un paso atrás?
+        \item<+-> Cómo salir?
+    \end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Ej II: Lo que hicimos}
+    \begin{itemize}
+        \item Considerar un pequeño conjunto de instrucciones
+        \item Generar nuevas instrucciones más complejas
+        \item Combinar instrucciones para un objetivo
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Interacción con el PC}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Sistemas operativos}
+El OS coordina funcionamiento del computador. 
+    \begin{itemize}
+        \item Windows (MS-DOS)
+        \item Mac OS (BSD Darwin)
+        \item Linux*
+    \end{itemize}
+
+[agregar timeline de OS, mostrar que Linux es un OS normal]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Recap}
+    \begin{itemize}
+        \item Qué es programar
+        \item Pensamiento algorítmico
+        \item Sistemas operativos
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \maketitle
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
