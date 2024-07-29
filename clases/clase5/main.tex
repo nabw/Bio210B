@@ -1,0 +1,130 @@
+\documentclass[14pt,aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimplePlus}
+\usepackage{booktabs}
+\usepackage{minted}
+
+\title[short title]{Clase 5: Funciones}
+\subtitle{}
+\author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
+\institute[UC|CMM] 
+{
+    Pontificia Universidad Católica de Chile \\
+    Centro de Modelamiento Matemático
+}
+
+\titlegraphic{
+    \vspace{-1.8cm}
+    \begin{flushright}
+      \includegraphics[height=2.5cm]{../images/logos/puc.png} 
+    \end{flushright}
+}
+
+%\date{26/07/2024, Vancouver, WCCM}
+\setbeamercovered{transparent}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \maketitle
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Motivación}
+Supongamos queremos calcular IMC
+
+\rule{\textwidth}{1pt}
+\scriptsize
+\begin{minted}{python}
+    # Enlistar algunos pesos y alturas
+    peso1 = 62.2
+    altura1 = 1.50
+    peso2 = 94.5
+    altura2 = 1.87
+    
+    # Calcular IMC
+    imc1 = peso1 * altura1 * altura1
+    imc2 = peso2 * altura2 * altura2
+\end{minted}
+\rule{\textwidth}{1pt}
+\pause Mejora si hacemos
+\begin{minted}{python}
+    imc1 = calcularIMC(peso1, altura1)
+    imc2 = calcularIMC(peso2, altura2)
+\end{minted}
+\rule{\textwidth}{1pt}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Motivación}
+    \begin{itemize}
+        \item Las funciones \emph{reducen complejidad}
+        \item Las funciones \emph{vuelven código reutilizable}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis}
+
+\begin{minted}{python}
+    def function(arg1, arg2):
+        # [...]
+        return expression
+\end{minted}
+\rule{\textwidth}{1pt}
+Por ejemplo, en el caso del IMC
+\begin{minted}{python}
+    def function(peso, altura):
+        # [...]
+        return peso * altura**2
+\end{minted}
+\rule{\textwidth}{1pt}
+\idea{Ojo: Nombre de vars tiene sentido solo en definición}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{La función \texttt{print}}
+Esta función muestra el valor de una variable. 
+\begin{itemize}
+    \item Archivo de ejemplo 'test.py':
+    \begin{minted}{python}
+    a = 2
+    b = 3*a
+    print(b)
+    \end{minted}
+    \item Lo que vemos al ejecutarlo: 
+        \begin{tabular}{c}
+            \texttt{ \$ python test.py} \\
+            \texttt{ 6}
+        \end{tabular}
+\end{itemize}
+
+\idea{Veamos algunos ejemplos en consola}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Ejemplo}
+\idea{Veamos el caso de calcular el área de círculos}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Scope o alcance de nombres}
+Qué pasa en este código?
+
+\begin{minted}{python}
+a = 2
+def f(a):
+    b = a**2
+    return b
+print(f(3))
+\end{minted}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Recap}
+    \begin{itemize}
+        \item Qué rol cumplen las funciones
+        \item Cómo definir funciones
+        \item Vimos el alcance (scope) de variables
+        \item Muchos ejemplos :)
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \maketitle
+\end{frame}
+\end{document}

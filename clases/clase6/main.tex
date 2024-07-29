@@ -1,0 +1,85 @@
+\documentclass[14pt,aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimplePlus}
+\usepackage{booktabs}
+\usepackage{minted}
+
+\title[short title]{Clase 6: Strings}
+\subtitle{}
+\author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
+\institute[UC|CMM] 
+{
+    Pontificia Universidad Católica de Chile \\
+    Centro de Modelamiento Matemático
+}
+
+\titlegraphic{
+    \vspace{-1.8cm}
+    \begin{flushright}
+      \includegraphics[height=2.5cm]{../images/logos/puc.png} 
+    \end{flushright}
+}
+
+%\date{26/07/2024, Vancouver, WCCM}
+\setbeamercovered{transparent}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \maketitle
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t,fragile]\frametitle{Definición}
+    \begin{itemize} 
+        \item<1-> Un 'string' es un tipo de dato que contiene texto. 
+            \begin{minted}{python}
+        > s = "hola :)"
+        > print(s) # Imprime 'hola :)'
+            \end{minted}
+        \item<2-> Está compuesto por caracteres, se pueden acceder por componentes: 
+            \begin{minted}{python}
+        > s = "hola :)"
+        > print(s[0], s[1], s[2]) # Imprime 'hol'
+            \end{minted}
+        \item<3-> Tienen MUCHAS funcionalidades
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Functiones del objeto}
+    Los strings, como muchos otros objetos, tienen funciones. Si tenemos \texttt{s = "hola string"}:
+    \begin{itemize}
+        \item \texttt{s.upper()}: Nuevo string 'HOLA STRING'
+        \item \texttt{s.replace('str', 'k')}: Nuevo string 'hola king'
+        \item \texttt{s.find('a')}: Entrega índice '3'.
+        \item Hay MUCHAS (ver \texttt{dir(s)})
+    \end{itemize}
+
+En todas ellas, se general un \texttt{str} nuevo, el original queda intacto. Cuándo podría ser un problema esto? 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{La librería \texttt{string}}
+    Usaremos nuestra primera librería!
+    \begin{itemize}
+        \item Las librerías agregan funcionalidades específicas
+        \item Sintaxis para importar librerías: 
+            \begin{flushright} \texttt{> import string} \end{flushright}
+        \item Esto genera una variable del nombre de la librería con funciones
+    \end{itemize}
+
+\vspace{1cm}
+\pause\idea{Veamos cómo se puede usar}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Recap}
+    \begin{itemize}
+        \item Hoy vimos los strings
+        \item Los strings son tipos de datos con funciones
+        \item Aprendimos cómo importar la librería 'string'
+        \item Aprendimos algunas funcionalidaddes de 'string'
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \maketitle
+\end{frame}
+\end{document}
