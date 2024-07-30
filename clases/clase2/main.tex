@@ -1,5 +1,6 @@
 \documentclass[14pt,aspectratio=169,xcolor=dvipsnames]{beamer}
 \usetheme{SimplePlus}
+\usepackage{minted}
 
 \title[short title]{Clase 2: Explorando el PC}
 \subtitle{}
@@ -34,6 +35,9 @@
         \item Funciona a través de programas
         \item Las interfaces gráficas usan consola
     \end{itemize}
+    \begin{flushright}
+        \includegraphics[width=0.4\textwidth]{../images/os-unix.png}
+    \end{flushright}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{La consola: Inicio}
@@ -51,7 +55,7 @@ La consola Bash en Linux permite interactuar con el PC\footnote{Se puede instala
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Sistema de archivos}
-En Linux, los archivos funcionan como un espera:
+En Linux, los archivos funcionan como uno espera:
     \begin{itemize}
         \item Carpeta 1
             \begin{itemize}
@@ -63,6 +67,7 @@ En Linux, los archivos funcionan como un espera:
                 \item Carpeta 3
                 \item Archivo 3
             \end{itemize}
+        \item $\vdots$
     \end{itemize}
 
 \end{frame}
@@ -82,11 +87,8 @@ En Linux, los archivos funcionan como un espera:
 Pro-tip: Autocompletar con \texttt{tab}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Concepto de programa}
-Ver contenidos de 'Documents'
-    \begin{center}
-        \texttt{nico@nico-pc:\~{} \$ ls Documents}
-    \end{center}
+\begin{frame}[fragile]\frametitle{Concepto de programa}
+Ver contenidos de 'Documents':
 
     $$ \texttt{\$ }\underbrace{\texttt{ls}}_\text{Comando}  \underbrace{Documents}_\text{Argumento} $$
 \end{frame}
@@ -95,7 +97,10 @@ Ver contenidos de 'Documents'
     
     $$ \texttt{\$ }\underbrace{\texttt{ls}}_\text{Comando} \quad \underbrace{\texttt{-l -a --color}}_\text{Opciones} \quad \underbrace{Documents}_\text{Argumento} $$
 
-La más útil: \texttt{--help}. Veamos...
+La más útil: \texttt{--help/-h}. 
+
+\vspace{1cm}
+\idea{Veamos...}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Recap}
