@@ -1,5 +1,15 @@
+\PassOptionsToPackage{x11names}{xcolor}
 \documentclass[14pt,aspectratio=169,xcolor=dvipsnames]{beamer}
 \usetheme{SimplePlus}
+
+%%%% used for timeline
+\usepackage{colortbl}
+\usepackage{caption}
+\usepackage{booktabs}
+\DeclareCaptionFont{blue}{\color{LightSteelBlue3}}
+\newcommand{\foo}{\color{LightSteelBlue3}\makebox[0pt]{\textbullet}\hskip-0.5pt\vrule width 1pt\hspace{\labelsep}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title[short title]{Clase 1: Introducción a la programación}
 \subtitle{}
@@ -99,12 +109,40 @@ Ejercicio:
 \begin{frame}\frametitle{Sistemas operativos}
 El OS coordina funcionamiento del computador. 
     \begin{itemize}
-        \item Windows (MS-DOS)
-        \item Mac OS (BSD Darwin)
-        \item Linux*
+        \item<+-> Windows (MS-DOS)
+        \item<+-> Mac OS (BSD Darwin)
+        \item<+-> BSD (FreeBSD, OpenBSD)
+        \item<+-> GNU/Linux (Debian, Ubuntu, Fedora, $\hdots$)
+        \item<+-> Android
+        \item<+-> iOS
+        \item<+-> Symbian
+        \item<+-> BeOS, Haiku
     \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Sistemas operativos}
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{../images/distrowatch.png}
+    \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Sistemas operativos}
+    \begin{table}
+        \renewcommand\arraystretch{1.4}\arrayrulecolor{LightSteelBlue3}
+        \captionsetup{singlelinecheck=false, font=blue, labelfont=sc, labelsep=quad}
 
-[agregar timeline de OS, mostrar que Linux es un OS normal]
+        \begin{minipage}{7cm}
+            \caption{Timeline}
+        \end{minipage}
+        \vskip -1.5ex
+
+        \begin{tabular}{@{\,}r <{\hskip 2pt} !{\foo} >{\raggedright\arraybackslash}p{5cm}}
+        \toprule
+        \addlinespace[1.5ex]
+        1933 & LCMV, aseptic meningitis. Epidemic St. Loius encephalitis. \\
+        1956 & Tacaribe virus.  \\
+        \end{tabular}
+    \end{table}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Recap}
