@@ -41,11 +41,11 @@ Supongamos queremos calcular IMC
     altura2 = 1.87
     
     # Calcular IMC
-    imc1 = peso1 * altura1 * altura1
-    imc2 = peso2 * altura2 * altura2
+    imc1 = peso1 / altura1 / altura1
+    imc2 = peso2 / altura2 / altura2
 \end{minted}
 \rule{\textwidth}{1pt}
-\pause Mejora si hacemos
+\pause Sería mejor... 
 \begin{minted}{python}
     imc1 = calcularIMC(peso1, altura1)
     imc2 = calcularIMC(peso2, altura2)
@@ -64,19 +64,20 @@ Supongamos queremos calcular IMC
 \begin{frame}[fragile]\frametitle{Sintaxis}
 
 \begin{minted}{python}
-    def function(arg1, arg2):
+    def functionName(arg1, arg2, ...):
         # [...]
         return expression
 \end{minted}
 \rule{\textwidth}{1pt}
 Por ejemplo, en el caso del IMC
 \begin{minted}{python}
-    def function(peso, altura):
+    def calcularIMC(peso, altura):
         # [...]
-        return peso * altura**2
+        return peso / altura**2
 \end{minted}
 \rule{\textwidth}{1pt}
 \idea{Ojo: Nombre de vars tiene sentido solo en definición}
+\idea{Ojo: Tipos de retorno}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{La función \texttt{print}}
@@ -89,9 +90,10 @@ Esta función muestra el valor de una variable.
     print(b)
     \end{minted}
     \item Lo que vemos al ejecutarlo: 
-        \begin{tabular}{c}
+
+        \begin{tabular}{l}
             \texttt{ \$ python test.py} \\
-            \texttt{ 6}
+            \texttt{ \$ 6}
         \end{tabular}
 \end{itemize}
 
@@ -99,7 +101,10 @@ Esta función muestra el valor de una variable.
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Ejemplo}
-\idea{Veamos el caso de calcular el área de círculos}
+\idea{Veamos cómo calcular el área de círculos}
+
+$$ A(r) = \pi r^2 $$
+\idea{̣̣}{Qué pasa con los argumentos equivocados?}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Scope o alcance de nombres}
