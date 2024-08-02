@@ -41,7 +41,7 @@ Supongamos queremos calcular IMC
     altura2 = 1.87
     
     # Calcular IMC
-    imc1 = peso1 / altura1 / altura1
+    imc1 = peso1 / altura1 / altura1 # p / h^2. Por qué?
     imc2 = peso2 / altura2 / altura2
 \end{minted}
 \rule{\textwidth}{1pt}
@@ -66,7 +66,8 @@ Supongamos queremos calcular IMC
 \begin{minted}{python}
     def functionName(arg1, arg2, ...):
         # [...]
-        return expression
+        return expression # Retorno tiene tipo 
+        # Puede no estar (return None)
 \end{minted}
 \rule{\textwidth}{1pt}
 Por ejemplo, en el caso del IMC
@@ -77,7 +78,7 @@ Por ejemplo, en el caso del IMC
 \end{minted}
 \rule{\textwidth}{1pt}
 \idea{Ojo: Nombre de vars tiene sentido solo en definición}
-\idea{Ojo: Tipos de retorno}
+%\idea{Ojo: Tipos de retorno}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{La función \texttt{print}}
@@ -104,7 +105,7 @@ Esta función muestra el valor de una variable.
 \idea{Veamos cómo calcular el área de círculos}
 
 $$ A(r) = \pi r^2 $$
-\idea{̣̣}{Qué pasa con los argumentos equivocados?}
+\idea{Qué pasa con los argumentos equivocados?}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Scope o alcance de nombres}
