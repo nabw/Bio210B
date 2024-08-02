@@ -23,6 +23,7 @@ L1,2: UNIX desde distintos sistemas: WSL, etc. Explicar diferencias entre todo.
     - Mostrar un poco del contexto de Python
     - Tipos básicos (int,float,char,string como conjunto de chars)
     - Comentarios 
+    - if/then/else
 
 L3,4: IDE, Jupyter, Collab. Que nadie se queje de no poder correr Python nunca más.
 
