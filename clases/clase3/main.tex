@@ -1,6 +1,7 @@
 \documentclass[14pt,aspectratio=169,xcolor=dvipsnames]{beamer}
 \usetheme{SimplePlus}
 \usepackage{booktabs}
+\usepackage{minted}
 
 \title[short title]{Clase 3: Lenguajes de programación}
 \subtitle{}
@@ -42,8 +43,41 @@
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Ejemplo de compilación}
-    [mostrar archivo .c que imprime 'hello world', los simbolos compilados y el ejecutable]
+\begin{frame}[fragile]\frametitle{Ejemplo de compilación}
+\begin{small}
+    \begin{columns}
+        \begin{column}[b]{0.4\textwidth}
+            \begin{minted}{C}
+#include <stdio.h>
+   int main() {
+   printf("Hello, World!\n");
+return 0;
+            }
+            \end{minted}
+
+    \vfill
+            Para humanos
+        \end{column}
+        \begin{column}[b]{0.45\textwidth}
+        
+            \begin{minted}{gas}
+    .file	"hello.c"
+    .text
+    .section	.rodata
+.LC0:
+    .string	"Hello, World!"
+    .text
+    .globl	main
+    .type	main, @function
+main:
+.LFB0:
+            \end{minted}
+
+    \vfill
+            Resultado para PC
+        \end{column}
+    \end{columns}
+\end{small}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{El trabajo de compilación}
@@ -105,7 +139,9 @@ Lenguajes compilados son eficientes pero...
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Ranking de lenguajes}
-[mostrar si son compilados o interp]
+    \begin{center}
+        \includegraphics[width=0.4\textwidth]{../images/top-lenguajes.png}
+    \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Más clasificaciones}

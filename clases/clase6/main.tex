@@ -68,7 +68,18 @@ En todas ellas, se general un \texttt{str} nuevo, el original queda intacto. Cu�
 \vspace{1cm}
 \pause\idea{Veamos cómo se puede usar}
 \end{frame}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{El método \texttt{format}}
+    $$  \texttt{algo}\underbrace{.}_\text{llamar función}method() $$
+Sirve para imprimir variables:
+    \begin{minted}{python}
+        > a = 20.17
+        > "a es {}".format(a) # imprime 20.17
+        > f"a es {a}" # imprime 20.17
+        > f"a es {a:2.1f}" # imprime 20.1
+        > f"a es {a:2.2e}" # imprime 2.02e+01
+    \end{minted}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Recap}
     \begin{itemize}

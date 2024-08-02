@@ -20,7 +20,7 @@
 }
 
 %\date{26/07/2024, Vancouver, WCCM}
-\setbeamercovered{transparent}
+%\setbeamercovered{transparent}
 
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -31,19 +31,19 @@
 \begin{frame}[fragile]\frametitle{Motivación}
 En el ejemplo del IMC, se vuelve impracticable tener muchos datos:
     \begin{minted}{python}
-        peso1 = ...
-        altura1 = ...
-        peso2 = ... 
-        altura2 = ...
+        peso1 = 1.
+        altura1 = 1.0
+        peso2 = 2.0 
+        altura2 = 2.0
         ...
-        peso1200 = ...
-        altura1200 = ...
+        peso1200 = 3.0
+        altura1200 = 3.0
     \end{minted}
 
 Nos gustaría tener una manera de manejar cantidades \emph{arbitrarias} de datos y operar sobre ellas.
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Un loop de iteración}
+\begin{frame}[fragile]\frametitle{Sintaxis de loop de iteración}
     \begin{minted}{python}
       lista = [1,2,3,4,5]
       for e in lista:
@@ -51,10 +51,10 @@ Nos gustaría tener una manera de manejar cantidades \emph{arbitrarias} de datos
     \end{minted}
 \pause El resultado será
 
-1
-2
-3
-4
+1\\
+2\\
+3\\
+4\\
 5
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

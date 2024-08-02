@@ -30,11 +30,16 @@
 \begin{frame}\frametitle{Datos sobre Python}
     \begin{itemize}
         \item Lenguaje interpretado, orientado a objetos
-        \item Creado en 199X, basado en C
+        \item Creado en 1991 por Guido van Rossum
+        \item Basado en C
         \item Librerías de IA: PyTorch, Keras, TensorFlow
         \item MUCHAS librerías científicas
         \item Ejecuta extensión \texttt{'.py'}
     \end{itemize}
+
+\begin{block}{}
+    \emph{[...] as a hobby project to keep himself busy during the Christmas holidays of 1989. }
+\end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Cómo usar Python}
@@ -55,6 +60,7 @@
         \item<3-> \textbf{Jupyter/Collab/IDE (ayudantía)}
     \end{enumerate}
 
+\vspace{1cm}
 \idea{Veamos un poco la consola}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -64,10 +70,10 @@
             $$ > \underbrace{\texttt{a = 2}}_\text{Asignación \emph{siempre} de derecha a izquierda} $$
         \item Toda variable tiene un tipo 
             \begin{itemize}
-                \item \texttt{> a = 2} : 'a' es un 'int' (entero)
-                \item \texttt{> a = 3.14}: 'a' es un 'float' (punto flotante)
+                \item \texttt{> a = 2} : \hspace{0.3cm}\>\>\>\>\> 'a' es un 'int' (entero)
+                \item \texttt{> a = 3.14}: \>\>\>\>\>'a' es un 'float' (punto flotante)
                 \item \texttt{> a = "hola"}: 'a' es un 'string' (texto)
-                \item \texttt{> a = True}: 'a' es un 'bool' (booleano)\footnote{esto tendrá sentido más adelante}
+                \item \texttt{> a = True}: \>\>\> 'a' es un 'bool' (booleano)\footnote{esto tendrá sentido más adelante}
             \end{itemize}
         \item Se pueden dejar comentarios con \#
     \end{itemize}
@@ -109,9 +115,9 @@ La división se entiende como aplicada exclusivamente al número precedente. Eso
         \item \texttt{==}, \texttt{<=}, \texttt{>=}
     \end{itemize}
 
-En términos de precedencia, \texttt{and} es un producto y \texttt{or} es una suma: 
+En términos de precedencia, \alertBlue{\texttt{and}} es un producto y \alertBlue{\texttt{or}} es una suma: 
 
-$$ \texttt{a and b or c} = (\texttt{a and b}) \texttt{or} c $$
+$$ \texttt{a and b or c} = (\texttt{a and b}) \texttt{ or } c $$
 
 Notar que el resultado es siempre otro booleano.
 \end{frame}
