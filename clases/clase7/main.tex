@@ -61,8 +61,36 @@ Nos gustaría tener una manera de manejar cantidades \emph{arbitrarias} de datos
 \begin{frame}\frametitle{Un poco de sintaxis}
     $$ \texttt{a = [1,2,3,4,5,8]} $$
     \begin{itemize}
-        \item asdf...
+        \item<+-> 'a' es una \emph{lista}
+        \item<+-> 'a' es un \emph{iterable} (se puede usar en ciclo \texttt{for})
+        \item<+-> 'a' tiene componentes (\texttt{a[0],a[1],...})
+        \item<+-> Listas no tienen tipo: 
+            $$ \texttt{a = [1,'hola',-7.2]} $$
     \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Ejemplo: promedio}
+\idea{Consola...}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Otros tipos}
+    \begin{itemize}
+        \item Tuplas o listas inmodificables: 
+            $$  \texttt{a = (1,2,7,8)} $$
+        \item Diccionarios o listas indexadas:
+            $$ \texttt{a = \{'altura': 1.80, 'peso': 90\}} $$
+        \item Conjuntos o listas no-ordenadas: 
+            $$ \texttt{a = \{1,5,9\}} $$
+    \end{itemize}
+
+\pause\idea{Exploremos las funciones de cada uno}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Funciones mágicas}
+Para ver todas las funciones de un tipo: $\texttt{dir(a)}$.
+
+\vspace{2cm}
+\idea{Veamos...}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}

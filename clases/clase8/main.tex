@@ -1,0 +1,101 @@
+\documentclass[14pt,aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimplePlus}
+\usepackage{booktabs}
+\usepackage{minted}
+
+\title[short title]{Clase 8: Iteradores}
+\subtitle{}
+\author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
+\institute[UC|CMM] 
+{
+    Pontificia Universidad Católica de Chile \\
+    Centro de Modelamiento Matemático
+}
+
+\titlegraphic{
+    \vspace{-1.8cm}
+    \begin{flushright}
+      \includegraphics[height=2.5cm]{../images/logos/puc.png} 
+    \end{flushright}
+}
+
+%\date{26/07/2024, Vancouver, WCCM}
+%\setbeamercovered{transparent}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \maketitle
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Motivación}
+    Todo bien con el ciclo for, pero...
+
+    \begin{itemize}
+        \item A veces no sabemos cuántas veces iterar
+        \item A veces iteramos hasta cumplir algún criterio. Ej: estudiar
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis de loop de iteración}
+    \begin{minted}{python}
+        while condition: # condition es un bool
+            # code, change 'condition'
+    \end{minted}
+    
+    \vspace{1cm}
+    \begin{itemize}
+        \item Lavarse las manos
+        \item Estudiar
+        \item Afilar cuchillo
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Ejercicio: ahorros con \texttt{break/continue}}
+\begin{small}
+    \begin{minted}{python}
+        plata = 0
+        dias = 0 # contador
+        white True: 
+            if dia == "sabado" or dia == "domingo": 
+                dia = avanzarDia(dia)
+                dias += 1
+                continue # Volver al inicio del while
+            plata += trabajar()
+            if plata >= objetivo:
+                break # Salir del while
+            dia = avanzarDia(dia)
+        print("Meta alcanzada en {} días".format(dias))
+    \end{minted}
+    
+\alertGreen{Sirven en \texttt{for} también!} Extra: replicar con if/elif
+\end{small}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Trucos de python}
+    \begin{minted}{python}
+        apellidos = ["Nguyen", "Janssen", "Smith"]
+        ids = [100,101,102]
+    \end{minted}
+    \begin{itemize}
+        \item Juntar listas:
+        \begin{minted}{python}
+        for apellido,id in zip(apellidos,ids):
+            # [...]
+    \end{minted}
+        \item Agregar contador:
+    \begin{minted}{python}
+        for i,apellido in enumerate(apellidos):
+            # [...]
+    \end{minted}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Practiquemos un poco}
+\idea{Consola...}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \maketitle
+\end{frame}
+\end{document}

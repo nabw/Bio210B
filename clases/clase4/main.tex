@@ -1,6 +1,7 @@
 \documentclass[14pt,aspectratio=169,xcolor=dvipsnames]{beamer}
 \usetheme{SimplePlus}
 \usepackage{booktabs}
+\usepackage{minted}
 
 \title[short title]{Clase 4: Python, lenguaje e intérprete}
 \subtitle{}
@@ -120,6 +121,19 @@ En términos de precedencia, \alertBlue{\texttt{and}} es un producto y \alertBlu
 $$ \texttt{a and b or c} = (\texttt{a and b}) \texttt{ or } c $$
 
 Notar que el resultado es siempre otro booleano.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Usando bools: if/then/else}
+
+    \begin{minted}{python}
+        d = 1 # Diámetro de figura
+        if figuraEsCuadrado:
+            area = d**2
+        elif figuraEsCirculo:
+            area = pi * (d/2)**2
+        else # llego acá si no pasa otra
+            print("Error")
+    \end{minted}    
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Recap}
