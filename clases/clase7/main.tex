@@ -64,13 +64,13 @@ Nos gustaría tener una manera de manejar cantidades \emph{arbitrarias} de datos
         \item<+-> 'a' es una \emph{lista}
         \item<+-> 'a' es un \emph{iterable} (se puede usar en ciclo \texttt{for})
         \item<+-> 'a' tiene componentes (\texttt{a[0],a[1],...})
-        \item<+-> Listas no tienen tipo: 
+        \item<+-> Listas no tienen tipos específicos: 
             $$ \texttt{a = [1,'hola',-7.2]} $$
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Ejemplo: promedio}
-\idea{Consola...}
+\idea{Consola para ver sus funciones... (\texttt{dir})}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Otros tipos}
@@ -79,6 +79,7 @@ Nos gustaría tener una manera de manejar cantidades \emph{arbitrarias} de datos
             $$  \texttt{a = (1,2,7,8)} $$
         \item Diccionarios o listas indexadas:
             $$ \texttt{a = \{'altura': 1.80, 'peso': 90\}} $$
+            *Acceso con \texttt{a['altura']}
         \item Conjuntos o listas no-ordenadas: 
             $$ \texttt{a = \{1,5,9\}} $$
     \end{itemize}
@@ -87,7 +88,20 @@ Nos gustaría tener una manera de manejar cantidades \emph{arbitrarias} de datos
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Funciones mágicas}
-Para ver todas las funciones de un tipo: $\texttt{dir(a)}$.
+
+\begin{itemize}
+    \item Todas las funciones: $\texttt{dir(a)}$.
+    \item Funciones mágicas: \texttt{__txt__}
+    \item Tipos sumables: \texttt{__add__}
+        \begin{minted}
+    int.__add__(2,3)
+        \end{minted}
+    \item Subíndices: \texttt{__getitem__}
+        \begin{minted}
+    a = [6,7,8]
+    list.__getitem__(a,1) # a[1]
+        \end{minted}
+\end{itemize}
 
 \vspace{2cm}
 \idea{Veamos...}

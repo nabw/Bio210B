@@ -1,0 +1,81 @@
+\documentclass[14pt,aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimplePlus}
+\usepackage{booktabs}
+\usepackage{minted}
+
+\title[short title]{Clase 10: Scripts interactivo}
+\subtitle{}
+\author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
+\institute[UC|CMM] 
+{
+    Pontificia Universidad Católica de Chile \\
+    Centro de Modelamiento Matemático
+}
+
+\titlegraphic{
+    \vspace{-1.8cm}
+    \begin{flushright}
+      \includegraphics[height=2.5cm]{../images/logos/puc.png} 
+    \end{flushright}
+}
+\newcommand{\code}[1]{{\color{purple}\tt#1}}
+
+\date{04/09/2024}
+%\setbeamercovered{transparent}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \maketitle
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Motivación}
+    \begin{minted}{python}
+    a = 2
+    textfile = "../carpeta/archivo.txt"
+    
+    # Usar 'a' y 'textfile'
+    \end{minted}
+    \begin{itemize}
+        \item Poco portable
+        \item Poco modular
+        \item Ej: correr código para 1000 valores de 'a' en 15 archivos
+    \end{itemize}
+
+\pause \idea{Buscamos solución fuera del código}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Input}
+    Solución \#1: Frenar ejecución hasta que usuario entregue valor
+    
+    \begin{minted}{python}
+    a = input("Ingrese valor de 'a': ")
+    print(a, type(a))
+    \end{minted}
+
+    El valor ingresado es un \code{str}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Argv}
+    Solución \#2: Usar parámetros de programa
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+\idea{Consola...}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Recap}
+    \begin{itemize}
+        \item Lectura a través de \emph{stream}
+        \item Lectura de archivos con \code{open}
+        \item Contexto con \code{with}
+        \item Modos de lectura: \code{r},\code{w},\code{a}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \maketitle
+\end{frame}
+\end{document}

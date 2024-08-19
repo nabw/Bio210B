@@ -77,7 +77,7 @@ Por ejemplo, en el caso del IMC
         return peso / altura**2
 \end{minted}
 \rule{\textwidth}{1pt}
-\idea{Ojo: Nombre de vars tiene sentido solo en definición}
+\idea{Ojo con conflictos de nombre (dentro y fuera de función)}
 %\idea{Ojo: Tipos de retorno}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -101,11 +101,42 @@ Esta función muestra el valor de una variable.
 \idea{Veamos algunos ejemplos en consola}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Argumentos por keyword}
+    Podemos definir argumentos \emph{por defecto}
+    \begin{minted}{python}
+    def printName(nombre="Nicolás", apellido="Barnafi")
+        print("Me llamo ", nombre, " ", apellido)
+
+    print("nicolás", "barnafi") # en orden
+    print("nicolás")            # 1 por defecto
+    print()                     # 2 por defecto
+    print(nombre="nico")        # keyword arg
+    print(apellido="bfi")       # keyword arg
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis que no encontrarán detallada}
+    \begin{minted}{python}
+    def printName(nombre="Nicolás", apellido="Barnafi")
+        print("Me llamo ", nombre, " ", apellido)
+
+    lista = ["nico", "barnafi"]
+    diccionario = {"nombre": "nico", 
+                   "apellido": "barnafi"}
+    print(*lista) # por lista
+    print(**kwargs) # por diccionario
+    \end{minted}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Ejemplo}
 \idea{Veamos cómo calcular el área de círculos}
 
 $$ A(r) = \pi r^2 $$
 \idea{Qué pasa con los argumentos equivocados?}
+
+\vspace{1cm}
+\pause Type-checking: \texttt{type(a) == int}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Scope o alcance de nombres}
