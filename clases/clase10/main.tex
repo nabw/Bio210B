@@ -45,7 +45,7 @@
 \pause \idea{Buscamos solución fuera del código}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Input}
+\begin{frame}[fragile]\frametitle{Input}
     Solución \#1: Frenar ejecución hasta que usuario entregue valor
     
     \begin{minted}{python}
@@ -53,11 +53,26 @@
     print(a, type(a))
     \end{minted}
 
+    \vspace{1cm}
     El valor ingresado es un \code{str}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Argv}
+\begin{frame}[fragile]\frametitle{Argv}
     Solución \#2: Usar parámetros de programa
+    \begin{minted}{python}
+    # programa.py
+    from sys import argv
+    name = argv[0]
+    arg1 = argv[1]
+    arg2 = argv[2]
+    print("argv:",name, arg1, arg2)
+    \end{minted}
+
+    Luego en bash:
+    \begin{minted}{bash}
+    $ python programa.py 'hola' 42
+    argv: programa.py hola 42
+    \end{minted}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
