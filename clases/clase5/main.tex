@@ -104,27 +104,27 @@ Esta función muestra el valor de una variable.
 \begin{frame}[fragile]\frametitle{Argumentos por keyword}
     Podemos definir argumentos \emph{por defecto}
     \begin{minted}{python}
-    def printName(nombre="Nicolás", apellido="Barnafi")
+    def printName(nombre="Nicolás", apellido="Barnafi"):
         print("Me llamo ", nombre, " ", apellido)
 
-    print("nicolás", "barnafi") # en orden
-    print("nicolás")            # 1 por defecto
-    print()                     # 2 por defecto
-    print(nombre="nico")        # keyword arg
-    print(apellido="bfi")       # keyword arg
+    printName("nicolás", "barnafi") # en orden
+    printName("nicolás")            # 1 por defecto
+    printName()                     # 2 por defecto
+    printName(nombre="nico")        # keyword arg
+    printName(apellido="bfi")       # keyword arg
     \end{minted}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Sintaxis que no encontrarán detallada}
     \begin{minted}{python}
-    def printName(nombre="Nicolás", apellido="Barnafi")
+    def printName(nombre="Nicolás", apellido="Barnafi"):
         print("Me llamo ", nombre, " ", apellido)
 
     lista = ["nico", "barnafi"]
     diccionario = {"nombre": "nico", 
                    "apellido": "barnafi"}
-    print(*lista) # por lista
-    print(**kwargs) # por diccionario
+    printName(*lista) # por lista
+    printName(**kwargs) # por diccionario
     \end{minted}
 
 \end{frame}
