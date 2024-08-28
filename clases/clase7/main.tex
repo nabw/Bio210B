@@ -2,6 +2,7 @@
 \usetheme{SimplePlus}
 \usepackage{booktabs}
 \usepackage{minted}
+\usepackage{fancyvrb}
 
 \title[short title]{Clase 7: Estructuras de datos}
 \subtitle{}
@@ -66,6 +67,7 @@ Nos gustaría tener una manera de manejar cantidades \emph{arbitrarias} de datos
         \item<+-> 'a' tiene componentes (\texttt{a[0],a[1],...})
         \item<+-> Listas no tienen tipos específicos: 
             $$ \texttt{a = [1,'hola',-7.2]} $$
+        \item<+-> \texttt{range(10)} para iterar sobre números
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -84,23 +86,23 @@ Nos gustaría tener una manera de manejar cantidades \emph{arbitrarias} de datos
             $$ \texttt{a = \{1,5,9\}} $$
     \end{itemize}
 
-\pause\idea{Exploremos las funciones de cada uno}
+\pause\idea{Exploremos las funciones de cada uno (\texttt{dir})}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Funciones mágicas}
+\begin{frame}[fragile]\frametitle{Funciones mágicas}
 
 \begin{itemize}
     \item Todas las funciones: $\texttt{dir(a)}$.
-    \item Funciones mágicas: \texttt{__txt__}
-    \item Tipos sumables: \texttt{__add__}
-        \begin{minted}
+    \item Funciones mágicas: \verb+__txt__+
+    \item Tipos sumables: %\texttt{\_\_add\_\_}
+        \begin{verbatim}
     int.__add__(2,3)
-        \end{minted}
-    \item Subíndices: \texttt{__getitem__}
-        \begin{minted}
+        \end{verbatim}
+    \item Subíndices: \verb+\_\_getitem\_\_+
+        \begin{verbatim}
     a = [6,7,8]
     list.__getitem__(a,1) # a[1]
-        \end{minted}
+        \end{verbatim}
 \end{itemize}
 
 \vspace{2cm}
