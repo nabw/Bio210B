@@ -56,7 +56,7 @@
     \begin{minted}{python}
         plata = 0
         dias = 0 # contador
-        white True: 
+        while True: 
             if dia == "sabado" or dia == "domingo": 
                 dia = avanzarDia(dia)
                 dias += 1
@@ -65,6 +65,7 @@
             if plata >= objetivo:
                 break # Salir del while
             dia = avanzarDia(dia)
+            dias += 1
         print("Meta alcanzada en {} días".format(dias))
     \end{minted}
     
@@ -99,11 +100,15 @@
     \maketitle
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Mini ejercicios}
+\begin{frame}[fragile]\frametitle{Mini ejercicios}
     \begin{enumerate}
         \item Dividir un número dado por 2 hasta que sea menor que $10^{-4}$ y reportar número de divisiones
-        \item Crear una lista con números hasta 1000 y luego quitar todos los impares
+        \item Crear una lista con números hasta 1000 y luego quitar todos los impares   
     \end{enumerate}
+    \begin{minted}{python}
+        a = 100
+        a % 2 # Resto de dividir por 2
+    \end{minted}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
