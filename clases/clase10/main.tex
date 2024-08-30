@@ -18,7 +18,6 @@
       \includegraphics[height=2.5cm]{../images/logos/puc.png} 
     \end{flushright}
 }
-\newcommand{\code}[1]{{\color{purple}\tt#1}}
 
 \date{04/09/2024}
 %\setbeamercovered{transparent}
@@ -83,14 +82,27 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Recap}
     \begin{itemize}
-        \item Lectura a través de \emph{stream}
-        \item Lectura de archivos con \code{open}
-        \item Contexto con \code{with}
-        \item Modos de lectura: \code{r},\code{w},\code{a}
+        \item Vimos cómo hacer scripts interactivos
+        \item \code{input} para esperar info del usuario
+        \item \code{argv} para que el input sea parte del programa
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
     \maketitle
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Mini ejercicios}
+    \begin{itemize}
+        \item Cree un script que lea un archivo que tenga un número por fila y los sume
+        \item Cree un programa que sume todos los números dados al programa: 
+        \begin{minted}{bash}
+    $ python programa.py 2 3 4 5  
+    Los números suman 14
+        \end{minted}
+
+\idea{Para convertir un string a float, use \code{float(myString)}}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
