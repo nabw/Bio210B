@@ -1,0 +1,122 @@
+\documentclass[14pt,aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimplePlus}
+\usepackage{booktabs}
+\usepackage{minted}
+
+\title[short title]{Clase 11: Módulos}
+\subtitle{}
+\author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
+\institute[UC|CMM] 
+{
+    Pontificia Universidad Católica de Chile \\
+    Centro de Modelamiento Matemático
+}
+
+\titlegraphic{
+    \vspace{-1.8cm}
+    \begin{flushright}
+      \includegraphics[height=2.5cm]{../images/logos/puc.png} 
+    \end{flushright}
+}
+
+\date{11/09/2024}
+%\setbeamercovered{transparent}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \maketitle
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Motivación}
+    Ya conocemos módulos: \code{string}, \code{sys}
+    \begin{itemize}
+        \item \code{import string}
+        \item \code{import sys}
+    \end{itemize}
+    Así se cargan ciertas funcionalidades. 
+
+    \pause Hoy aprenderemos a crear nuevos
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Pip}
+    \textbf{P}ackage \textbf{I}nstaller for \textbf{P}ython
+    
+    \begin{itemize}
+        \item Gestor de paquetes que viene instalado junto a Python
+        \item Info online en \code{https://pypi.org/}
+        \item Fácil de usar por Bash
+            \begin{minted}{bash}
+        $ pip install pandas
+        $ python
+        > import pandas  # recién instalada!
+            \end{minted}
+    \end{itemize}
+    
+    \pause Dónde están los programas...?
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{el PATH}
+    Cuando escribo \code{ls} en Bash... de dónde sale? \\
+
+    \vspace{0.5cm}
+    La variable de entorno PATH tiene las carpetas donde buscar programas\footnote{Se puede modificar para tener programas en nuevas carpetas, i.e. \code{/opt}}
+
+    \pause \idea{Consola...}
+
+    
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{el PATH en Python}
+    \begin{minted}{bash}
+  ~/clases/Bio210B$ python -m site
+   sys.path = [
+       '/home/nico/clases/Bio210B',
+       '/usr/lib/python3/dist-packages' # son más...
+    \end{minted}
+
+    \pause Se puede extender con PYTHONPATH
+    \begin{minted}{bash}
+  $ export PYTHONPATH=/home/nico/otraCarpeta
+  $ python -m site
+   sys.path = [
+       '/home/nico/clases/Bio210B',
+       '/home/nico/otraCarpeta',
+       '/usr/lib/python3/dist-packages'
+    \end{minted}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Crear módulo}
+    \code{operaciones.py}
+    \begin{minted}{python}
+  def suma(x,y): return x+y
+
+  def mult(x,y): return x*y
+    \end{minted}
+
+  En Python:
+  \begin{minted}{python}
+  > import operaciones # Debe estar en el path
+  > # from operaciones import suma,prod
+  > operaciones.suma(2,3) # 5
+  > operaciones.mult(2,3) # 6
+  \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Recap}
+    \begin{itemize}
+        \item Dónde están los módulos por defecto
+        \item Cómo agregar un módulo
+        \item Cómo hacer módulo detectable con PYTHONPATH
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \maketitle
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Mini ejercicios}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
