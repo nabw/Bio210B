@@ -67,6 +67,23 @@
     
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Crear módulo}
+    \code{operaciones.py}
+    \begin{minted}{python}
+  def suma(x,y): return x+y
+
+  def mult(x,y): return x*y
+    \end{minted}
+
+  En Python:
+  \begin{minted}{python}
+  > import operaciones # Debe estar en el path
+  > # from operaciones import suma,prod
+  > operaciones.suma(2,3) # 5
+  > operaciones.mult(2,3) # 6
+  \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{el PATH en Python}
     \begin{minted}{bash}
   ~/clases/Bio210B$ python -m site
@@ -87,21 +104,15 @@
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Crear módulo}
-    \code{operaciones.py}
-    \begin{minted}{python}
-  def suma(x,y): return x+y
-
-  def mult(x,y): return x*y
+\begin{frame}[fragile]\frametitle{Nota: variables en Bash}
+    \begin{minted}{bash}
+  $ export PYTHONPATH=[...]
     \end{minted}
-
-  En Python:
-  \begin{minted}{python}
-  > import operaciones # Debe estar en el path
-  > # from operaciones import suma,prod
-  > operaciones.suma(2,3) # 5
-  > operaciones.mult(2,3) # 6
-  \end{minted}
+    genera una variable de ambiente. Se puede ver con
+    \begin{minted}{bash}
+  $ echo ${PYTHONPATH}
+    \end{minted}
+  Todas las definidas se ven con programa \code{env}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Recap}
