@@ -2,6 +2,7 @@
 \usetheme{SimplePlus}
 \usepackage{booktabs}
 \usepackage{minted}
+\usepackage{mathtools}
 
 \title[short title]{Clase 13: Python científico II}
 \subtitle{}
@@ -76,18 +77,23 @@ st.StatisticsError(  st.exp(          st.harmonic_mean(  st.mean(               
         \item Librería científica
         \item Tiene \emph{muchas} operaciones matemáticas
         \item Álgebra lineal (más eficiente que Numpy)
-        \item Interpolación de datos
-        \item Solución de ecuaciones
-        \item Minimización de funciones
+        \item {\only<2>{\bf}Interpolación de datos}
+        \item {\only<2>{\bf}Solución de ecuaciones}
+        \item {\only<2>{\bf}Minimización de funciones}
+        \item Y MUCHO más
     \end{itemize}
+
+    \begin{flushright}
+        \includegraphics[width=0.2\textwidth]{../images/logos/scipy.png}
+    \end{flushright}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Scipy: Interpolación de datos}
     \only<1>{
         \begin{center}
-            \includegraphics[width=0.7\textwidth]{../images/interp-data.png}
+            \includegraphics[width=0.4\textwidth]{../images/interp-data.png}
         \end{center}
-        Y si quiero el valor en $x=3$? Eso se llama \emph{interpolación}
+        Y si quiero el valor en $x=3$? Eso se llama \emph{interpolación}\footnote{Extrapolación sería bajo 0 o sobre 8}
     }
     \begin{columns}
         \begin{column}{0.6\textwidth}
@@ -140,10 +146,68 @@ st.StatisticsError(  st.exp(          st.harmonic_mean(  st.mean(               
     \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Scipy: Solución de ecuaciones}
+\begin{frame}[t,fragile]\frametitle{Scipy: Solución de ecuaciones ($f(x)=0$)}
+    \begin{small}
+    $$ f(x) \coloneqq x + \sin x  = 0  $$
+    \vspace{-0.5cm}
+    \begin{columns}
+        \begin{column}{0.49\textwidth}
+    \begin{minted}{python}  
+  from scipy.optimize import root_scalar 
+  def f(x): return x+sin(2*pi*x)
+  domx = np.linspace(-2,2,1000)
+  domy = [f(x) for x in domx]
+  x0,x1 = 3, -3
+  sol = root_scalar(f, x0=x0, x1=x1)
+  plt.scatter(sol.root, f(sol.root))
+  plt.plot(domx, domy);plt.show()
+
+    \end{minted}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{flushright}
+                \includegraphics[width=0.7\textwidth]{../images/scipy-root.png}
+            \end{flushright}
+        \end{column}
+    \end{columns}
+    \pause\idea{Cómo obtener las otras soluciones?}
+    \end{small}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Scipy: Minimización}
+\begin{frame}[t,fragile]\frametitle{Scipy: Minimización}
+    \begin{small}
+    $$ \min_ x f(x) \coloneqq \sin^2 4x + x^2  = 0  $$
+    \vspace{-0.5cm}
+    \begin{columns}
+        \begin{column}{0.49\textwidth}
+    \begin{minted}{python}  
+  from scipy.optimize import minimize_scalar 
+  def f(x): return sin(4*x)**2 + x**2
+  domx = np.linspace(-4,4,1000)
+  domy = [f(x) for x in domx]
+  sol = minimize_scalar(f)
+  plt.scatter(sol.x, f(sol.x))
+  plt.plot(domx, domy);plt.show()
+    \end{minted}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{flushright}
+                \includegraphics[width=0.7\textwidth]{../images/scipy-min.png}
+            \end{flushright}
+        \end{column}
+    \end{columns}
+    \end{small}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\darkSlide{Soluciones numéricas NO SON exactas}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Recap}
+    \begin{itemize}
+        \item Python tiene muchas librerías para hacer ciencia
+        \item Algunas simples: \code{math}, \code{statistics}, \code{random}
+        \item Otras complejas: \code{scipy}, \code{numpy}
+        \item Scipy: interpolar, minimizar, resolver
+    \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
