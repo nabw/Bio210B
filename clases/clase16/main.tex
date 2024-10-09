@@ -31,6 +31,7 @@
 \begin{frame}\frametitle{Motivación}
     \begin{itemize}
         \item Abstraer "Figura"
+    \[ \text{animal $\in$ ser vivo, cuadrado $\in$ figura }\]
         \item Sistema ecológico (pizarra)
     \end{itemize}
     $$ \text{Carnívoro}\quad\to\quad\text{Herbívoro}\quad\to\quad\text{Plantas} $$
@@ -41,56 +42,51 @@
     class ClaseHeredada(ClaseBase):
         def funcion(self):
             # [...]
+        # Opcional
+        def __init__(self, params):
+            super(ClaseBase, self).__init__(params)
     \end{minted}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Ejemplo I}
+\begin{frame}[fragile]\frametitle{Ejemplo I (src: HowToGeek)}
+    \begin{footnotesize}
     \begin{minted}{python}
 class Bird:
-  def intro(self):
-    print("There are many types of birds.")
+  def intro(self): print("There are many types of birds.")
     
-  def flight(self):
-    print("Most of the birds can fly but some cannot.")
+  def flight(self): print("Most of the birds can fly but some cannot.")
   
 class sparrow(Bird):
-  def flight(self):
-    print("Sparrows can fly.")
+  def flight(self): print("Sparrows can fly.")
     
 class ostrich(Bird):
-  def flight(self):
-    print("Ostriches cannot fly.")
+  def flight(self): print("Ostriches cannot fly.")
     
-obj_bird = Bird()
-obj_spr = sparrow()
-obj_ost = ostrich()
-
-obj_bird.intro()
-obj_bird.flight()
+obj_bird = Bird(); obj_spr = sparrow(); obj_ost = ostrich()
+obj_bird.flight(); obj_spr.flight(); obj_ost.flight()
     \end{minted}
+    \end{footnotesize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Ejemplo II}
+\begin{frame}[fragile]\frametitle{Ejemplo II (src: HowToGeek)}
+    \begin{footnotesize}
     \begin{minted}{python}
 class Animal:
     def speak(self):
         raise NotImplementedError("Subclass must implement this method")
 
 class Dog(Animal):
-    def speak(self):
-        return "Woof!"
+    def speak(self): return "Woof!"
 
 class Cat(Animal):
-    def speak(self):
-        return "Meow!"
+    def speak(self): return "Meow!"
 
-# Create a list of Animal objects
 animals = [Dog(), Cat()]
 
-# Call the speak method on each object
 for animal in animals:
     print(animal.speak())
     \end{minted}
+    \end{footnotesize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Recap}

@@ -60,6 +60,7 @@ class A:
    def __init__(self, n):
       self.n = n # son distintos!
       self.n2 = n**2
+   def funcion(self): print("hola")
 
 a = A(4) # Constructor
 print(a.n, a.n2)
@@ -91,6 +92,8 @@ class Vec2D:
     \end{footnotesize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\darkSlide{Consola}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Recap}
     \begin{itemize}
         \item Clases permiten crear abstracciones
@@ -103,7 +106,7 @@ class Vec2D:
     \maketitle
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[noframenumbering]\frametitle{Mini ejercicios}
+\begin{frame}[fragile,noframenumbering]\frametitle{Mini ejercicios}
     \begin{itemize}
         \item Crear una clase Cuadrado que reciba como entrada el largo de sus aristas. Cree una función de clase que entregue el área del cuadrado.
         \item Extienda el ejemplo anterior al caso de un cubo.
