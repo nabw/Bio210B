@@ -29,6 +29,97 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Motivación}
+    \begin{itemize}
+        \item Lenguaje especializado en estadística
+        \item Manejo de datos tipo Pandas (en realidad al revés)
+        \item Muy bueno para visualización de datos
+        \item Interpretado, sin objetos (clases)
+    \end{itemize}
+    \begin{flushright}
+        \includegraphics[height=2cm]{../images/logos/R.png}
+    \end{flushright}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Ejecución}
+    \begin{itemize}
+        \item Al igual que Python, consola y programa
+        \item Consola
+            \begin{minted}{bash}
+    $ R         # Abrir programa en bash
+    > 2 + 2     # Ejecutar en consola de R
+    [1] 4       # Resultado 
+    > q()       # Salir de consola
+            \end{minted}
+        \item Programa
+            \begin{minted}{bash}
+    $ Rscript test.r   # Ejecutar script con '2+2'
+    [1] 4              # Resultado 
+            \end{minted}
+
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis: Tipos}
+    \begin{itemize}
+        \item String: \code{"Hola"}
+        \item Números: \code{1,  3.5}
+        \item Comentario: \code{"hola" \# string que saluda}
+        \item Imprimir: \code{print("hola")}
+        \item Asignar variable: \code{a=2, a<-2, 2->a}
+        \item Variables pueden tener puntos: \code{.a=2}
+        \item Sumar strings da error!
+                
+            \begin{flushright} \code{paste("hola","chao")}\end{flushright}
+        \item Números son "numeric" por defecto (ver con \code{class})
+        \item Booleanos: \code{TRUE},\code{FALSE}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Sintaxis: Tipos II}
+    \begin{itemize}
+        \item Tienen nombres específicos:
+            \begin{itemize}
+                \item numeric \code{4,5.5,-2}
+                \item integer \code{1L, -3L, 100L}  (si, con la 'L')
+                \item complex \code{9+3i}
+                \item character  (strings)
+                \item logical   (booleanos)
+            \end{itemize}
+        \item Convertir números: \code{as.numeric()|as.integer()|as.complex()}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Sintaxis II: Operaciones}
+    \begin{itemize}
+        \item Booleanos: \code{a\&b} (and), \code{a|b} (or), \code{!a} (not)
+        \item Comparación: \code{a<b}, \code{a<=b}, \code{3==3}, \code{3!=2}
+        \item Números: \code{2+2}, \code{2*3}, \code{2**3==2\^3}, \code{10\%\%3}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis III: if/else}
+    \begin{minted}{R}
+    a = 2
+    b = 3
+    if (a>b) {
+        print("a>b")
+    }
+    else if (a==b) {
+        print("a==b")
+    }
+    else { # a<b
+        print("a<b")
+    }
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis IV: while}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis V: for}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis VI: functions}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
