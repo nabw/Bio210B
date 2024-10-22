@@ -93,7 +93,7 @@
     \begin{itemize}
         \item Booleanos: \code{a\&b} (and), \code{a|b} (or), \code{!a} (not)
         \item Comparación: \code{a<b}, \code{a<=b}, \code{3==3}, \code{3!=2}
-        \item Números: \code{2+2}, \code{2*3}, \code{2**3==2\^3}, \code{10\%\%3}
+        \item Números: \code{2+2}, \code{2*3}, \code{2**3==2\^{}3}, \code{10\%\%3}
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -114,12 +114,72 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Sintaxis IV: while}
+    \begin{minted}{R}
+  i <- 0
+  while (i < 6) {
+      i <- i + 1
+      if (i == 3) {
+        next
+      }
+  print(i)
+  } 
+    \end{minted}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Sintaxis V: for}
+    \begin{minted}{R}
+  for (x in 1:10) {
+    print(x)
+  } 
+    \end{minted}
+    \begin{minted}{R}
+  fruits <- list("apple", "banana", "cherry")
+
+  for (x in fruits) {
+    print(x)
+  } 
+    \end{minted}
+    \begin{minted}{R}
+    \end{minted}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Sintaxis VI: functions}
+    \begin{minted}{R}
+  my_function <- function(x, y=2) {
+    return (5 * x * y)
+  }
+
+  print(my_function(3)) # y=2 por defecto
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis VII: Estructuras de datos}
+    \begin{itemize}
+        \item Vector de un solo tipo: \code{c(1,2,3)},\code{1:10}
+        \item Lista: \code{list(1, 2i, TRUE)}
+        \item Largo: \code{length(lista)}
+        \item Agregar: \code{append(lista, "hola")}
+        \item Quitar: \code{lista[-1], lista[-c(1,3)]}
+        \item Acceso por rango: \code{lista[2:5]}
+    \end{itemize}
+
+*OJO: Listas empiezan en 1.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis VIII: Data Frame}
+    \begin{minted}{R}
+    # Create a data frame
+    Data_Frame <- data.frame (
+      Training = c("Strength", "Stamina", "Other"),
+      Pulse = c(100, 150, 120),
+    )
+    Data_Frame 
+
+    # Todos equivalentes: 
+    Data_Frame[1]
+    Data_Frame[["Training"]]
+    Data_Frame$Training 
+    \end{minted}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -127,6 +187,15 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[noframenumbering]\frametitle{Mini ejercicios}
+    \begin{enumerate}
+        \item Instalar R en su computador 
+        \item Probar la consola interactiva
+        \item Ejecutar un script con \code{Rscript}
+        \item Hacer los siguientes ejercicios: 
+            \begin{center}
+                https://www.w3schools.com/r/r\_exercises.asp
+            \end{center}
+    \end{enumerate}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
