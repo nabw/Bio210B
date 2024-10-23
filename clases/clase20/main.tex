@@ -92,7 +92,7 @@ Si 'which' solo opera sobre vectores, cómo extraigo por nombre? \pause
         \item Qué puede inferir de \code{summary(modelo)}?
         \item Se pueden agregar funciones no lineales de parámetros:
             \begin{minted}{R}
-    lm(y ~ x + I(x^3) + sin(x), data=datos)
+    lm(y ~ x + I(x^3) + log(x), data=datos)
             \end{minted}
     \end{itemize}
 \end{frame}
