@@ -38,29 +38,29 @@ Nombre completo:
 \section*{Pregunta 1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Considere la carpeta 'home' estructurada de la siguiente manera: 
+Considere la carpeta 'home/' estructurada de la siguiente manera: 
     \begin{center}
     {\bf\begin{Large}
     \begin{forest} %for tree={ edge path={\noexpand\path[\forestoption{edge}] (\forestOve{\forestove{@parent}}{name}.parent anchor) -- +(0,-12pt)-| (\forestove{name}.child anchor)\forestoption{edge label};}
     %}
-    [home
-        [modulos
-            [io 
+    [home/
+        [modulos/
+            [io/
                 [leer.py]
             ] 
             [m1.py] 
         ] % hola.py
-        [datos
+        [datos/
             [d1.xls] [d2.xls] 
         ]
-        [resultados [datos] ]
+        [resultados/ [datos/] ]
         [hola.py]
         [test.py]
     ]
     \end{forest}
     \end{Large}}
     \end{center}
-Suponga que los módulos hola,m1,m11,m21 contienen las siguientes funciones:
+Suponga que los módulos 'leer', 'm1', y 'hola' contienen las siguientes funciones:
     \begin{itemize}
         \item leer.py:
             \begin{minted}{python}
@@ -100,12 +100,12 @@ Suponga que los módulos hola,m1,m11,m21 contienen las siguientes funciones:
         """
             \end{minted}
     \end{itemize}
-    Escriba los contenidos de la función de manera que cumpla con los siguientes requisitos: 
+    Escriba los contenidos del script 'test.py' de manera que cumpla con los siguientes requisitos: 
     \begin{enumerate}
         \item Que funcione como se espera al ser ejecutada desde la carpeta 'home'. En otras palabras, no considere la dificultad de ejecutar test.py desde otra carpeta.
         \item Que utilice todas las funcionalidades contenidas en los módulos en la carpeta 'modulos'.
-        \item Que combine los archivos 'd1.xls' y 'd2.xls' en un único archivo 'd.xls' que sea guardado en la carpeta 'resultados/datos'.
-        \item Que lo primero que muestre el archivo sea el saludo entregado por el módulo 'hola'.
+        \item Que combine los archivos 'd1.xls' y 'd2.xls' en un único archivo 'd.xls' que sea guardado en la carpeta 'resultados/datos'. Para esto, debe cargar los datos usando el módulo 'leer' y luego procesarlos con el módulo 'm1'.
+        \item Que lo primero que muestre el script sea el saludo entregado por el módulo 'hola'.
         \item Que procese los datos obtenidos en el paso 3 y que los guarde en un archivo 'resultado.txt' en la carpeta 'resultados'.
         \item Que concluya con el mensaje de finalización implementado en 'hola'.
     \end{enumerate}
@@ -122,10 +122,10 @@ Considere un archivo 'csv' con el siguiente formato dado por dos columnas de nú
 5,7.
 2,3
     \end{verbatim}
-Escriba un script en Python que realice lo siguiente:
+El archivo puede tener un número arbitrario de filas. Escriba un script en Python que realice lo siguiente:
     \begin{itemize}
-        \item Tiene que cargar los datos del archivo 'csv' en dos listas separadas, una para 'x' y otra para 'y'.
-        \item Debe graficar los datos considerando que 'y' es una función de 'x'.
+        \item Tiene que cargar los datos del archivo 'csv' en dos listas separadas, una para los datos en la columna 'x' y otra para 'y'.
+        \item Debe graficar los datos considerando que 'y' es una función de 'x', i.e. $y=y(x)$.
         \item Debe finalizar imprimiendo la media y varianza de ambas variables ('x' e 'y'), y al final mostrar la correlación entre ambas. Dejamos las fórmulas para sus cálculos como referencia: 
             $$ \texttt{media}(X) = \frac 1 N \sum_i x_i \qquad \texttt{var}(X) = \sigma_X^2 = \frac{1}{N-1}\sum_i(x_i-\texttt{media(X)})^2$$
             $$\texttt{corr}(X,Y) = \frac{\sum_i\left(x_i - \texttt{media}(X))(y_i - \texttt{media}(Y))\right)}{\sigma_X\sigma_Y} $$
@@ -136,7 +136,7 @@ Puede usar cualquiera de las librerías vistas en el curso para el desarrollo de
 \section*{Pregunta 3}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Consid2re una clase 'Vec3D' que genera el siguiente mensaje de ayuda:
+Considere una clase 'Vec3D' que genera el siguiente mensaje de ayuda:
     \begin{minted}{bash}
 Help on class Vec3D in module __main__:
 
@@ -171,7 +171,7 @@ class Vec3D(builtins.object)
  |      y la entrega.
 
     \end{minted}
-Escriba una clase 'Vec3D' que genere el mensaje de ayuda mostrado, y además implemente las funciones \texttt{\_\_init\_\_}, \texttt{\_\_add\_\_}, y \texttt{norm}. Dejamos como referencia que la norma de un vector $\vec X = (x,y,z)$ se define de la siguiente manera:
+Escriba una clase 'Vec3D' que genere el mensaje de ayuda mostrado, y además implemente las funciones \texttt{\_\_init\_\_}, \texttt{\_\_add\_\_}, y \texttt{norm} para que sean consistentes con el docstring entregado. Dejamos como referencia que la norma de un vector $\vec X = (x,y,z)$ se define de la siguiente manera:
     $$ \| \vec X \| = \sqrt{x^2 + y^2 + z^2} . $$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -205,7 +205,7 @@ Considere el siguiente código 'run.py':
         def __init__(self, base):
             """
             Se crea la especie según su cadena de bases nitrogenadas,
-            por ejemplo 'ATCGCTA'
+            por ejemplo base='ATCGCTA'
             """
             self.base = base
 
@@ -243,7 +243,7 @@ En un cierto repositorio, existe un archivo \texttt{cumple.txt} donde están reg
         José, 3 mayo
         ...
     \end{verbatim}
-pero Ud. sabe que el cumpleaños de de José es el 4 de mayo. Sabiendo que Ud. tiene acceso al repositorio y asumiendo que la dirección SSH del repositorio es \texttt{git@github.com:empresa/software-empresa.git}, explique cómo arreglaría este archivo en el repositorio online. Para su respuesta, muestre el detalle completo de los comandos de git, pero no es necesario que muestre los comandos que usaría para editar archivos (basta que escriba "modificar el archivo en la línea X y escribir Y"). 
+pero Ud. sabe que el cumpleaños de José es el 4 de mayo. Sabiendo que Ud. tiene acceso al repositorio y asumiendo que la dirección SSH del repositorio es \texttt{git@github.com:empresa/software-empresa.git}, explique cómo arreglaría este archivo en el repositorio online. Para su respuesta, muestre el detalle completo de los comandos de git que usaría. No es necesario que muestre los comandos que usaría para editar archivos (basta que escriba "modificar el archivo en la línea X y escribir Y"). 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
