@@ -3,7 +3,7 @@
 \usepackage{booktabs}
 \usepackage{minted}
 
-\title[short title]{Clase 19: Introducción a R II}
+\title[short title]{Clase 22: Bash como orquestador II}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -29,6 +29,38 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Motivación}
+    \begin{itemize}
+        \item Desde \code{bash} podemos ejecutar cualquier programa
+        \item En particular \emph{programas de python}
+        \item Bash maneja entradas y salidas de texto
+        \item \code{echo} es nuestro \code{print} de \code{bash}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Pipes y redirecciones}
+    \begin{small}
+    \begin{minted}{bash}
+  $ echo "hola"  # Imprime 'hola'
+  $ # Toma el texto generado por 'echo' y lo pone en 'out.txt'
+  $ echo "hola" > out.txt 
+  $ # Toma el texto y lo pone al final de 'out.txt'
+  $ echo "hola" > out.txt 
+  $ cat 'out.txt' | grep "ho"
+    \end{minted} 
+    \end{small}
+La última línea: toma la salida de \code{cat out.txt} y se lo entrega como input a la función \code{grep}.
+
+\idea{Consola}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Orquestación: Ejercicio}
+    Creemos: 
+    \begin{enumerate}
+        \item Un programa en Python que calcula el promedio de números dados
+        \item Llamemos este programa desde un script en Bash
+        \item Hagamos que el script en Bash abra un archivo de números y los de a Python
+        \item Mostrar resultado final
+    \end{enumerate}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -36,6 +68,13 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[noframenumbering]\frametitle{Mini ejercicios}
+    Creemos: 
+    \begin{enumerate}
+        \item Un programa en Python que calcula el promedio de números dados
+        \item Llamemos este programa desde un script en Bash
+        \item Hagamos que el script en Bash abra un archivo de números y los de a Python
+        \item Mostrar resultado final
+    \end{enumerate}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}

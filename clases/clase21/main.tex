@@ -59,8 +59,107 @@
     \end{minted}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Funciones}
+\begin{frame}[fragile]\frametitle{\code{if}}
+    \begin{small}
+        \begin{minted}{bash}
+    if [ condition ]; then
+        # código por ejecutar
+    elif [ condition2 ]; then
+        # más código
+    else
+        # código final
+    fi
+        \end{minted}
+    Acá, tenemos notación de operaciones booleanas:
+        \begin{itemize}
+            \item $>,\geq,<,\leq$: \code{-gt},\code{-ge},\code{-lt},\code{-le}
+            \item \code{not} (\code{!}), \code{and} (\code{-a}), \code{or} (\code{-o})
+            \item Ver si existe archivo/carpeta/variable: \code{-e}/\code{-d}/\code{-n}\footnote{\code{-n} ve que la variable no sea un string vacío}
+        \end{itemize}
+    \end{small}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Ejemplo}
+    \begin{small}
+    \begin{minted}{bash}
+A=2
+if [ ${A} -gt 1 ]; then
+    echo GT
+else {echo LT}
+fi
+
+A=""
+if [ -n "${A}" ]; then
+    echo "SI"
+else { echo NO }
+fi
+
+    \end{minted}    
+**Notar comillas dentro el segundo \code{if}.  \hfill \idea{Consola}
+    \end{small}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{\code{for}}
+    \begin{minted}{bash}
+    for n in a b c; do
+       echo "$n"
+    done
+    \end{minted}
+    Wildcards:
+    \begin{itemize}
+        \item \code{*.csv} $\to$ todos los archivos terminados en csv
+        \item \code{*.{csv,xls,txt}} $\to$ todos los archivos csv, xls, o txt
+    \end{itemize}
+
+    \idea{Consola}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Funciones}
  % Falta scripts, source, bash y los 'ifs'
+    \begin{minted}{bash}
+function helloWorld {
+  echo "Hello World"
+}
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Funciones: argumentos}
+ % Falta scripts, source, bash y los 'ifs'
+    \begin{minted}{bash}
+function helloWorld {
+  echo "$1" # o echo "${1}"
+}
+    \end{minted}
+    \begin{itemize}
+        \item \code{\$1}, \code{\$2}, ....: parámetros en orden
+        \item \code{\$0}: nombre de función
+        \item \code{\$\#}: Número de argumentos   
+        \item \code{\$@}: Todos los argumentos
+    \end{itemize}
+\idea{Consola}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{source vs bash}
+    \begin{itemize}
+        \item Source: Ejecutar en proceso actual
+        \begin{minted}{bash}
+            # source script.sh
+        \end{minted}
+        \item Bash: Crear sub-proceso
+        \begin{minted}{bash}
+            # source script.sh
+        \end{minted}
+    \end{itemize}
+
+Consecuencias: 
+    \begin{enumerate}
+        \item se pueden perder variables (\code{export})
+        \item  si source sale (\code{exit}), se cierra consola
+    \end{enumerate}
+
+\idea{Consola}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -68,6 +167,10 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[noframenumbering]\frametitle{Mini ejercicios}
+    \begin{itemize}
+        \item Crear script en bash que lee la variable de ambiente 'A' y dice si es que la variable es mayor a 2.
+        \item Crear script en bash que muestre el nombre y contenido de todos los archivos \code{.txt} en la carpeta.
+    \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
