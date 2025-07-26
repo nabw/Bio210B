@@ -3,7 +3,7 @@
 \usepackage{booktabs}
 \usepackage{minted}
 
-\title[short title]{Clase 5: Funciones}
+\title[short title]{Clase 5: Condicionales y Funciones}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -26,6 +26,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
     \maketitle
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Usando bools: if/then/else}
+
+    \begin{minted}{python}
+        d = 1 # Diámetro de figura
+        if figuraEsCuadrado:
+            area = d**2
+        elif figuraEsCirculo:
+            area = pi * (d/2)**2
+        else # llego acá si no pasa otra
+            print("Error")
+    \end{minted}    
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Motivación}
