@@ -1,0 +1,249 @@
+\documentclass{article}
+\usepackage{fullpage}
+\usepackage{mathpazo}
+\usepackage{todonotes}
+\usepackage{minted}
+\usepackage{mathpazo}
+\usepackage{todonotes}
+\usepackage{forest}
+\usepackage{amsmath}
+
+\newcommand{\note}[1]{\todo[inline,color=gray!20!white]{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\alternatives}[5]{
+    \begin{enumerate}
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+        \item #5
+    \end{enumerate}
+}
+
+\title{Interrogación II, BIO210B}
+\author{Nicolás Barnafi, Humberto Reyes}
+\date{30/10/2024}
+
+\begin{document}
+Nombre completo: 
+\hrule
+{\let\newpage\relax\maketitle}
+
+\todo[inline,color=white!90!black]{
+\textbf{Instrucciones:} Esta prueba termina a las 10:50. Para llevarla a cabo, puede usar sus apuntes. Use el espacio de desarrollo libremente por si necesita tomar apuntes, pero por favor resalte claramente la respuesta a la pregunta cuando sea oportuno. La prueba cuenta con 7 preguntas, de las cuales debe responder solo 5. Está prohibido revisar dispositivos electrónicos durante la evaluación. Si necesita hacerlo por alguna razón ajena al curso, lo debe notificar al profesor o ayudante.
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Pregunta 1}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Considere la carpeta 'home/' estructurada de la siguiente manera: 
+    \begin{center}
+    {\bf\begin{Large}
+    \begin{forest} %for tree={ edge path={\noexpand\path[\forestoption{edge}] (\forestOve{\forestove{@parent}}{name}.parent anchor) -- +(0,-12pt)-| (\forestove{name}.child anchor)\forestoption{edge label};}
+    %}
+    [home/
+        [modulos/
+            [io/
+                [leer.py]
+            ] 
+            [m1.py] 
+        ] % hola.py
+        [datos/
+            [d1.xls] [d2.xls] 
+        ]
+        [resultados/ [datos/] ]
+        [hola.py]
+        [test.py]
+    ]
+    \end{forest}
+    \end{Large}}
+    \end{center}
+Suponga que los módulos 'leer', 'm1', y 'hola' contienen las siguientes funciones:
+    \begin{itemize}
+        \item leer.py:
+            \begin{minted}{python}
+    def leerDatos(salida, direcciones):
+        """ 
+        - salida: Direccion de archivo (string) de salida de datos, debe terminar en 'xls'.
+        - direcciones: Lista de direcciones (strings) a archivos de datos en 'xls', i.e.
+            ["./calculos/data.xls", "./datos-viejos/data.xls"]
+        
+        Retorna un objeto 'Datos' por ser procesado, el cual queda almacenado además en la
+        dirección de salida.
+        """
+            \end{minted}
+        \item hola.py
+            \begin{minted}{python}
+    def saludar():
+        """
+        Esta función imprime un mensaje de saludo que establece
+        que se inicializó correctamente el programa
+        """
+    
+    def finalizar():
+        """
+        Esta función se debe usar al finalizar el programa para 
+        mostrar que se terminó el análisis
+        """
+            \end{minted}
+        \item m1.py
+            \begin{minted}{python}
+    def procesar_datos(datos,salida):
+        """
+        Esta función recibe un parámetro 'datos' que debe ser de tipo 'Datos', 
+        y otro 'salida' que debe ser un string con el archivo de salida. Notar
+        que el archivo de salida puede estar dentro de otras carpetas, i.e.
+           > procesar_datos(datos,"../carpeta/salida.out")
+        El tipo de dato de salida puede ser ".out" o ".txt".
+        """
+            \end{minted}
+    \end{itemize}
+    Escriba los contenidos del script 'test.py' de manera que cumpla con los siguientes requisitos: 
+    \begin{enumerate}
+        \item Que funcione como se espera al ser ejecutada desde la carpeta 'home'. En otras palabras, no considere la dificultad de ejecutar test.py desde otra carpeta.
+        \item Que utilice todas las funcionalidades contenidas en los módulos en la carpeta 'modulos'.
+        \item Que combine los archivos 'd1.xls' y 'd2.xls' en un único archivo 'd.xls' que sea guardado en la carpeta 'resultados/datos'. Para esto, debe cargar los datos usando el módulo 'leer' y luego procesarlos con el módulo 'm1'.
+        \item Que lo primero que muestre el script sea el saludo entregado por el módulo 'hola'.
+        \item Que procese los datos obtenidos en el paso 3 y que los guarde en un archivo 'resultado.txt' en la carpeta 'resultados'.
+        \item Que concluya con el mensaje de finalización implementado en 'hola'.
+    \end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Pregunta 2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Considere un archivo 'csv' con el siguiente formato dado por dos columnas de números:
+    \begin{verbatim}
+'x','y'
+12,4.3
+2.1,-4
+5,7.
+2,3
+    \end{verbatim}
+El archivo puede tener un número arbitrario de filas. Escriba un script en Python que realice lo siguiente:
+    \begin{itemize}
+        \item Tiene que cargar los datos del archivo 'csv' en dos listas separadas, una para los datos en la columna 'x' y otra para 'y'.
+        \item Debe graficar los datos considerando que 'y' es una función de 'x', i.e. $y=y(x)$.
+        \item Debe finalizar imprimiendo la media y varianza de ambas variables ('x' e 'y'), y al final mostrar la correlación entre ambas. Dejamos las fórmulas para sus cálculos como referencia: 
+            $$ \texttt{media}(X) = \frac 1 N \sum_i x_i \qquad \texttt{var}(X) = \sigma_X^2 = \frac{1}{N-1}\sum_i(x_i-\texttt{media(X)})^2$$
+            $$\texttt{corr}(X,Y) = \frac{\sum_i\left(x_i - \texttt{media}(X))(y_i - \texttt{media}(Y))\right)}{\sigma_X\sigma_Y} $$
+    \end{itemize}
+Puede usar cualquiera de las librerías vistas en el curso para el desarrollo de este ejercicio.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Pregunta 3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Considere una clase 'Vec3D' que genera el siguiente mensaje de ayuda:
+    \begin{minted}{bash}
+Help on class Vec3D in module __main__:
+
+class Vec3D(builtins.object)
+ |  Vec3D(x, y, z)
+ |  
+ |  Esta clase implementa un vector en tres dimensiones
+ |  con varias funcionalidades adicionales, representado 
+ |  como 
+ |      | x_1 |
+ |  x = | x_2 |
+ |      | x_3 |
+ |  
+ |  Methods defined here:
+ |  
+ |  __add__(self, v2)
+ |      Esta función crea un nuevo vector que tiene como 
+ |      componentes la suma de las coordenadas de los
+ |      dos vectores que se suman.
+ |  
+ |  __getitem__(self, i)
+ |      Esta función permite acceder a las coordenadas 
+ |      del vector como si fuera una lista, i.e.
+ |      > v[1] # Segunda componente
+ |  
+ |  __init__(self, x, y, z)
+ |      Constructor de clase. Recibe tres números que 
+ |      serán las componentes x_1,x_2,x_3 del vector.
+ |  
+ |  norm(self)
+ |      Esta función calcula la norma del vector
+ |      y la entrega.
+
+    \end{minted}
+Escriba una clase 'Vec3D' que genere el mensaje de ayuda mostrado, y además implemente las funciones \texttt{\_\_init\_\_}, \texttt{\_\_add\_\_}, y \texttt{norm} para que sean consistentes con el docstring entregado. Dejamos como referencia que la norma de un vector $\vec X = (x,y,z)$ se define de la siguiente manera:
+    $$ \| \vec X \| = \sqrt{x^2 + y^2 + z^2} . $$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Pregunta 4}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Considere una base de datos de mediciones en la atmósfera durante todo un año que contiene los siguientes datos para cada día: 
+    \begin{itemize}
+        \item Temperatura (campo 'T')
+        \item Concentración de Nitrógeno (campo 'N')
+        \item Concentración de Oxígeno (campo 'O')
+        \item Concentración de Argón (campo 'A')
+        \item Concentración de $CO_2$ (campo 'CO2')
+    \end{itemize}
+
+Asuma que los datos están en un archivo 'atmosfera.csv'. Escriba una rutina en R que ajuste un modelo lineal de la temperatura en función de los otros campos, asumiendo los siguientes datos empíricos (inventados para esta prueba): 
+    \begin{itemize}
+        \item La temperatura es proporcional al cuadrado de la concentración de nitrógeno.
+        \item La temperatura es inversamente proporcional a la concentración de oxígeno.
+        \item La temperatura es proporcional al logaritmo de la concentración de argón.
+        \item La temperatura es proporcional a la concentración de $CO_2$ a la cuarta potencia.
+    \end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Pregunta 5}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Considere el siguiente código 'run.py':
+    \begin{minted}{python}
+    class Especie:
+        def __init__(self, base):
+            """
+            Se crea la especie según su cadena de bases nitrogenadas,
+            por ejemplo base='ATCGCTA'
+            """
+            self.base = base
+
+    def reproducir(e1,e2):
+        l1 = len(e1.base)
+        l2 = len(e2.base)
+        base_nueva = e1.base[:int(l1/2)] + e2.base[int(l2/2):]
+        return Especie(base_nueva)
+    \end{minted}
+Para esta pregunta, (1) explique lo que hace la función 'reproducir' y (2) escriba el código que sería necesario agregar a 'run.py' para generar cuatro especies distintas (que llamaremos de primera generación). Luego, que se reproduzcan las especies de primera generación de a pares para generar una segunda generación. Finalmente, obtenga un descendiente final entre las especies de segunda generación.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Pregunta 6}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Considere una dinámica de la concentración de árboles en una cierta zona. Los árboles pueden estar en dos estados, 'vivos' o 'muertos', que representaremos con las variables $a$ y $b$. Dado un número de árboles vivos y muertos en una generación $k$, que denotaremos $a_k$ y $b_k$, los vivos y muertos en la generación $k+1$ se pueden calcular con la siguiente relación:
+    $$ 
+    \begin{aligned}
+        a_{k+1} &= c_a a_k + d_a b_k \\
+        b_{k+1} &= c_b a_k + d_b b_k, 
+    \end{aligned} 
+    $$
+donde $c_a,d_a,c_b,d_b$ son parámetros conocidos. Asumiendo que se tienen concentraciones iniciales $a_0=1.2$ y $b_0=0.779$, y que los parámetros del sistema son los siguientes:
+    $$ c_a = 0.9, \quad d_a = 0.2, \quad c_b = 0.1, \quad d_b = 0.8, $$
+escriba un script de Python o R que le permita predecir el estado de los árboles en la generación $k=50$. Su script además debe entregar un gráfico donde se muestre la evolución de las variables $a$ y $b$ en el tiempo. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Pregunta 7}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+En un cierto repositorio, existe un archivo \texttt{cumple.txt} donde están registrados los cumpleaños de todas las personas involucradas en el proyecto. En una cierta línea aparece el de su amigo José:
+
+    \begin{verbatim}
+        ... 
+        José, 3 mayo
+        ...
+    \end{verbatim}
+pero Ud. sabe que el cumpleaños de José es el 4 de mayo. Sabiendo que Ud. tiene acceso al repositorio y asumiendo que la dirección SSH del repositorio es \texttt{git@github.com:empresa/software-empresa.git}, explique cómo arreglaría este archivo en el repositorio online. Para su respuesta, muestre el detalle completo de los comandos de git que usaría. No es necesario que muestre los comandos que usaría para editar archivos (basta que escriba "modificar el archivo en la línea X y escribir Y"). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}

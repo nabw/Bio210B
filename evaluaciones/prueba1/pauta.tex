@@ -1,0 +1,201 @@
+\documentclass{article}
+\usepackage{fullpage}
+\usepackage{mathpazo}
+\usepackage{todonotes}
+\usepackage{minted}
+
+\newcommand{\note}[1]{\todo[inline,color=gray!20!white]{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\alternatives}[5]{
+    \begin{enumerate}
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+        \item #5
+    \end{enumerate}
+}
+
+\title{Interrogación I}
+\author{Nicolás Barnafi, Humberto Reyes}
+\date{13/09/2024}
+
+\begin{document}
+\maketitle
+Nombre completo: 
+
+\section*{Parte 1}
+Responda las siguientes preguntas de alternativas. Cada pregunta correcta vale X puntos. 
+
+    \begin{enumerate}
+        \item Cuál es el tipo del resultado de esta operación: \texttt{ 3 / 2}
+
+        \alternatives{\code{string}}{\code{\bf float}}{\code{int}}{\code{bool}}{\code{list}}
+
+        \item Cuál es el tipo del resultado de esta operación: \texttt{3==2}
+    
+        \alternatives{\code{string}}{\code{float}}{\code{int}}{\code{\bf bool}}{\code{list}}
+
+        \item Cuál es el tipo del resultado de esta operación: \texttt{ 3 \% 2}
+
+        \alternatives{\code{string}}{\code{float}}{\code{\bf int}}{\code{bool}}{\code{list}}
+
+        \item Cuál es el tipo del resultado de esta operación: \texttt{ls[1]}
+
+        donde \code{ls = [12, True, 'hola']}.
+
+        \alternatives{\code{string}}{\code{float}}{\code{int}}{\code{\bf bool}}{\code{list}}
+
+        \item Python es un lenguaje:
+
+        \alternatives{Primitivo}{Compilado}{\bf Interpretado}{Poco usado}{No orientado a objetos}
+
+        \item Escoja es la forma correcta de ejectutar el script \code{test.py} en Bash:
+
+        \alternatives{\code{\$ python test}}{\code{\$ python exec test.py}}{\code{\$ ./test.py}}{\code{\bf \$ python test.py}}{\code{\$ python test}}
+
+        \item Elija el comando que sirve para ver los contenidos de un directorio
+
+        \alternatives{\code{cat}}{\code{\bf ls}}{\code{cat}}{\code{mkdir}}{\code{nano}}
+
+        \item Elija el comando que sirve para ver los contenidos de un archivo de texto
+
+        \alternatives{\code{\bf cat}}{\code{ls}}{\code{cat}}{\code{mkdir}}{\code{nano}}
+
+        \item Elija el comando que sirve para editar los contenidos de un archivo de texto
+
+        \alternatives{\code{cat}}{\code{ls}}{\code{cat}}{\code{mkdir}}{\code{\bf nano}}
+
+        \item Elija el comando que sirve para crear una carpeta nueva
+
+        \alternatives{\code{cat}}{\code{ls}}{\code{cat}}{\code{\bf mkdir}}{\code{nano}}
+    \end{enumerate}
+
+\newpage
+\section*{Parte 2}
+A partir del código a continuación:
+    \begin{minted}{python}
+        def calcularIndicadores(xs, out='P'):
+            def promedio(_xs):
+                s = sum(_xs)
+                N = len(_xs)
+                return s / N
+            def var(_xs):
+                prom = promedio(_xs)
+                suma = 0
+                for x in _xs: 
+                    suma += (x - prom)**2
+                return 1/len(_xs) * suma
+            if out == 'P':
+                return promedio(xs)
+            elif out == 'V':
+                return var(xs)
+            elif out == 'PV':
+                return promedio(xs), var(xs)
+            else: 
+                print("No implemetado\n")
+            
+        def generarDatos(datos):
+            out = {"datos": datos}
+            p, v = calcularIndicadores(datos, out="PV")
+            out["promedio"] = p
+            out["varianza"] = v
+            return out
+    \end{minted}
+
+Escriba la salida obtenida al ejecutar los siguientes comandos, considerando la variable \code{d = [1,3,5]}. Si genera un error, no es importante que muestre el error exacto si no que explique por qué se genera el error. 
+    \begin{enumerate}
+        \item print(calcularIndicadores(d))
+        \hfill\textbf{3.0 }
+        \item print(calcularIndicadores(d, out='P'))
+        \hfill\textbf{3.0 }
+        \item print(calcularIndicadores(d, out='V'))
+        \hfill\textbf{2.6666666666666665 }
+        \item print(calcularIndicadores(d, out='VP'))
+        \hfill\textbf{No implemetado\textbackslash nNone }
+        \item print(calcularIndicadores(d, out='PV'))
+        \hfill\textbf{ (3.0, 2.6666666666666665) }
+        \item print(generarDatos(d)["datos"])
+        \hfill\textbf{[1, 3, 5] }
+        \item print(generarDatos(d)["promedio"])
+        \hfill\textbf{ 3.0 }
+        \item print(generarDatos(d)[promedio])
+        \hfill\textbf{No existe la variable \emph{promedio}}
+        \item print(generarDatos(d)[1])
+        \hfill\textbf{'1' no es una llave del diccionario de salida 'out'}
+        \item print(generarDatos(d)["varianza"])
+        \hfill\textbf{ 2.6666666666666665 }
+    \end{enumerate}
+
+\newpage
+\section*{Parte 3}
+Este código fue visto en clases como ejemplo del ciclo \code{while}, y muestra un algoritmo que representa cómo se puede ahorrar dinero a través de trabajo remunerado diario.
+
+    \begin{small}
+    \begin{minted}{python}
+        plata = 0
+        dias = 0 # contador
+        while True:
+            if dia == "sabado" or dia == "domingo":
+                dia = avanzarDia(dia)
+                dias += 1
+                continue # Volver al inicio del while
+            plata += trabajar()
+            if plata >= objetivo:
+                break # Salir del while
+            dia = avanzarDia(dia)
+            dias += 1
+        print("Meta alcanzada en {} días".format(dias))
+    \end{minted}
+    \end{small}
+
+Este código actualmente no está completo, por lo que no se podría ejecutar. Entregue el detalle de todo lo que falta para que este código se pueda ejecutar y que cumpla con su objetivo. Proponga además una variación del código donde la ganancia generada en cada día sea diferente. 
+
+\begin{itemize}
+    \item  \textbf{(2 pts) definir el dia de partida. }
+
+    \begin{minted}{python}
+        dia = 'lunes'  (puede ser cualquiera)
+    \end{minted}
+
+    \item \textbf{(4 pts) definir la función 'avanzarDia' }
+
+    \begin{minted}{python}
+        def avanzarDia(dia):
+            if dia == 'lunes': return 'martes'
+            if dia == 'martes': return 'miercoles'
+            if dia == 'miercoles': return 'jueves'
+            if dia == 'jueves': return 'viernes'
+            if dia == 'viernes': return 'sabado'
+            if dia == 'sabado': return 'domingo'
+            if dia == 'domingo': return 'lunes'
+    \end{minted}
+    
+    \item \textbf{(4 pts) definir función 'trabajar' que entrega algún monto de dinero. }
+
+    \begin{minted}{python}
+        def trabajar(): return 100000
+    \end{minted}
+
+    \item \textbf{(2 pts) definir variable 'objetivo' }
+
+    \begin{minted}{python}
+        objetivo = 1e6 
+    \end{minted}
+
+    \item \textbf{(8 pts) Extender el código: }
+
+    \begin{minted}{python}
+    def trabajar(dia): 
+        if dia == 'lunes': return 1000
+        if dia == 'martes': return 900
+        if dia == 'miercoles': return 800
+        if dia == 'jueves': return 700
+        if dia == 'viernes': return 600
+    \end{minted}
+    
+    \textbf{Cualquier extensión que efectivamente dependa del día y que entregue alguna cantidad según eso, estará bien. El de arriba es un ejemplo simple y válido.}
+\end{itemize}
+     
+
+\end{document}

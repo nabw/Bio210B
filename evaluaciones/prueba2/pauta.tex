@@ -1,0 +1,401 @@
+\documentclass{article}
+\usepackage{fullpage}
+\usepackage{mathpazo}
+\usepackage{todonotes}
+\usepackage{minted}
+\usepackage{mathpazo}
+\usepackage{todonotes}
+\usepackage{forest}
+\usepackage{amsmath}
+
+\newcommand{\note}[1]{\todo[inline,color=gray!20!white]{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\ind}{{\,\,\,\,}}
+
+
+\title{Interrogación II, BIO210B}
+\author{Nicolás Barnafi, Humberto Reyes}
+\date{30/10/2024}
+
+\begin{document}
+Nombre completo: 
+\hrule
+{\let\newpage\relax\maketitle}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Pregunta 1}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    Escriba los contenidos del script 'test.py' de manera que cumpla con los siguientes requisitos: 
+    \begin{enumerate}
+        \item Que funcione como se espera al ser ejecutada desde la carpeta 'home'. En otras palabras, no considere la dificultad de ejecutar test.py desde otra carpeta.
+        \item Que utilice todas las funcionalidades contenidas en los módulos en la carpeta 'modulos'.
+        \item Que combine los archivos 'd1.xls' y 'd2.xls' en un único archivo 'd.xls' que sea guardado en la carpeta 'resultados/datos'. Para esto, debe cargar los datos usando el módulo 'leer' y luego procesarlos con el módulo 'm1'.
+
+        \item Que lo primero que muestre el script sea el saludo entregado por el módulo 'hola'.
+        \item Que procese los datos obtenidos en el paso 3 y que los guarde en un archivo 'resultado.txt' en la carpeta 'resultados'.
+        \item Que concluya con el mensaje de finalización implementado en 'hola'.
+    \end{enumerate}
+Para esto, deben leer los datos dando los archivos conocidos. Una posible implementación podría ser
+
+\begin{minted}{python}
+from modulos.io import leer
+import hola
+from modulos import m1
+hola.saludar()
+d1 = "datos/d1.xls"
+d2 = "datos/d2.xls"
+out = "resultados/datos/d.xls"
+datos = leer.leerDatos(out, [d1,d2] )
+m1.procesar_datos(datos, "resultados/resultado.txt")
+hola.finalizar()
+\end{minted}
+
+Puntos: 
+\begin{itemize}
+    \item 0.5 puntos por importar bien 'hola'.
+    \item 0.5 puntos por importar bien 'leer'.
+    \item 0.5 puntos por importar bien 'm1'.
+    \item 1.0 punto por llamar correctamente 'leerDatos'.
+    \item 1.0 punto por llamar correctamente 'procesar\_datos'.
+    \item 1.0 punto por llamar correctamente 'saludar' y 'finalizar'.
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Pregunta 2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Considere un archivo 'csv' con el siguiente formato dado por dos columnas de números:
+    \begin{verbatim}
+'x','y'
+12,4.3
+2.1,-4
+5,7.
+2,3
+    \end{verbatim}
+El archivo puede tener un número arbitrario de filas. Escriba un script en Python que realice lo siguiente:
+    \begin{itemize}
+        \item Tiene que cargar los datos del archivo 'csv' en dos listas separadas, una para los datos en la columna 'x' y otra para 'y'.
+        \item Debe graficar los datos considerando que 'y' es una función de 'x', i.e. $y=y(x)$.
+        \item Debe finalizar imprimiendo la media y varianza de ambas variables ('x' e 'y'), y al final mostrar la correlación entre ambas. Dejamos las fórmulas para sus cálculos como referencia: 
+            $$ \texttt{media}(X) = \frac 1 N \sum_i x_i \qquad \texttt{var}(X) = \sigma_X^2 = \frac{1}{N-1}\sum_i(x_i-\texttt{media(X)})^2$$
+            $$\texttt{corr}(X,Y) = \frac{\sum_i\left(x_i - \texttt{media}(X))(y_i - \texttt{media}(Y))\right)}{\sigma_X\sigma_Y} $$
+    \end{itemize}
+Puede usar cualquiera de las librerías vistas en el curso para el desarrollo de este ejercicio.
+
+\note{
+\code{\# Se puede leer con otras librerías}
+
+\code{f = open("archivo.csv", 'r') \# asumir cualquier nombre}
+
+\code{lines = f.readlines()[1:]}
+
+\code{x = [ float(split(l, ',')[0]) for l in lines]}
+
+\code{y = [ float(split(l, ',')[1]) for l in lines]}
+
+\code{import matplotlib.pyplot as plt}
+
+\code{plt.plot(x,y)}
+
+\code{plt.show()}
+
+\code{\# Código para cálculos finales}
+
+\code{sumax = sumay = 0}
+
+\code{N = len(x)}
+
+\code{for i in range(N): }
+
+\code{    sumax += x[i]}
+
+\code{    sumay += y[i]}
+
+\code{mediax = sumax / N}
+
+\code{mediay = sumay / N}
+
+\code{sumax = sumay = 0}
+
+\code{for i in range(N):}
+
+\code{    sumax += (x[i] - mediax)**2}
+
+\code{    sumay += (y[i] - mediay)**2}
+
+\code{varx = sumax / (N-1)}
+
+\code{vary = sumay / (N-1)}
+
+\code{suma = 0}
+
+\code{for i in range(N):}
+
+\code{    suma += (x[i] - mediax) * (y[i] - mediay)}
+
+\code{corr = corr / varx / vary}
+
+\code{print("Medias en x e y: ", mediax, mediay)}
+
+\code{print("Varianzas en x e y: ", varx, vary)}
+
+\code{print("Correlación: ", corr)}
+}
+
+Distribución de los 4.5 puntos:
+\begin{itemize}
+    \item 0.5 por importar correctamente el archivo.
+    \item 0.5 por importar la librería correspondiente.
+    \item 1.0 por generar correctamente las listas de x e y.
+    \item 1.0 por plotear correctamente (plot y show).
+    \item 0.5 por calcular bien las medias
+    \item 1.0 por calcular bien las varianzas
+    \item 1.0 por calcular bien la correlación
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Pregunta 3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Considere una clase 'Vec3D' que genera el siguiente mensaje de ayuda:
+    \begin{minted}{bash}
+Help on class Vec3D in module __main__:
+
+class Vec3D(builtins.object)
+ |  Vec3D(x, y, z)
+ |  
+ |  Esta clase implementa un vector en tres dimensiones
+ |  con varias funcionalidades adicionales, representado 
+ |  como 
+ |      | x_1 |
+ |  x = | x_2 |
+ |      | x_3 |
+ |  
+ |  Methods defined here:
+ |  
+ |  __add__(self, v2)
+ |      Esta función crea un nuevo vector que tiene como 
+ |      componentes la suma de las coordenadas de los
+ |      dos vectores que se suman.
+ |  
+ |  __getitem__(self, i)
+ |      Esta función permite acceder a las coordenadas 
+ |      del vector como si fuera una lista, i.e.
+ |      > v[1] # Segunda componente
+ |  
+ |  __init__(self, x, y, z)
+ |      Constructor de clase. Recibe tres números que 
+ |      serán las componentes x_1,x_2,x_3 del vector.
+ |  
+ |  norm(self)
+ |      Esta función calcula la norma del vector
+ |      y la entrega.
+
+    \end{minted}
+Escriba una clase 'Vec3D' que genere el mensaje de ayuda mostrado, y además implemente las funciones \texttt{\_\_init\_\_}, \texttt{\_\_add\_\_}, y \texttt{norm} para que sean consistentes con el docstring entregado. Dejamos como referencia que la norma de un vector $\vec X = (x,y,z)$ se define de la siguiente manera:
+    $$ \| \vec X \| = \sqrt{x^2 + y^2 + z^2} . $$
+
+\note{
+\code{class Vec3D:}
+
+\code{\ind"""}
+
+\code{\ind Esta clase implementa un vector en tres dimensiones}
+
+\code{\ind con varias funcionalidades adicionales, representado}
+
+\code{\ind como}
+
+\code{\ind x = (x1,x2,x3)  } 
+
+\code{\ind """}
+
+\code{\ind def \_\_add\_\_(self, v2):}
+
+\code{\ind\ind""" }
+
+\code{\ind\ind Esta función crea un nuevo vector que tiene como}
+
+\code{\ind\ind componentes la suma de las coordenadas de los}
+
+\code{\ind\ind dos vectores que se suman}
+
+\code{\ind\ind""" }
+
+\code{\ind def \_\_getitem\_\_(self, i):}
+
+\code{\ind\ind""" }
+
+\code{\ind\ind Esta función permite acceder a las coordenadas}
+
+\code{\ind\ind del vector como si fuera una lista, i.e.}
+
+\code{\ind\ind > v[1] \# Segunda componente}
+
+\code{\ind\ind""" }
+
+\code{\ind def \_\_init\_\_(self, x,y,z):}
+
+\code{\ind\ind""" }
+
+\code{\ind\ind Constructor de clase. Recibe tres números que}
+
+\code{\ind\ind serán las componentes x\_1,x\_2,x\_3 del vector.}
+
+\code{\ind\ind""" }
+
+\code{\ind def norm(self):}
+
+\code{\ind\ind""" }
+
+\code{\ind\ind Esta función calcula la norma del vector}
+
+\code{\ind\ind y la entrega.}
+
+\code{\ind\ind""" }
+}
+La implementación de las funciones puede ser la siguiente: 
+
+\begin{minted}{python}
+def __init__(self, x,y,z):
+    # Omitimos docstring acá
+    self.x = x
+    self.y = y
+    self.z = z
+
+def __add__(self, v2):
+    new = Vec3D(self.x,self.y,self.z)
+    new.x += v2.x
+    new.y += v2.y
+    new.z += v2.z
+    return new
+
+def norm(self):
+    return (self.x**2 + self.y**2 + self.z**2)**(1/2)
+\end{minted}
+
+Distribución de los 3.5 puntos: 
+\begin{itemize}
+    \item 0.5 por cada comentario puesto en el lugar correct (suma 2.0)
+    \item 0.5 por la implementación de cada función (suma 1.5)
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Pregunta 4}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Asuma que los datos están en un archivo 'atmosfera.csv'. Escriba una rutina en R que ajuste un modelo lineal de la temperatura en función de los otros campos, asumiendo los siguientes datos empíricos (inventados para esta prueba): 
+    \begin{itemize}
+        \item La temperatura es proporcional al cuadrado de la concentración de nitrógeno.
+        \item La temperatura es inversamente proporcional a la concentración de oxígeno.
+        \item La temperatura es proporcional al logaritmo de la concentración de argón.
+        \item La temperatura es proporcional a la concentración de $CO_2$ a la cuarta potencia.
+    \end{itemize}
+
+Una posible implementación de sería:
+
+\begin{minted}{R}
+data = read_csv("atmosfera.csv")
+
+model = lm(T ~ I(N^2) + I(O^(-1)) + log(A) + I(CO2^4), data = data)
+\end{minted}
+
+Distribución de los 1.5 punto de la pregunta:
+\begin{itemize}
+    \item 0.5 por cargar bien los datos
+    \item 1.0 por escribir bien el modelo
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Pregunta 5}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Para esta pregunta, (1) explique lo que hace la función 'reproducir' y (2) escriba el código que sería necesario agregar a 'run.py' para generar cuatro especies distintas (que llamaremos de primera generación). Luego, que se reproduzcan las especies de primera generación de a pares para generar una segunda generación. Finalmente, obtenga un descendiente final entre las especies de segunda generación.
+
+\note{La función 'reproducir' toma dos especies, y a partir de ellas genera una nueva cuya cadena de bases nitrogenadas que sirve para entregar una especie nueva con la mitad de cada cadena de bases nitrogenadas correspondientes a los progenitores.}
+
+Una posible implementación del código sería la siguiente: 
+\begin{minted}{python}
+# Primera generación
+e1 = Especie('ATA')
+e2 = Especie('ATGCGTAGCT')
+e3 = Especie('CG')
+e4 = Especie('TTTTTTTTTTT')
+# Segunda generación
+e5 = reproducir(e1,e2)
+e6 = reproducir(e3,e4)
+# Tercera
+e7 = reproducir(e5,e6)
+\end{minted}
+
+Distribución de 4.0 puntos:
+    \begin{itemize}
+        \item 1.0 por explicar lo que hace la función reproducir.
+        \item 1.0 por generar correctamente 4 especies
+        \item 1.0 por generar la segunda generación con progenitores correctos
+        \item 1.0 por generar la tercera generación con progenitores correctos
+    \end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Pregunta 6}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Una posible implementación sería la siguiente: 
+\begin{minted}{python}
+a0 = 1.2
+b0 = 0.779
+ca,da,cb,db = 0.9,0.2,0.1,0.8
+
+as = [a0]
+bs = [b0]
+
+for i in range(50):
+    anew = ca * as[i] + da * bs[i]
+    bnew = cb * as[i] + db * bs[i]
+    as.append(anew)
+    bs.append(bnew)
+
+import matplotlib.pyplot as plt
+plt.plot(as, label="a")
+plt.plot(bs, label="b")
+plt.show()
+\end{minted}
+Distribución de 3.5 puntos: 
+\begin{itemize}
+    \item 0.5 por definir los parámetros iniciales
+    \item 0.5 por inicializar una estructura de datos para cada variable
+    \item 1.0 por crear un ciclo iterativo donde se almacenen las variables a,b
+    \item 0.5 por almacenar los valores de las variables en el tiempo  
+    \item 1.0 por graficar
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Pregunta 7}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Los pasos para arreglar el archivo son los siguientes: 
+\begin{minted}{bash}
+# clonar el repo
+git clone git@github.com:empresa/software-empresa.git
+
+# Reemplazar datos, dejamos eso como una función abstracta
+reemplazarMayo3PorMayo4()
+
+# Dejar nuevo cambio en "stage"
+git add cumple.txt
+
+# Hacer commit para actualizar repo local
+git commit -m "corregir cumpleaños josé"
+
+# Subir los cambios
+git push
+\end{minted}
+
+Esta pregunta tiene 4.0 puntos, y es 1.0 punto por cada comando de git bien ejecutado.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
