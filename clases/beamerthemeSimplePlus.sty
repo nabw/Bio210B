@@ -1,8 +1,10 @@
 \mode<presentation>
 
 % Settings
+\setbeamercovered{transparent=5}
 \usetheme{Madrid}
 \useinnertheme{circles}
+\newcommand{\code}[1]{{\color{purple}\tt#1}}
 
 \usefonttheme{SimplePlus}
 \usecolortheme{SimplePlus}
@@ -20,15 +22,13 @@
     \setbeamertemplate{footline}{} 
     \begin{frame} 
         \vspace{4.5cm} 
-        \Large{\color{white} \hfill \textbf{#1}} 
+        \huge{\color{white} \hfill \textbf{#1}} 
     \end{frame} 
     } 
 } 
 \newcommand{\alertGreen}[1]{{\color{MediumGreen}#1}} 
 \newcommand{\alertBlue}[1]{{\color{MediumBlue}#1}} 
 \newcommand{\newref}[1]{{\footnotesize \color{green!50!white!60!black}\textleaf  $\,$#1}}
-\newcommand{\code}[1]{{\color{purple}\tt#1}}
-
 \AtBeginSection[]
 {
     {
@@ -45,7 +45,7 @@
             
             \vspace{2cm}
             \begin{center}
-            \huge{\bf\color{white} \secname}
+            \Huge{\bf\color{white} \secname}
             \end{center}
         \end{frame}
     }
