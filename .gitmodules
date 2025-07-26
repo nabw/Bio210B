@@ -1,3 +1,3 @@
 [submodule "pautas"]
-	path = pautas
+	path = evaluaciones
 	url = git@github.com:nabw/Bio210B-pautas.git
