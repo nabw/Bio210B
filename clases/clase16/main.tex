@@ -3,7 +3,7 @@
 \usepackage{booktabs}
 \usepackage{minted}
 
-\title[short title]{Clase 16: Clases y polimorfismo II}
+\title[short title]{Clase 18: git y desarrollo colaborativo}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -19,7 +19,7 @@
     \end{flushright}
 }
 
-\date{09/10/2024}
+\date{16/10/2024}
 %\setbeamercovered{transparent}
 
 \begin{document}
@@ -29,71 +29,146 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Motivación}
+    {\huge
+    \begin{center}
+        \alertBlue{Cómo compartir código?}
+    \end{center}
+    }
+    \begin{flushright}
+    \includegraphics[height=2cm]{../images/logos/git.png}
+    \end{flushright}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t,fragile]\frametitle{Cómo funciona git}
+  \begin{columns}
+    \begin{column}[t]{0.45\textwidth}
+        Original
+        \begin{minted}{python}
+def suma(x,y):
+    return x+y
+        \end{minted}
+    \end{column}
+    \begin{column}[t]{0.45\textwidth}
+        Modificado
+        \begin{minted}{python}
+def suma(x,y):
+    """
+    Función que suma
+    """
+    return x+y
+        \end{minted}
+    \end{column}
+  \end{columns}
+
+  \vspace{1cm}
+  \begin{itemize}
+  \item Diferencia: 3 líneas agregadas en la línea 2. 
+
+  \item Se guardan solo los \alert{incrementos} de archivos
+  \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Función general (offline)}
+    Flujo de trabajo:
     \begin{itemize}
-        \item Abstraer "Figura"
-    \[ \text{animal $\in$ ser vivo, cuadrado $\in$ figura }\]
-        \item Sistema ecológico (pizarra)
+        \item Cambios propuestos de archivos \phantom{ }
+            
+            \begin{minipage}{0.35\textwidth}
+            \begin{block}{}
+                Stage \hfill(\code{git add})
+            \end{block}
+            \end{minipage}
+        \item Deshacer cambios propuestos \phantom{ }
+            
+            \begin{minipage}{0.35\textwidth}
+            \begin{block}{}
+                Stage \hfill(\code{git reset})
+            \end{block}
+            \end{minipage}
+
+        \item Cambios incorporados \phantom{ }
+
+            \begin{minipage}{0.35\textwidth}
+            \begin{block}{}
+                Commit \hfill(\code{git commit})
+            \end{block}
+            \end{minipage}
     \end{itemize}
-    $$ \text{Carnívoro}\quad\to\quad\text{Herbívoro}\quad\to\quad\text{Plantas} $$
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Sintaxis}
-    \begin{minted}{python}
-    class ClaseHeredada(ClaseBase):
-        def funcion(self):
-            # [...]
-        # Opcional
-        def __init__(self, params):
-            super(ClaseHeredada, self).__init__(params)
-    \end{minted}
+\begin{frame}[t,fragile]\frametitle{Ejemplo}
+  \begin{columns}
+    \begin{column}[t]{0.45\textwidth}
+        Original
+        \begin{minted}{python}
+def suma(x,y):
+    return x+y
+        \end{minted}
+    \end{column}
+    \begin{column}[t]{0.45\textwidth}
+        Modificado
+        \begin{minted}{python}
+def suma(x,y):
+    """
+    Función que suma
+    """
+    return x+y
+        \end{minted}
+    \end{column}
+  \end{columns}
+    
+\begin{enumerate}
+    \item Tengo archivo original $\to$ lo modifico
+    \item Agrego cambios como nueva modificación propuesta \hfill (\alertGreen{stage})
+    \item Incorporo modificación \hfill (\alertGreen{commit})
+\end{enumerate}
+\idea{Consola}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Función general (online)}
+    Flujo de trabajo:
+    \begin{itemize}
+        \item Crear carpeta con \emph{copia local} de repositorio online
+            \begin{minipage}{0.35\textwidth}
+            \begin{block}{}
+                Clone \hfill(\code{git clone})
+            \end{block}
+            \end{minipage}
+
+        \item Descargar contenidos de repositorio online \phantom{ }
+            
+            \begin{minipage}{0.35\textwidth}
+            \begin{block}{}
+                Pull \hfill(\code{git pull})
+            \end{block}
+            \end{minipage}
+        \item Enviar cambios creados \phantom{ }
+
+            \begin{minipage}{0.35\textwidth}
+            \begin{block}{}
+                Commit \hfill(\code{git push})
+            \end{block}
+            \end{minipage}
+    \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Ejemplo I (src: HowToGeek)}
-    \begin{footnotesize}
-    \begin{minted}{python}
-class Bird:
-  def intro(self): print("There are many types of birds.")
-    
-  def flight(self): print("Most of the birds can fly but some cannot.")
-  
-class sparrow(Bird):
-  def flight(self): print("Sparrows can fly.")
-    
-class ostrich(Bird):
-  def flight(self): print("Ostriches cannot fly.")
-    
-obj_bird = Bird(); obj_spr = sparrow(); obj_ost = ostrich()
-obj_bird.flight(); obj_spr.flight(); obj_ost.flight()
-    \end{minted}
-    \end{footnotesize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Ejemplo II (src: HowToGeek)}
-    \begin{footnotesize}
-    \begin{minted}{python}
-class Animal:
-    def speak(self):
-        raise NotImplementedError("Subclass must implement this method")
-
-class Dog(Animal):
-    def speak(self): return "Woof!"
-
-class Cat(Animal):
-    def speak(self): return "Meow!"
-
-animals = [Dog(), Cat()]
-
-for animal in animals:
-    print(animal.speak())
-    \end{minted}
-    \end{footnotesize}
+\begin{frame}\frametitle{Otras funcionalidades}
+    \begin{itemize}
+        \item Manejo de conflictos 
+        \item Crear ramas para desarrollo paralelo (\code{git branch})
+        \item Deshacer cambios (\code{git reset})
+        \item Ir a versiones anteriores del código (\code{git checkout})
+        \item Manejo de protocolos de seguridad (SSH)
+        \item ... y \alert{muchas} más
+    \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Recap}
     \begin{itemize}
-        \item Clases permiten crear abstracciones
-        \item Todo objeto es una instancia de clase en Python
-        \item Funciones mágicas permiten código legible!
+        \item \code{git} es LA herramienta de desarrollo colaborativo
+        \item Se basa en un grafo de estados
+        \item Modificaciones locales: \code{add}, \code{commit}, \code{reset}
+        \item Modificaciones online: \code{clone}, \code{pull}, \code{push}
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -102,10 +177,18 @@ for animal in animals:
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[noframenumbering]\frametitle{Mini ejercicios}
-    \begin{itemize}
-        \item Crear una clase Cuadrado que reciba como entrada el largo de sus aristas. Cree una función de clase que entregue el área del cuadrado.
-        \item Extienda el ejemplo anterior al caso de un cubo.
-    \end{itemize}
+    \begin{enumerate}
+        \item Instalar git
+        \item Crear cuenta en \code{github.com}
+        \item Crear repositorio en su cuenta
+        \item Clonar el repositorio localmente
+        \item Agregar un cambio
+        \item Hacer \emph{push} del cambio y verificar el cambio
+    \end{enumerate}
+    
+    \begin{center}
+        Turorial online: \code{https://www.w3schools.com/git/}
+    \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}

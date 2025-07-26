@@ -3,7 +3,7 @@
 \usepackage{booktabs}
 \usepackage{minted}
 
-\title[short title]{Clase 9: I/O (Input/Output)}
+\title[short title]{Clase 11: Módulos}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -19,7 +19,7 @@
     \end{flushright}
 }
 
-\date{04/09/2024}
+\date{11/09/2024}
 %\setbeamercovered{transparent}
 
 \begin{document}
@@ -28,87 +28,118 @@
     \maketitle
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Motivación}
+\begin{frame}[fragile]\frametitle{Motivación}
+    Ya conocemos módulos: \code{string}, \code{sys}
     \begin{itemize}
-        \item El genoma human pesa $\approx$ 1Gb (película en def standard)
-        \item El genoma del krill pesa $\approx$ 12Gb
-        \item CPU procesa hasta 64 Kb a la vez
+        \item \code{import string}
+        \item \code{import sys}
     \end{itemize}
-    \hspace{2cm}\includegraphics[height=4cm]{../images/vitruvio.jpg}
-    \includegraphics[height=4cm]{../images/krill.jpg}
+    Así se cargan ciertas funcionalidades. 
 
-\pause Necesitamos procesar datos sin cargar todo en memoria (\emph{streams})
+    \pause Hoy aprenderemos a crear nuevos
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Lectura de archivos}
-Archivo \texttt{pangrams.txt}:
-    \begin{verbatim}
-The quick brown fox jumps over the lazy dog
-Extraño pan de col y kiwi se quemó bajo fugaz vaho
-Ma la volpe col suo balzo ha raggiunto il quieto Fido
-Törkylempijä vongahdus
-    \end{verbatim}
-
-    \begin{minted}{python}
-    f = open("../archivos/pangrams.txt", "r") # (r)ead
-    f.read() # o readline(), o readlines()
-    f.close()
-    \end{minted}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Escritura}
-    \begin{minted}{python}
-    f = open("../archivos/pangrams.txt", "w") # (w)rite
-    f.write() # o writelines()
-    f.close()
-    \end{minted}
-
-*Es siempre importante \emph{cerrar} el archivo
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Uso común}
-    Se usa contexto con {\color{purple}\texttt{with}} para cierre automático
-    \begin{minted}{python}
-    with  open("ejemplo.txt", "w") as f
-        f.write("texto nuevo\n") 
-    # with
-    [...]
-    \end{minted}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Modos de lectura}
+\begin{frame}[fragile]\frametitle{Pip}
+    \textbf{P}ackage \textbf{I}nstaller for \textbf{P}ython
+    
     \begin{itemize}
-        \item 'r': Lee archivo, error si no existe
-        \item 'w': Escribe en un archivo. Sobreescribe si existe
-        \item 'x': Crea archivo, error si ya existe
-        \item 'a': Agrega a archivo al final. Lo crea si no existe.
-
+        \item Gestor de paquetes que viene instalado junto a Python
+        \item Info online en \code{https://pypi.org/}
+        \item Fácil de usar por Bash
+            \begin{minted}{bash}
+        $ pip install pandas
+        $ python
+        > import pandas  # recién instalada!
+            \end{minted}
     \end{itemize}
     
-    \vspace{1cm}
-    \begin{minted}{python}
-    modo = "w" # r|w|x|a
-    with open("ejemplo.txt", modo) as f
-        [...]
-    \end{minted}
+    \pause Dónde están los programas...?
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}\frametitle{el PATH}
+    Cuando escribo \code{ls} en Bash... de dónde sale? \\
 
-\idea{Consola...}
+    \vspace{0.5cm}
+    La variable de entorno PATH tiene las carpetas donde buscar programas\footnote{Se puede modificar para tener programas en nuevas carpetas, i.e. \code{/opt}}
 
+    \pause \idea{Consola...}
+
+    
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Crear módulo}
+    \code{operaciones.py}
+    \begin{minted}{python}
+  def suma(x,y): return x+y
+
+  def mult(x,y): return x*y
+    \end{minted}
+
+  En Python:
+  \begin{minted}{python}
+  > import operaciones # Debe estar en el path
+  > # from operaciones import suma,prod
+  > operaciones.suma(2,3) # 5
+  > operaciones.mult(2,3) # 6
+  \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{el PATH en Python}
+    \begin{minted}{bash}
+  ~/clases/Bio210B$ python -m site
+   sys.path = [
+       '/home/nico/clases/Bio210B',
+       '/usr/lib/python3/dist-packages' # son más...
+    \end{minted}
+
+    \pause Se puede extender con PYTHONPATH
+    \begin{minted}{bash}
+  $ export PYTHONPATH=/home/nico/otraCarpeta
+  $ python -m site
+   sys.path = [
+       '/home/nico/clases/Bio210B',
+       '/home/nico/otraCarpeta',
+       '/usr/lib/python3/dist-packages'
+    \end{minted}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Nota: variables en Bash}
+    \begin{minted}{bash}
+  $ export PYTHONPATH=[...]
+    \end{minted}
+    genera una variable de ambiente. Se puede ver con
+    \begin{minted}{bash}
+  $ echo ${PYTHONPATH}
+    \end{minted}
+  Todas las definidas se ven con programa \code{env}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Recap}
     \begin{itemize}
-        \item Lectura a través de \emph{stream}
-        \item Lectura de archivos con \code{open}
-        \item Contexto con \code{with}
-        \item Modos de lectura: \code{r},\code{w},\code{a}
+        \item Dónde están los módulos por defecto
+        \item Cómo agregar un módulo
+        \item Cómo hacer módulo detectable con PYTHONPATH
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
     \maketitle
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Mini ejercicios}
+    \code{operaciones.py}
+    \begin{minted}{python}
+  def suma(x,y): return x+y
+
+  def mult(x,y): return x*y
+    \end{minted}
+
+    \begin{itemize}
+        \item Crear el módulo \code{operaciones} e importarlo desde un script.
+        \item Guardar el módulo en otro lado e importarlo usando \code{PYTHONPATH}
+    \end{itemize}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}

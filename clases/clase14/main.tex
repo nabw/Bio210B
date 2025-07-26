@@ -2,9 +2,8 @@
 \usetheme{SimplePlus}
 \usepackage{booktabs}
 \usepackage{minted}
-\usepackage{mathtools}
 
-\title[short title]{Clase 14: Python científico III, Pandas}
+\title[short title]{Clase 16: Clases y polimorfismo II}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -20,7 +19,7 @@
     \end{flushright}
 }
 
-\date{11/09/2024}
+\date{09/10/2024}
 %\setbeamercovered{transparent}
 
 \begin{document}
@@ -29,126 +28,83 @@
     \maketitle
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Temas}
+\begin{frame}\frametitle{Motivación}
     \begin{itemize}
-        \item Pandas
+        \item Abstraer "Figura"
+    \[ \text{animal $\in$ ser vivo, cuadrado $\in$ figura }\]
+        \item Sistema ecológico (pizarra)
     \end{itemize}
-
+    $$ \text{Carnívoro}\quad\to\quad\text{Herbívoro}\quad\to\quad\text{Plantas} $$
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Tipo central: \code{DataFrame}}
+\begin{frame}[fragile]\frametitle{Sintaxis}
     \begin{minted}{python}
-  import pandas
-  mydataset = {
-    'cars': ["BMW", "Volvo", "Ford"],
-    'passings': [3, 7, 2]
-  }
-  myvar = pandas.DataFrame(mydataset)
-  print(myvar) 
-    \end{minted}
-
-    \begin{minted}{bash}
-  $      cars    passings
-    0    BMW         3
-    1  Volvo         7
-    2   Ford         2
+    class ClaseHeredada(ClaseBase):
+        def funcion(self):
+            # [...]
+        # Opcional
+        def __init__(self, params):
+            super(ClaseHeredada, self).__init__(params)
     \end{minted}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{\code{DataFrame}}
-    \begin{itemize}
-        \item Es el elemento central de Pandas
-        \item Son \emph{tablas de datos}
-        \item Se pueden filtrar fácilmente
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Nombre de datos}
-
+\begin{frame}[fragile]\frametitle{Ejemplo I (src: HowToGeek)}
+    \begin{footnotesize}
     \begin{minted}{python}
-  data = {
-    "calories": [420, 380, 390],
-    "duration": [50, 40, 45] }
-
-  df = pd.DataFrame(data)
-  print(df) 
-  df = pd.DataFrame(data, index = ["day1", "day2", "day3"])
-  print(df) 
-    \end{minted}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Cargar datos}
-
-    Asumiendo que existe archivo \code{data.csv}
-    \begin{minted}{python}
-  import pandas as pd
-
-  df = pd.read_csv('data.csv')
-  print(df)
-    \end{minted}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Explorando datos}
-    \begin{minted}{python}
-  df = pd.read_csv('data.csv')
-    \end{minted}
-    \begin{itemize}
-        \item \code{df.head(n)}: Primeros \code{n} datos
-        \item \code{df.tail(n)}: Últimos \code{n} datos
-        \item \code{df.describe()}: Ver estadísticas descriptivas
-        \item \code{df.sort\_values(by="A")}: Ordenar según columna "A"
-    \end{itemize}
+class Bird:
+  def intro(self): print("There are many types of birds.")
     
-    \idea{Consola}
+  def flight(self): print("Most of the birds can fly but some cannot.")
+  
+class sparrow(Bird):
+  def flight(self): print("Sparrows can fly.")
+    
+class ostrich(Bird):
+  def flight(self): print("Ostriches cannot fly.")
+    
+obj_bird = Bird(); obj_spr = sparrow(); obj_ost = ostrich()
+obj_bird.flight(); obj_spr.flight(); obj_ost.flight()
+    \end{minted}
+    \end{footnotesize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Acceso a datos}
+\begin{frame}[fragile]\frametitle{Ejemplo II (src: HowToGeek)}
+    \begin{footnotesize}
     \begin{minted}{python}
-  df = pd.read_csv('data.csv')
+class Animal:
+    def speak(self):
+        raise NotImplementedError("Subclass must implement this method")
+
+class Dog(Animal):
+    def speak(self): return "Woof!"
+
+class Cat(Animal):
+    def speak(self): return "Meow!"
+
+animals = [Dog(), Cat()]
+
+for animal in animals:
+    print(animal.speak())
     \end{minted}
-    \begin{itemize}
-        \item \code{df["A"]}: Extraer columna con etiqueta "A"
-        \item \code{df[1:4]}: Extraer filas en [1,4)
-        \item \code{df[1:4][["A", "B"]]}: Filas y columnas
-    \end{itemize}
-
-    \idea{Consola}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Filtros booleanos}
-
-    Exploremos los siguientes comandos: 
-    \begin{minted}{python}
-    df = pd.read_csv('data.csv')
-    df["Pulse"] > 120
-    df[df["Pulse"] > 120]
-    \end{minted}
-
-    \vspace{1cm}
-    \pause Se llama filtro por máscara, o máscara booleana.
+    \end{footnotesize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Recap}
     \begin{itemize}
-        \item Pandas sirve para procesar datos
-        \item También se puede hacer estadística (no lo vimos)
-        \item Máscaras booleanas
+        \item Clases permiten crear abstracciones
+        \item Todo objeto es una instancia de clase en Python
+        \item Funciones mágicas permiten código legible!
     \end{itemize}
-
-    \pause
-    \vspace{1cm}
-    \code{https://pandas.pydata.org/docs/user\_guide/10min.html}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
     \maketitle
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile,noframenumbering]\frametitle{Mini ejercicios}
+\begin{frame}[noframenumbering]\frametitle{Mini ejercicios}
     \begin{itemize}
-        \item Genere una sucesión de 0's y 1's que representan lanzamientos de monedas. Guárdelo en un archivo \code{.csv} y cárguelo en Pandas.
-        \item Use las funciones de pandas para encontrar la probabilidad, en su muestra, de obtener una cara y la de obtener un sello.
+        \item Crear una clase Cuadrado que reciba como entrada el largo de sus aristas. Cree una función de clase que entregue el área del cuadrado.
+        \item Extienda el ejemplo anterior al caso de un cubo.
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

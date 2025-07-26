@@ -1,3 +1,3 @@
 make: 
-	pdflatex -jobname=clase19 --shell-escape main.tex
-	pdflatex -jobname=clase19 --shell-escape main.tex
+	pdflatex -jobname=clase21 --shell-escape main.tex
+	pdflatex -jobname=clase21 --shell-escape main.tex

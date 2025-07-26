@@ -3,7 +3,7 @@
 \usepackage{booktabs}
 \usepackage{minted}
 
-\title[short title]{Clase 17: Documentación y docstrings}
+\title[short title]{Clase 19: Introducción a R}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -30,99 +30,156 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Motivación}
     \begin{itemize}
-        \item El código \emph{envejece}
-        \item Uno \textbf{no} recuerda por qué hizo cosas
-        \item Los futuros usuarios de nuestro código \huge{menos}
+        \item Lenguaje especializado en estadística
+        \item Manejo de datos tipo Pandas (en realidad al revés)
+        \item Muy bueno para visualización de datos
+        \item Interpretado, sin objetos (clases)
     \end{itemize}
+    \begin{flushright}
+        \includegraphics[height=2cm]{../images/logos/R.png}
+    \end{flushright}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Docs de una función}
-    \begin{minted}{python}
-    def suma(x,y):
-        """
-        Esta función entrega la suma de sus argumentos. 
-            
-        args: 
-            x: Un elemento sumable
-            y: Un segundo elemento sumable
-        """
-        z = x+y
-        return z
-    \end{minted}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Docs de una función}
-    \begin{minted}{python}
-    >>> help(suma)
-    \end{minted}
-
-    \vspace{1cm}
-    Se guarda en la variable mágica \code{suma.\_\_doc\_\_}
-
-    \idea{Consola}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Docs de una clase}
-    \begin{footnotesize}
-    \begin{minted}{python}
-    class Vec2D:
-        """
-        Clase que representa un vector en R2.
-        """
-        def __init__(self,x,y):
-            """
-            Constructor, toma como parámetros coordenadas x e y.
-            """
-            self.x = x
-            self.y = y
-        def norma(self):
-            """
-            Entrega la norma euclideana del vector. Requiere 'sqrt'
-            """
-            return sqrt(self.x**2 + self.y**2)
-    \end{minted}
-
-    \vspace{-1cm}
-    \hfill    \idea{Consola}
-    \end{footnotesize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Documentación avanzada}
-    Existe mucho software (Sphinx, Doxygen, etc). Veremos \code{Mkdocs}.
-
-    \begin{minted}{bash}
-    # pip install mkdocs
-    # mkdocs new proyecto
-    # cd proyecto
-    # mkdocs serve
-    # mkdocs build
-    \end{minted} 
-
-    \vspace{1cm}
-    Se usa formato Markdown (popular por ser simple)
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\darkSlide{Veamos su documentación: \\https://www.mkdocs.org/getting-started/}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Otra opción}
-    \begin{minted}{bash}
-    # pip install pdoc3
-    # cd proyecto
-    # pdoc3 --html .
-    \end{minted}
-
-    \idea{Consola}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Recap}
+\begin{frame}[fragile]\frametitle{Ejecución}
     \begin{itemize}
-        \item Documentación es fundamental
-        \item Existen muchas herramientas para hacerlo en modo semi-automático
-        \item \code{mkdocs} bonito pero trabajoso
-        \item \code{pdoc3} feo pero fácil
+        \item Al igual que Python, consola y programa
+        \item Consola
+            \begin{minted}{bash}
+    $ R         # Abrir programa en bash
+    > 2 + 2     # Ejecutar en consola de R
+    [1] 4       # Resultado 
+    > q()       # Salir de consola
+            \end{minted}
+        \item Programa
+            \begin{minted}{bash}
+    $ Rscript test.r   # Ejecutar script con '2+2'
+    [1] 4              # Resultado 
+            \end{minted}
+
     \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis: Tipos}
+    \begin{itemize}
+        \item String: \code{"Hola"}
+        \item Números: \code{1,  3.5}
+        \item Comentario: \code{"hola" \# string que saluda}
+        \item Imprimir: \code{print("hola")}
+        \item Asignar variable: \code{a=2, a<-2, 2->a}
+        \item Variables pueden tener puntos: \code{.a=2}
+        \item Sumar strings da error!
+                
+            \begin{flushright} \code{paste("hola","chao")}\end{flushright}
+        \item Números son "numeric" por defecto (ver con \code{class})
+        \item Booleanos: \code{TRUE},\code{FALSE}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Sintaxis: Tipos II}
+    \begin{itemize}
+        \item Tienen nombres específicos:
+            \begin{itemize}
+                \item numeric \code{4,5.5,-2}
+                \item integer \code{1L, -3L, 100L}  (si, con la 'L')
+                \item complex \code{9+3i}
+                \item character  (strings)
+                \item logical   (booleanos)
+            \end{itemize}
+        \item Convertir números: \code{as.numeric()|as.integer()|as.complex()}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Sintaxis II: Operaciones}
+    \begin{itemize}
+        \item Booleanos: \code{a\&b} (and), \code{a|b} (or), \code{!a} (not)
+        \item Comparación: \code{a<b}, \code{a<=b}, \code{3==3}, \code{3!=2}
+        \item Números: \code{2+2}, \code{2*3}, \code{2**3==2\^{}3}, \code{10\%\%3}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis III: if/else}
+    \begin{minted}{R}
+    a = 2
+    b = 3
+    if (a>b) {
+        print("a>b")
+    }
+    else if (a==b) {
+        print("a==b")
+    }
+    else { # a<b
+        print("a<b")
+    }
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis IV: while}
+    \begin{minted}{R}
+  i <- 0
+  while (i < 6) {
+      i <- i + 1
+      if (i == 3) {
+        next
+      }
+  print(i)
+  } 
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis V: for}
+    \begin{minted}{R}
+  for (x in 1:10) {
+    print(x)
+  } 
+    \end{minted}
+    \begin{minted}{R}
+  fruits <- list("apple", "banana", "cherry")
+
+  for (x in fruits) {
+    print(x)
+  } 
+    \end{minted}
+    \begin{minted}{R}
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis VI: functions}
+    \begin{minted}{R}
+  my_function <- function(x, y=2) {
+    return (5 * x * y)
+  }
+
+  print(my_function(3)) # y=2 por defecto
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis VII: Estructuras de datos}
+    \begin{itemize}
+        \item Vector de un solo tipo: \code{c(1,2,3)},\code{1:10}
+        \item Lista: \code{list(1, 2i, TRUE)}
+        \item Largo: \code{length(lista)}
+        \item Agregar: \code{append(lista, "hola")}
+        \item Quitar: \code{lista[-1], lista[-c(1,3)]}
+        \item Acceso por rango: \code{lista[2:5]}
+    \end{itemize}
+
+*OJO: Listas empiezan en 1.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis VIII: Data Frame}
+    \begin{minted}{R}
+    # Create a data frame
+    Data_Frame <- data.frame (
+      Training = c("Strength", "Stamina", "Other"),
+      Pulse = c(100, 150, 120),
+    )
+    Data_Frame 
+
+    # Todos equivalentes: 
+    Data_Frame[1]
+    Data_Frame[["Training"]]
+    Data_Frame$Training 
+    \end{minted}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -130,12 +187,15 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[noframenumbering]\frametitle{Mini ejercicios}
-    \begin{itemize}
-        \item Crear una carpeta de nombre 'proyecto'
-        \item Dentro esa carpeta crear un archivo con dos funciones
-        \item Instalar pdoc3 y correr \code{pdoc3 --html .} desde la carpeta
-        \item Ver documentación en archivo html recién creado
-    \end{itemize}
+    \begin{enumerate}
+        \item Instalar R en su computador 
+        \item Probar la consola interactiva
+        \item Ejecutar un script con \code{Rscript}
+        \item Hacer los siguientes ejercicios: 
+            \begin{center}
+                https://www.w3schools.com/r/r\_exercises.asp
+            \end{center}
+    \end{enumerate}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}

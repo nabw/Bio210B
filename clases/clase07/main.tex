@@ -2,9 +2,8 @@
 \usetheme{SimplePlus}
 \usepackage{booktabs}
 \usepackage{minted}
-\usepackage{fancyvrb}
 
-\title[short title]{Clase 7: Estructuras de datos}
+\title[short title]{Clase 9: I/O (Input/Output)}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -20,7 +19,7 @@
     \end{flushright}
 }
 
-%\date{26/07/2024, Vancouver, WCCM}
+\date{04/09/2024}
 %\setbeamercovered{transparent}
 
 \begin{document}
@@ -29,84 +28,84 @@
     \maketitle
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Motivación}
-En el ejemplo del IMC, se vuelve impracticable tener muchos datos:
+\begin{frame}\frametitle{Motivación}
+    \begin{itemize}
+        \item El genoma human pesa $\approx$ 1Gb (película en def standard)
+        \item El genoma del krill pesa $\approx$ 12Gb
+        \item CPU procesa hasta 64 Kb a la vez
+    \end{itemize}
+    \hspace{2cm}\includegraphics[height=4cm]{../images/vitruvio.jpg}
+    \includegraphics[height=4cm]{../images/krill.jpg}
+
+\pause Necesitamos procesar datos sin cargar todo en memoria (\emph{streams})
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Lectura de archivos}
+Archivo \texttt{pangrams.txt}:
+    \begin{verbatim}
+The quick brown fox jumps over the lazy dog
+Extraño pan de col y kiwi se quemó bajo fugaz vaho
+Ma la volpe col suo balzo ha raggiunto il quieto Fido
+Törkylempijä vongahdus
+    \end{verbatim}
+
     \begin{minted}{python}
-        peso1 = 1.
-        altura1 = 1.0
-        peso2 = 2.0 
-        altura2 = 2.0
-        ...
-        peso1200 = 3.0
-        altura1200 = 3.0
+    f = open("../archivos/pangrams.txt", "r") # (r)ead
+    f.read() # o readline(), o readlines()
+    f.close()
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Escritura}
+    \begin{minted}{python}
+    f = open("../archivos/pangrams.txt", "w") # (w)rite
+    f.write() # o writelines()
+    f.close()
     \end{minted}
 
-Nos gustaría tener una manera de manejar cantidades \emph{arbitrarias} de datos y operar sobre ellas.
+*Es siempre importante \emph{cerrar} el archivo
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Sintaxis de loop de iteración}
+\begin{frame}[fragile]\frametitle{Uso común}
+    Se usa contexto con {\color{purple}\texttt{with}} para cierre automático
     \begin{minted}{python}
-      lista = [1,2,3,4,5]
-      for e in lista:
-        print(e)
+    with  open("ejemplo.txt", "w") as f
+        f.write("texto nuevo\n") 
+    # with
+    [...]
     \end{minted}
-\pause El resultado será
-
-1\\
-2\\
-3\\
-4\\
-5
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Un poco de sintaxis}
-    $$ \texttt{a = [1,2,3,4,5,8]} $$
+\begin{frame}[fragile]\frametitle{Modos de lectura}
     \begin{itemize}
-        \item<+-> 'a' es una \emph{lista}
-        \item<+-> 'a' es un \emph{iterable} (se puede usar en ciclo \texttt{for})
-        \item<+-> 'a' tiene componentes (\texttt{a[0],a[1],...})
-        \item<+-> Listas no tienen tipos específicos: 
-            $$ \texttt{a = [1,'hola',-7.2]} $$
-        \item<+-> \texttt{range(10)} para iterar sobre números
+        \item 'r': Lee archivo, error si no existe
+        \item 'w': Escribe en un archivo. Sobreescribe si existe
+        \item 'x': Crea archivo, error si ya existe
+        \item 'a': Agrega a archivo al final. Lo crea si no existe.
+
     \end{itemize}
+    
+    \vspace{1cm}
+    \begin{minted}{python}
+    modo = "w" # r|w|x|a
+    with open("ejemplo.txt", modo) as f
+        [...]
+    \end{minted}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Ejemplo: promedio}
-\idea{Consola para ver sus funciones... (\texttt{dir})}
+\begin{frame}
+
+\idea{Consola...}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Otros tipos}
+\begin{frame}\frametitle{Recap}
     \begin{itemize}
-        \item Tuplas o listas inmodificables: 
-            $$  \texttt{a = (1,2,7,8)} $$
-        \item Diccionarios o listas indexadas:
-            $$ \texttt{a = \{'altura': 1.80, 'peso': 90\}} $$
-            *Acceso con \texttt{a['altura']}
-        \item Conjuntos o listas no-ordenadas: 
-            $$ \texttt{a = \{1,5,9\}} $$
+        \item Lectura a través de \emph{stream}
+        \item Lectura de archivos con \code{open}
+        \item Contexto con \code{with}
+        \item Modos de lectura: \code{r},\code{w},\code{a}
     \end{itemize}
-
-\pause\idea{Exploremos las funciones de cada uno (\texttt{dir})}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Funciones mágicas}
-
-\begin{itemize}
-    \item Todas las funciones: $\texttt{dir(a)}$.
-    \item Funciones mágicas: \verb+__txt__+
-    \item Tipos sumables: %\texttt{\_\_add\_\_}
-        \begin{verbatim}
-    int.__add__(2,3)
-        \end{verbatim}
-    \item Subíndices: \verb+__getitem__+
-        \begin{verbatim}
-    a = [6,7,8]
-    list.__getitem__(a,1) # a[1]
-        \end{verbatim}
-\end{itemize}
-
-\vspace{2cm}
-\idea{Veamos...}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}

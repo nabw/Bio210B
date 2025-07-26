@@ -3,7 +3,7 @@
 \usepackage{booktabs}
 \usepackage{minted}
 
-\title[short title]{Clase 6: Strings}
+\title[short title]{Clase 8: Iteradores}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -19,8 +19,8 @@
     \end{flushright}
 }
 
-\date{21/08/2024}
-\setbeamercovered{transparent}
+%\date{26/07/2024, Vancouver, WCCM}
+%\setbeamercovered{transparent}
 
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -28,70 +28,88 @@
     \maketitle
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[t,fragile]\frametitle{Definición}
-    \begin{itemize} 
-        \item<1-> Un 'string' es un tipo de dato que contiene texto. 
-            \begin{minted}{python}
-        > s = "hola :)"
-        > print(s) # Imprime 'hola :)'
-            \end{minted}
-        \item<2-> Está compuesto por caracteres, se pueden acceder por componentes: 
-            \begin{minted}{python}
-        > s = "hola :)"
-        > print(s[0], s[1], s[2]) # Imprime 'hol'
-            \end{minted}
-        \item<3-> Tienen MUCHAS funcionalidades
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Functiones del objeto}
-    Los strings, como muchos otros objetos, tienen funciones. Si tenemos \texttt{s = "hola string"}:
-    \begin{itemize}
-        \item \texttt{s.upper()}: Nuevo string 'HOLA STRING'
-        \item \texttt{s.replace('str', 'k')}: Nuevo string 'hola king'
-        \item \texttt{s.find('a')}: Entrega índice '3'.
-        \item Hay MUCHAS (ver \texttt{dir(s)})
-    \end{itemize}
+\begin{frame}[fragile]\frametitle{Motivación}
+    Todo bien con el ciclo for, pero...
 
-En todas ellas, se general un \texttt{str} nuevo, el original queda intacto. Cuándo podría ser un problema esto? 
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{La librería \texttt{string}}
-    Usaremos nuestra primera librería!
     \begin{itemize}
-        \item Las librerías agregan funcionalidades específicas
-        \item Sintaxis para importar librerías: 
-            \begin{flushright} \texttt{> import string} \end{flushright}
-        \item Esto genera una variable del nombre de la librería con funciones
+        \item A veces no sabemos cuántas veces iterar
+        \item A veces iteramos hasta cumplir algún criterio. Ej: estudiar
     \end{itemize}
-
-\vspace{1cm}
-\pause\idea{Veamos cómo se puede usar}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{El método \texttt{format}}
-    $$  \texttt{algo}\underbrace{.}_\text{llamar función}method() $$
-Sirve para imprimir variables:
+\begin{frame}[fragile]\frametitle{Sintaxis de loop de iteración}
     \begin{minted}{python}
-        > a = 20.17
-        > "a es {}".format(a) # imprime 20.17
-        > f"a es {a}" # imprime 20.17
-        > f"a es {a:2.1f}" # imprime 20.1
-        > f"a es {a:2.2e}" # imprime 2.02e+01
+        while condition: # condition es un bool
+            # code, change 'condition'
     \end{minted}
-\idea{Método y método de tipo son diferentes}
+    
+    \vspace{1cm}
+    \begin{itemize}
+        \item Lavarse las manos
+        \item Estudiar
+        \item Afilar cuchillo
+    \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Recap}
+\begin{frame}[fragile]\frametitle{Ejercicio: ahorros con \texttt{break/continue}}
+\begin{small}
+    \begin{minted}{python}
+        plata = 0
+        dias = 0 # contador
+        while True: 
+            if dia == "sabado" or dia == "domingo": 
+                dia = avanzarDia(dia)
+                dias += 1
+                continue # Volver al inicio del while
+            plata += trabajar()
+            if plata >= objetivo:
+                break # Salir del while
+            dia = avanzarDia(dia)
+            dias += 1
+        print("Meta alcanzada en {} días".format(dias))
+    \end{minted}
+    
+\alertGreen{Sirven en \texttt{for} también!} Extra: replicar con if/elif
+\end{small}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Trucos de python}
+    \begin{minted}{python}
+        apellidos = ["Nguyen", "Janssen", "Smith"]
+        ids = [100,101,102]
+    \end{minted}
     \begin{itemize}
-        \item Hoy vimos los strings
-        \item Los strings son tipos de datos con funciones
-        \item Aprendimos cómo importar la librería 'string'
-        \item Aprendimos algunas funcionalidaddes de 'string'
+        \item Juntar listas:
+        \begin{minted}{python}
+        for apellido,id in zip(apellidos,ids):
+            # [...]
+    \end{minted}
+        \item Agregar contador:
+    \begin{minted}{python}
+        for i,apellido in enumerate(apellidos):
+            # [...]
+    \end{minted}
     \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Practiquemos un poco}
+\idea{Consola...}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
     \maketitle
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Mini ejercicios}
+    \begin{enumerate}
+        \item Dividir un número dado por 2 hasta que sea menor que $10^{-4}$ y reportar número de divisiones
+        \item Crear una lista con números hasta 1000 y luego quitar todos los impares   
+    \end{enumerate}
+    \begin{minted}{python}
+        a = 100
+        a % 2 # Resto de dividir por 2
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \end{document}

@@ -3,7 +3,7 @@
 \usepackage{booktabs}
 \usepackage{minted}
 
-\title[short title]{Clase 20: Introducción a R II}
+\title[short title]{Clase 22: Bash como orquestador II}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -30,71 +30,60 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Motivación}
     \begin{itemize}
-        \item R fue \emph{hecho por} estadísticos
-        \item Tiene funcionalidades incluídas
-        \item Tiene bases de datos por defecto
+        \item Desde \code{bash} podemos ejecutar cualquier programa
+        \item En particular \emph{programas de python}
+        \item Bash maneja entradas y salidas de texto
+        \item \code{echo} es nuestro \code{print} de \code{bash}
     \end{itemize}
-    
-    \code{mtcars,iris,datasets::[...], ?iris, ?mtcars}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Exploring data}
-    \begin{minted}{R}
-Data.Cars <- mtcars 
-dim(Data.Cars)
-names(Data.Cars) 
-rownames(Data.Cars)
-Data.Cars$cyl  # Comparar con Data.Cars["cyl"]
-summary(Data.Cars)
-max(iris["Petal.Length"]) 
-which.max(iris$Petal.Length) # con [] no funciona
-mean(iris$Petal.Length)
-    \end{minted}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Indexaciones y cálculos}
-Si 'which' solo opera sobre vectores, cómo extraigo por nombre? \pause
-
-    \begin{minted}{R}  
-    datos = iris$"Petal.Length"
-    filas = rownames(iris)
-    indx_max = which.max(datos)
-    filas[indx_max]
-    \end{minted}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Estadística}
+\begin{frame}[fragile]{Pipes y redirecciones}
     \begin{small}
-\begin{minted}{R}
-  model = lm(Petal.Length ~ Sepal.Length, data = iris)
-  summary(model)
-  b = model$coefficients[1]
-  m = model$coefficients[2]
-  minx = min(iris$Sepal.Length)
-  maxx = max(iris$Sepal.Length)
-  plot(c(minx, maxx), c(b+minx*m, b+maxx*m), 
-      type="l", col="red") # (l)ine
-  lines(iris$Sepal.Length, iris$Petal.Length, 
-        type="p", col="blue") # (p)oint
-\end{minted}
+    \begin{minted}{bash}
+  $ echo "hola"  # Imprime 'hola'
+  $ # Toma el texto generado por 'echo' y lo pone en 'out.txt'
+  $ echo "hola" > out.txt 
+  $ # Toma el texto y lo pone al final de 'out.txt'
+  $ echo "hola" >> out.txt 
+  $ cat 'out.txt' | grep "ho"
+    \end{minted} 
     \end{small}
-    \idea{Consola...}
+La última línea: toma la salida de \code{cat out.txt} y se lo entrega como input a la función \code{grep}.
+
+\idea{Consola}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Orquestación: Ejercicio}
+    Creemos: 
+    \begin{enumerate}
+        \item Un programa en Python que calcula el promedio de números dados
+        \item Llamemos este programa desde un script en Bash
+        \item Hagamos que el script en Bash abra un archivo de números y los de a Python
+        \item Mostrar resultado final
+    \end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Recap}
+    \begin{itemize}
+        \item En Python/R es fácil crear funciones específicas
+        \item Estas funciones se pueden orquestar desde Bash
+        \item Bash tiene muchas funcionalidades para manipular texto
+        \item ... esto es solo la punta del iceberg
+    \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
     \maketitle
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[noframenumbering, fragile]\frametitle{Mini ejercicios}
-    \begin{itemize}
-        \item Explorar bases de datos de R
-        \item En una base de datos elegida, elegir variables para hacer modelos lineales
-        \item Qué puede inferir de \code{summary(modelo)}?
-        \item Se pueden agregar funciones no lineales de parámetros:
-            \begin{minted}{R}
-    lm(y ~ x + I(x^3) + log(x), data=datos)
-            \end{minted}
-    \end{itemize}
+\begin{frame}[noframenumbering]\frametitle{Mini ejercicios}
+    Creemos: 
+    \begin{enumerate}
+        \item Un programa en Python que calcula el promedio de números dados
+        \item Llamemos este programa desde un script en Bash
+        \item Hagamos que el script en Bash abra un archivo de números y los de a Python
+        \item Mostrar resultado final
+    \end{enumerate}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}

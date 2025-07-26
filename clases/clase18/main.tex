@@ -3,7 +3,7 @@
 \usepackage{booktabs}
 \usepackage{minted}
 
-\title[short title]{Clase 18: git y desarrollo colaborativo}
+\title[short title]{Clase 20: Introducción a R II}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -29,166 +29,72 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Motivación}
-    {\huge
-    \begin{center}
-        \alertBlue{Cómo compartir código?}
-    \end{center}
-    }
-    \begin{flushright}
-    \includegraphics[height=2cm]{../images/logos/git.png}
-    \end{flushright}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[t,fragile]\frametitle{Cómo funciona git}
-  \begin{columns}
-    \begin{column}[t]{0.45\textwidth}
-        Original
-        \begin{minted}{python}
-def suma(x,y):
-    return x+y
-        \end{minted}
-    \end{column}
-    \begin{column}[t]{0.45\textwidth}
-        Modificado
-        \begin{minted}{python}
-def suma(x,y):
-    """
-    Función que suma
-    """
-    return x+y
-        \end{minted}
-    \end{column}
-  \end{columns}
-
-  \vspace{1cm}
-  \begin{itemize}
-  \item Diferencia: 3 líneas agregadas en la línea 2. 
-
-  \item Se guardan solo los \alert{incrementos} de archivos
-  \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Función general (offline)}
-    Flujo de trabajo:
     \begin{itemize}
-        \item Cambios propuestos de archivos \phantom{ }
-            
-            \begin{minipage}{0.35\textwidth}
-            \begin{block}{}
-                Stage \hfill(\code{git add})
-            \end{block}
-            \end{minipage}
-        \item Deshacer cambios propuestos \phantom{ }
-            
-            \begin{minipage}{0.35\textwidth}
-            \begin{block}{}
-                Stage \hfill(\code{git reset})
-            \end{block}
-            \end{minipage}
-
-        \item Cambios incorporados \phantom{ }
-
-            \begin{minipage}{0.35\textwidth}
-            \begin{block}{}
-                Commit \hfill(\code{git commit})
-            \end{block}
-            \end{minipage}
+        \item R fue \emph{hecho por} estadísticos
+        \item Tiene funcionalidades incluídas
+        \item Tiene bases de datos por defecto
     \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[t,fragile]\frametitle{Ejemplo}
-  \begin{columns}
-    \begin{column}[t]{0.45\textwidth}
-        Original
-        \begin{minted}{python}
-def suma(x,y):
-    return x+y
-        \end{minted}
-    \end{column}
-    \begin{column}[t]{0.45\textwidth}
-        Modificado
-        \begin{minted}{python}
-def suma(x,y):
-    """
-    Función que suma
-    """
-    return x+y
-        \end{minted}
-    \end{column}
-  \end{columns}
     
-\begin{enumerate}
-    \item Tengo archivo original $\to$ lo modifico
-    \item Agrego cambios como nueva modificación propuesta \hfill (\alertGreen{stage})
-    \item Incorporo modificación \hfill (\alertGreen{commit})
-\end{enumerate}
-\idea{Consola}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Función general (online)}
-    Flujo de trabajo:
-    \begin{itemize}
-        \item Crear carpeta con \emph{copia local} de repositorio online
-            \begin{minipage}{0.35\textwidth}
-            \begin{block}{}
-                Clone \hfill(\code{git clone})
-            \end{block}
-            \end{minipage}
-
-        \item Descargar contenidos de repositorio online \phantom{ }
-            
-            \begin{minipage}{0.35\textwidth}
-            \begin{block}{}
-                Pull \hfill(\code{git pull})
-            \end{block}
-            \end{minipage}
-        \item Enviar cambios creados \phantom{ }
-
-            \begin{minipage}{0.35\textwidth}
-            \begin{block}{}
-                Commit \hfill(\code{git push})
-            \end{block}
-            \end{minipage}
-    \end{itemize}
+    \code{mtcars,iris,datasets::[...], ?iris, ?mtcars}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Otras funcionalidades}
-    \begin{itemize}
-        \item Manejo de conflictos 
-        \item Crear ramas para desarrollo paralelo (\code{git branch})
-        \item Deshacer cambios (\code{git reset})
-        \item Ir a versiones anteriores del código (\code{git checkout})
-        \item Manejo de protocolos de seguridad (SSH)
-        \item ... y \alert{muchas} más
-    \end{itemize}
+\begin{frame}[fragile]\frametitle{Exploring data}
+    \begin{minted}{R}
+Data.Cars <- mtcars 
+dim(Data.Cars)
+names(Data.Cars) 
+rownames(Data.Cars)
+Data.Cars$cyl  # Comparar con Data.Cars["cyl"]
+summary(Data.Cars)
+max(iris["Petal.Length"]) 
+which.max(iris$Petal.Length) # con [] no funciona
+mean(iris$Petal.Length)
+    \end{minted}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Recap}
-    \begin{itemize}
-        \item \code{git} es LA herramienta de desarrollo colaborativo
-        \item Se basa en un grafo de estados
-        \item Modificaciones locales: \code{add}, \code{commit}, \code{reset}
-        \item Modificaciones online: \code{clone}, \code{pull}, \code{push}
-    \end{itemize}
+\begin{frame}[fragile]\frametitle{Indexaciones y cálculos}
+Si 'which' solo opera sobre vectores, cómo extraigo por nombre? \pause
+
+    \begin{minted}{R}  
+    datos = iris$"Petal.Length"
+    filas = rownames(iris)
+    indx_max = which.max(datos)
+    filas[indx_max]
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Estadística}
+    \begin{small}
+\begin{minted}{R}
+  model = lm(Petal.Length ~ Sepal.Length, data = iris)
+  summary(model)
+  b = model$coefficients[1]
+  m = model$coefficients[2]
+  minx = min(iris$Sepal.Length)
+  maxx = max(iris$Sepal.Length)
+  plot(c(minx, maxx), c(b+minx*m, b+maxx*m), 
+      type="l", col="red") # (l)ine
+  lines(iris$Sepal.Length, iris$Petal.Length, 
+        type="p", col="blue") # (p)oint
+\end{minted}
+    \end{small}
+    \idea{Consola...}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
     \maketitle
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[noframenumbering]\frametitle{Mini ejercicios}
-    \begin{enumerate}
-        \item Instalar git
-        \item Crear cuenta en \code{github.com}
-        \item Crear repositorio en su cuenta
-        \item Clonar el repositorio localmente
-        \item Agregar un cambio
-        \item Hacer \emph{push} del cambio y verificar el cambio
-    \end{enumerate}
-    
-    \begin{center}
-        Turorial online: \code{https://www.w3schools.com/git/}
-    \end{center}
+\begin{frame}[noframenumbering, fragile]\frametitle{Mini ejercicios}
+    \begin{itemize}
+        \item Explorar bases de datos de R
+        \item En una base de datos elegida, elegir variables para hacer modelos lineales
+        \item Qué puede inferir de \code{summary(modelo)}?
+        \item Se pueden agregar funciones no lineales de parámetros:
+            \begin{minted}{R}
+    lm(y ~ x + I(x^3) + log(x), data=datos)
+            \end{minted}
+    \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
