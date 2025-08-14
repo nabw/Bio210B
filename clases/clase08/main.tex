@@ -43,10 +43,10 @@
     def suma(x,y):
         """
         Esta función entrega la suma de sus argumentos. 
-            
         args: 
             x: Un elemento sumable
             y: Un segundo elemento sumable
+        Return: suma de entradas (Int)
         """
         z = x+y
         return z
@@ -106,7 +106,9 @@
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\darkSlide{Veamos su documentación: \\https://www.mkdocs.org/getting-started/}
+\begin{frame}{Mkdocs}
+    Veamos su documentación: \\https://www.mkdocs.org/getting-started/
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Otra opción}
     \begin{minted}{bash}
@@ -172,13 +174,6 @@ def suma(x,y):
                 Stage \hfill(\code{git add})
             \end{block}
             \end{minipage}
-        \item Deshacer cambios propuestos \phantom{ }
-            
-            \begin{minipage}{0.35\textwidth}
-            \begin{block}{}
-                Stage \hfill(\code{git reset})
-            \end{block}
-            \end{minipage}
 
         \item Cambios incorporados \phantom{ }
 
@@ -187,6 +182,15 @@ def suma(x,y):
                 Commit \hfill(\code{git commit})
             \end{block}
             \end{minipage}
+
+        \item Deshacer cambios propuestos \phantom{ }
+            
+            \begin{minipage}{0.35\textwidth}
+            \begin{block}{}
+                Stage \hfill(\code{git reset})
+            \end{block}
+            \end{minipage}
+
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -278,9 +282,14 @@ def suma(x,y):
     \begin{enumerate}
         \item Instalar git
         \item Crear cuenta en \code{github.com}
+        \item Subir llave SSH
         \item Crear repositorio en su cuenta
         \item Clonar el repositorio localmente
-        \item Agregar un cambio
+        \item Crear una carpeta de nombre 'proyecto'
+        \item Dentro esa carpeta crear un archivo con dos funciones
+        \item Instalar pdoc3 y correr \code{pdoc3 --html .} desde la carpeta
+        \item Ver documentación en archivo html recién creado
+
         \item Hacer \emph{push} del cambio y verificar el cambio
     \end{enumerate}
     
@@ -293,13 +302,5 @@ def suma(x,y):
     \maketitle
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[noframenumbering]\frametitle{Mini ejercicios}
-    \begin{itemize}
-        \item Crear una carpeta de nombre 'proyecto'
-        \item Dentro esa carpeta crear un archivo con dos funciones
-        \item Instalar pdoc3 y correr \code{pdoc3 --html .} desde la carpeta
-        \item Ver documentación en archivo html recién creado
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \end{document}

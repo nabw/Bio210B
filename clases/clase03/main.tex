@@ -70,7 +70,7 @@ Nos gustaría tener una manera de manejar cantidades \emph{arbitrarias} de datos
         \item<+-> 'a' tiene componentes (\texttt{a[0],a[1],...})
         \item<+-> Listas no tienen tipos específicos: 
             $$ \texttt{a = [1,'hola',-7.2]} $$
-        \item<+-> \texttt{range(10)} para iterar sobre números
+        \item<+-> \texttt{range(10)} para iterar sobre números $0,\dots,9$
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -137,11 +137,10 @@ Nos gustaría tener una manera de manejar cantidades \emph{arbitrarias} de datos
     \begin{itemize}
         \item Lavarse las manos
         \item Estudiar
-        \item Afilar cuchillo
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Ejercicio: ahorros con \texttt{break/continue}}
+\begin{frame}[fragile]\frametitle{Ej: Ahorro con \texttt{break/continue}}
 \begin{small}
     \begin{minted}{python}
         plata = 0
@@ -158,8 +157,6 @@ Nos gustaría tener una manera de manejar cantidades \emph{arbitrarias} de datos
             dias += 1
         print("Meta alcanzada en {} días".format(dias))
     \end{minted}
-    
-\alertGreen{Sirven en \texttt{for} también!} Extra: replicar con if/elif
 \end{small}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -186,6 +183,10 @@ Nos gustaría tener una manera de manejar cantidades \emph{arbitrarias} de datos
 \idea{Consola...}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \maketitle
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Mini ejercicios}
     \begin{enumerate}
         \item Dividir un número dado por 2 hasta que sea menor que $10^{-4}$ y reportar número de divisiones
@@ -196,9 +197,5 @@ Nos gustaría tener una manera de manejar cantidades \emph{arbitrarias} de datos
         a % 2 # Resto de dividir por 2
     \end{minted}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}
-    \maketitle
-\end{frame}
 \end{document}

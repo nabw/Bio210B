@@ -3,7 +3,7 @@
 \usepackage{booktabs}
 \usepackage{minted}
 
-\title[short title]{Clase 4: I/O (Input/Output), interactividad}
+\title[short title]{Clase 4: I/O, interactividad}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -27,6 +27,10 @@
 \begin{frame}
     \maketitle
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{I/O (Input/Output)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Motivación}
     \begin{itemize}
@@ -71,7 +75,7 @@ Törkylempijä vongahdus
     \begin{minted}{python}
     with  open("ejemplo.txt", "w") as f
         f.write("texto nuevo\n") 
-    # with
+    # fin de 'with'
     [...]
     \end{minted}
 \end{frame}
@@ -107,8 +111,7 @@ Törkylempijä vongahdus
     \begin{minted}{python}
     a = 2
     textfile = "../carpeta/archivo.txt"
-    
-    # Usar 'a' y 'textfile'
+    procesar(a, textfile)
     \end{minted}
     \begin{itemize}
         \item Poco portable
@@ -139,7 +142,7 @@ Törkylempijä vongahdus
     name = argv[0]
     arg1 = argv[1]
     arg2 = argv[2]
-    print("argv:",name, arg1, arg2)
+    print("argv:", name, arg1, arg2)
     \end{minted}
 
     Luego en bash:
@@ -183,9 +186,5 @@ Törkylempijä vongahdus
 \idea{Para convertir un string a float, use \code{float(myString)}}
     \end{itemize}
 \end{frame}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-    \maketitle
-\end{frame}
 \end{document}

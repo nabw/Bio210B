@@ -3,7 +3,7 @@
 \usepackage{booktabs}
 \usepackage{minted}
 
-\title[short title]{Clase 2: Condicionales y Funciones}
+\title[short title]{Clase 2: Condicionales, Funciones y Strings}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -34,13 +34,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \darkSlide{Ejemplo de salir de sala}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Usando bools: if/then/else}
+\begin{frame}[fragile]\frametitle{Sintaxis bools: if/elif/else}
 
     \begin{minted}{python}
         d = 1 # Diámetro de figura
         if figuraEsCuadrado: # resultado debe ser bool
             area = d**2 # INDENTACIÓN
-        elif figuraEsCirculo:
+        elif figuraEsCirculo: # elif significa else if
             area = pi * (d/2)**2
         else # llego acá si no pasa otra
             print("Error")
@@ -91,13 +91,12 @@ Supongamos queremos calcular IMC
     def functionName(arg1, arg2, ...):
         # [...]
         return expression # Retorno tiene tipo 
-        # Puede no estar (return None)
+        # Se puede omitir (return None)
 \end{minted}
 \rule{\textwidth}{1pt}
 Por ejemplo, en el caso del IMC
 \begin{minted}{python}
     def calcularIMC(peso, altura):
-        # [...]
         return peso / altura**2
 \end{minted}
 \rule{\textwidth}{1pt}
@@ -139,7 +138,7 @@ Esta función muestra el valor de una variable.
     \end{minted}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Sintaxis que no encontrarán detallada}
+\begin{frame}[fragile]\frametitle{Sintaxis mal documentada}
     \begin{minted}{python}
     def printName(nombre="Nicolás", apellido="Barnafi"):
         print("Me llamo ", nombre, " ", apellido)
@@ -197,7 +196,9 @@ print(f(3))
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Functiones del objeto}
-    Los strings, como muchos otros objetos, tienen funciones. Si tenemos \texttt{s = "hola string"}:
+    Los strings, como muchos otros objetos, tienen funciones. 
+
+    Si tenemos \texttt{s = "hola string"}:
     \begin{itemize}
         \item \texttt{s.upper()}: Nuevo string 'HOLA STRING'
         \item \texttt{s.replace('str', 'k')}: Nuevo string 'hola king'
@@ -231,7 +232,7 @@ Sirve para imprimir variables:
         > f"a es {a:2.1f}" # imprime 20.1
         > f"a es {a:2.2e}" # imprime 2.02e+01
     \end{minted}
-\idea{Método y método de tipo son diferentes}
+\idea{Método de objeto $\neq$  método de tipo}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Recap}

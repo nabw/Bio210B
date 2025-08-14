@@ -26,6 +26,10 @@
     \maketitle
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Clases y objetos}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Motivación}
     \begin{minted}{python}
 >>> df = pd.DataFrame() # Constructor
@@ -36,6 +40,7 @@
         \item Crear nuestros propios tipos de datos
         \item Crear abstracciones 
     \[ \text{animal $\in$ ser vivo, cuadrado $\in$ figura }\]
+        \item \emph{Programación Orientada a Objetos} (OOP)
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -61,7 +66,7 @@ class A:
    def saludar(self): print("hola")
 
 a = A(4) # Constructor
-print(a.n, a.n2)
+print(a.n, a.n2) # 4 16
 print(type(a)) # <class '__main__.A'>
     \end{minted}
 

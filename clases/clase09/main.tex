@@ -228,7 +228,7 @@ Si 'which' solo opera sobre vectores, cómo extraigo por nombre? \pause
     \maketitle
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[noframenumbering]\frametitle{Mini ejercicios}
+\begin{frame}[noframenumbering, fragile]\frametitle{Mini ejercicios}
     \begin{enumerate}
         \item Instalar R en su computador 
         \item Probar la consola interactiva
@@ -241,11 +241,11 @@ Si 'which' solo opera sobre vectores, cómo extraigo por nombre? \pause
         \item En una base de datos elegida, elegir variables para hacer modelos lineales
         \item Qué puede inferir de \code{summary(modelo)}?
         \item Se pueden agregar funciones no lineales de parámetros:
+    \end{enumerate}
+
             \begin{minted}{R}
     lm(y ~ x + I(x^3) + log(x), data=datos)
             \end{minted}
-
-    \end{enumerate}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}

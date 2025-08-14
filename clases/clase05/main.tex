@@ -65,13 +65,11 @@
     \vspace{0.5cm}
     La variable de entorno PATH tiene las carpetas donde buscar programas\footnote{Se puede modificar para tener programas en nuevas carpetas, i.e. \code{/opt}}
 
-    \pause \idea{Consola...}
-
-    
+    \pause \idea{Consola...( echo \$\{PATH\} )}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Crear módulo}
-    \code{operaciones.py}
+    \code{operaciones.py:}
     \begin{minted}{python}
   def suma(x,y): return x+y
 
@@ -115,7 +113,8 @@
     \begin{minted}{bash}
   $ echo ${PYTHONPATH}
     \end{minted}
-  Todas las definidas se ven con programa \code{env}
+  Todas las definidas se ven con programa \code{env} de Bas
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
