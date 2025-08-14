@@ -5,6 +5,8 @@
 \usetheme{Madrid}
 \useinnertheme{circles}
 \newcommand{\code}[1]{{\color{purple}\tt#1}}
+%\renewcommand{\texttilde}{\tt{\%7e}}
+\renewcommand{\texttilde}{\kern -.15em\lower .7ex\hbox{\~{}}\kern .04em}
 
 \usefonttheme{SimplePlus}
 \usecolortheme{SimplePlus}
@@ -41,11 +43,12 @@
         \setbeamercolor{subsection in toc shaded}{fg=black}
         \begin{frame}
             \frametitle{Contents}
+            \vspace{0.5cm}
             \tableofcontents[currentsection,currentsubsection]
             
             \vspace{2cm}
             \begin{center}
-            \Huge{\bf\color{white} \secname}
+            \huge{\bf\color{white} \secname}
             \end{center}
         \end{frame}
     }

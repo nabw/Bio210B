@@ -1,9 +1,9 @@
 \documentclass[14pt,aspectratio=169,xcolor=dvipsnames]{beamer}
 \usetheme{SimplePlus}
-\usepackage{minted}
 \usepackage{booktabs}
+\usepackage{minted}
 
-\title[short title]{Clase 2: Lenguajes de programación y Python}
+\title[short title]{Clase 2: Condicionales y Funciones}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -19,7 +19,7 @@
     \end{flushright}
 }
 
-\date{07/08/2024}
+\date{}
 \setbeamercovered{transparent}
 
 \begin{document}
@@ -28,256 +28,219 @@
     \maketitle
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Compilación de código}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[t]\frametitle{La compilación}
-    \idea{Consiste en traducir nuestro lenguaje al del PC}
+\section{Control de flujo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\darkSlide{Ejemplo de salir de sala}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Usando bools: if/then/else}
 
-    \vspace{1cm}
-    \begin{itemize}
-        \item<+-> Lo que nosotros entendemos: Lenguaje
-        \item<+-> Lo que entiende el computador: 
+    \begin{minted}{python}
+        d = 1 # Diámetro de figura
+        if figuraEsCuadrado: # resultado debe ser bool
+            area = d**2 # INDENTACIÓN
+        elif figuraEsCirculo:
+            area = pi * (d/2)**2
+        else # llego acá si no pasa otra
+            print("Error")
+    \end{minted}    
+    \idea{Consola}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Funciones}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Motivación}
+Supongamos queremos calcular IMC
+
+\rule{\textwidth}{1pt}
+\scriptsize
+\begin{minted}{python}
+    # Enlistar algunos pesos y alturas
+    peso1 = 62.2
+    altura1 = 1.50
+    peso2 = 94.5
+    altura2 = 1.87
     
-        100010101010110101011010110101011011010101011101010000
-            
+    # Calcular IMC
+    imc1 = peso1 / altura1 / altura1 # p / h^2. Por qué?
+    imc2 = peso2 / altura2 / altura2
+\end{minted}
+\rule{\textwidth}{1pt}
+\pause Sería mejor... 
+\begin{minted}{python}
+    imc1 = calcularIMC(peso1, altura1)
+    imc2 = calcularIMC(peso2, altura2)
+\end{minted}
+\rule{\textwidth}{1pt}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Motivación}
+    \begin{itemize}
+        \item Las funciones \emph{reducen complejidad}
+        \item Las funciones \emph{vuelven código reutilizable}
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Ejemplo de compilación}
-\begin{small}
-    \begin{columns}[t]
-        \begin{column}[b]{0.4\textwidth}
-            Para humanos:
-            \vspace{2.0cm}
-            \begin{minted}{C}
-#include <stdio.h>
-   int main() {
-   printf("Hello, World!\n");
-   return 0;
-            }
-            \end{minted}
+\begin{frame}[fragile]\frametitle{Sintaxis}
 
-    \vfill
-        \end{column}
-        \begin{column}{0.01\textwidth}
-            \rule{0.4pt}{6cm}
-
-        \end{column}
-        \begin{column}[b]{0.45\textwidth}
-            Para PC: 
-            \begin{minted}{gas}
-    .file    "hello.c"
-    .text
-    .section .rodata
-.LC0:
-    .string  "Hello, World!"
-    .text
-    .globl   main
-    .type    main, @function
-main:
-            \end{minted}
-
-    \vfill
-        \end{column}
-    \end{columns}
-\end{small}
+\begin{minted}{python}
+    def functionName(arg1, arg2, ...):
+        # [...]
+        return expression # Retorno tiene tipo 
+        # Puede no estar (return None)
+\end{minted}
+\rule{\textwidth}{1pt}
+Por ejemplo, en el caso del IMC
+\begin{minted}{python}
+    def calcularIMC(peso, altura):
+        # [...]
+        return peso / altura**2
+\end{minted}
+\rule{\textwidth}{1pt}
+\idea{Ojo con conflictos de nombre (dentro y fuera de función)}
+%\idea{Ojo: Tipos de retorno}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{El trabajo de compilación}
-    \begin{enumerate}
-        \item Procesar el archivo con código
-        \item Generar símbolos de programas
-        \item Juntar símbolos para generar programa
-    \end{enumerate}
+\begin{frame}[fragile]\frametitle{La función \texttt{print}}
+Esta función muestra el valor de una variable. 
+\begin{itemize}
+    \item Archivo de ejemplo 'test.py':
+    \begin{minted}{python}
+    a = 2
+    b = 3*a
+    print(b)
+    \end{minted}
+    \item Lo que vemos al ejecutarlo: 
 
-    \pause \begin{center}
-        \begin{tabular}{c | c}
-           Pros    &   Contras \\ \midrule
-         \alertGreen{Eficiente} &   \alert{Inflexible}  \\
+        \begin{tabular}{l}
+            \texttt{ \$ python test.py} \\
+            \texttt{ \$ 6}
         \end{tabular}
-    \end{center}
+\end{itemize}
 
-\pause Ejemplos de programas compilados: \texttt{ls, cd, }$\hdots$
+\idea{Veamos algunos ejemplos en consola}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Alternativa}
-Lenguajes compilados son eficientes pero...
+\begin{frame}[fragile]\frametitle{Argumentos por keyword}
+    Podemos definir argumentos \emph{por defecto}
+    \begin{minted}{python}
+    def printName(nombre="Nicolás", apellido="Barnafi"):
+        print("Me llamo ", nombre, " ", apellido)
+
+    printName("nicolás", "barnafi") # en orden
+    printName("nicolás")            # 1 por defecto
+    printName()                     # 2 por defecto
+    printName(nombre="nico")        # keyword arg
+    printName(apellido="bfi")       # keyword arg
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis que no encontrarán detallada}
+    \begin{minted}{python}
+    def printName(nombre="Nicolás", apellido="Barnafi"):
+        print("Me llamo ", nombre, " ", apellido)
+
+    lista = ["nico", "barnafi"]
+    diccionario = {"nombre": "nico", 
+                   "apellido": "barnafi"}
+    printName(*lista) # por lista
+    printName(**kwargs) # por diccionario
+    \end{minted}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Ejemplo}
+\idea{Veamos cómo calcular el área de círculos}
+
+$$ A(r) = \pi r^2 $$
+\idea{Qué pasa con los argumentos equivocados?}
+
+\vspace{1cm}
+\pause Type-checking: \texttt{type(a) == int}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Scope o alcance de nombres}
+Qué pasa en este código?
+
+\begin{minted}{python}
+a = 2
+def f(a):
+    b = a**2
+    return b
+print(f(3))
+\end{minted}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Strings}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t,fragile]\frametitle{Definición}
+    \begin{itemize} 
+        \item<1-> Un 'string' es un tipo de dato que contiene texto. 
+            \begin{minted}{python}
+        > s = "hola :)"
+        > print(s) # Imprime 'hola :)'
+            \end{minted}
+        \item<2-> Está compuesto por caracteres, se pueden acceder por componentes: 
+            \begin{minted}{python}
+        > s = "hola :)"
+        > print(s[0], s[1], s[2]) # Imprime 'hol'
+            \end{minted}
+        \item<3-> Tienen MUCHAS funcionalidades
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Functiones del objeto}
+    Los strings, como muchos otros objetos, tienen funciones. Si tenemos \texttt{s = "hola string"}:
     \begin{itemize}
-        \item Más complejos
-        \item Requieren recompilar constantemente
+        \item \texttt{s.upper()}: Nuevo string 'HOLA STRING'
+        \item \texttt{s.replace('str', 'k')}: Nuevo string 'hola king'
+        \item \texttt{s.find('a')}: Entrega índice '3'.
+        \item Hay MUCHAS (ver \texttt{dir(s)})
+    \end{itemize}
+
+En todas ellas, se general un \texttt{str} nuevo, el original queda intacto. Cuándo podría ser un problema esto? 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{La librería \texttt{string}}
+    Usaremos nuestra primera librería!
+    \begin{itemize}
+        \item Las librerías agregan funcionalidades específicas
+        \item Sintaxis para importar librerías: 
+            \begin{flushright} \texttt{> import string} \end{flushright}
+        \item Esto genera una variable del nombre de la librería con funciones
     \end{itemize}
 
 \vspace{1cm}
-\pause Alternativa: \textbf{Lenguajes interpretados}
-
-\pause
-    \begin{itemize}
-        \item Muchos subprogramas pre-compilados
-        \item No se compila, se ejecuta secuencialmente (una línea a la vez)
-        \item Permiten una consola interactiva
-    \end{itemize}
+\pause\idea{Veamos cómo se puede usar}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Algunos ejemplos}
-    \begin{columns}
-        \begin{column}{0.45\textwidth}
-            Compilados
-            \begin{itemize}
-                \item C/C++/C\#
-                \item Java
-                \item Rust
-            \end{itemize}
-        \end{column}
-
-        \begin{column}{0.45\textwidth}
-            Interpretados
-            \begin{itemize}
-                \item Python
-                \item R
-                \item MATLAB
-                \item Julia
-            \end{itemize}
-        \end{column}
-    \end{columns}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Ranking de lenguajes}
-    \begin{center}
-        \includegraphics[width=0.4\textwidth]{../images/top-lenguajes.png}
-    \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Más clasificaciones}
-Los lenguajes también puede ser \emph{orientados a objetos}. Esto determina el nivel posible de abstracción.
-    \begin{columns}
-        \begin{column}{0.45\textwidth}
-            Con objetos
-            \begin{itemize}
-                \item C++/C\#
-                \item Java
-                \item Rust
-                \item Python
-            \end{itemize}
-        \end{column}
-
-        \begin{column}{0.45\textwidth}
-            Sin objetos
-            \begin{itemize}
-                \item C
-                \item R
-                \item MATLAB
-                \item Julia
-            \end{itemize}
-        \end{column}
-    \end{columns}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Python}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Datos sobre Python}
-    \begin{itemize}
-        \item Lenguaje interpretado, orientado a objetos
-        \item Creado en 1991 por Guido van Rossum
-        \item Basado en C
-        \item Librerías de IA: PyTorch, Keras, TensorFlow
-        \item MUCHAS librerías científicas
-        \item Ejecuta extensión \texttt{'.py'}
-    \end{itemize}
-
-\begin{block}{}
-    \emph{[...] as a hobby project to keep himself busy during the Christmas holidays of 1989. }
-\end{block}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Cómo usar Python}
-    \begin{enumerate}
-        \item<1-> Como programa
-            \only<1>{
-                \begin{flushright}
-                    \texttt{nico@nico-pc:\~/Codes\$ python test.py}
-                \end{flushright}
-            }
-        \item<2-> Como consola interactiva
-            \only<2>{
-                \begin{flushright}
-                    \texttt{nico@nico-pc:\~/Codes\$ python} 
-                    \includegraphics[width=0.9\textwidth]{../images/python-intepreter.png}
-                \end{flushright}
-            }
-        \item<3-> \textbf{Jupyter/Collab/IDE (ayudantía)}
-    \end{enumerate}
-
-\vspace{1cm}
-\pause\idea{Veamos un poco la consola}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[t]\frametitle{Primeros códigos}
-    \begin{itemize}
-        \item Definición de variables (case sensitive)
-            $$ > \underbrace{\texttt{a = 2}}_\text{Asignación \emph{siempre} de derecha a izquierda} $$
-        \item Toda variable tiene un tipo 
-            \begin{itemize}
-                \item \texttt{> a = 2} : \hspace{0.3cm}\>\>\>\>\> 'a' es un 'int' (entero)
-                \item \texttt{> a = 3.14}: \>\>\>\>\>'a' es un 'float' (punto flotante)
-                \item \texttt{> a = "hola"}: 'a' es un 'string' (texto)
-                \item \texttt{> a = True}: \>\>\> 'a' es un 'bool' (booleano)\footnote{esto tendrá sentido más adelante}
-            \end{itemize}
-        \item Se pueden dejar comentarios con \#
-    \end{itemize}
-
-\idea{Veamos en consola usando la función \texttt{type}}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Aritmética y propiedades algebráicas}
-Cuál es el valor resultante de las siguientes operaciones? 
-
-\vspace{1cm}
-    \begin{itemize}
-        \item \texttt{> a = 2+2}
-        \item \texttt{> a = 2+2*2}
-        \item \texttt{> a = 2/2*2}
-        \item \texttt{> a = 2**2}   \textcolor{gray}{(elevado)}
-        \item \texttt{> a = 'ho' + 'la'}
-    \end{itemize}
-
-\idea{Ojo: división entre enteros da un 'float'}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Nota sobre la división}
-La división se entiende como aplicada exclusivamente al número precedente. Eso implica lo siguiente: 
-    \begin{itemize}
-        \item \texttt{2/2} es $\frac 2 2$
-        \item \texttt{2/2*2} es $\left(\frac 2 2\right) \times 2$
-        \item \texttt{2/2/2} es $\frac{\left(\frac 2 2\right)}{2}= \frac{2}{2\times 2}$
-    \end{itemize}
-
-\pause \idea{Es más fácil imaginar $a/b$ como $a b^{-1}$}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Álgebra booleana}
-    Keywords importantes: 
-    \begin{itemize}
-        \item \texttt{and}, \texttt{or}, \texttt{not}
-        \item \texttt{==}, \texttt{<=}, \texttt{>=}, \texttt{<}, \texttt{>}
-    \end{itemize}
-
-En términos de precedencia, \alertBlue{\texttt{and}} es un producto y \alertBlue{\texttt{or}} es una suma: 
-
-$$ \texttt{a and b or c} = (\texttt{a and b}) \texttt{ or } c $$
-
-Notar que el resultado es siempre otro booleano.
+\begin{frame}[fragile]\frametitle{El método \texttt{format}}
+    $$  \texttt{algo}\underbrace{.}_\text{llamar función}method() $$
+Sirve para imprimir variables:
+    \begin{minted}{python}
+        > a = 20.17
+        > "a es {}".format(a) # imprime 20.17
+        > f"a es {a}" # imprime 20.17
+        > f"a es {a:2.1f}" # imprime 20.1
+        > f"a es {a:2.2e}" # imprime 2.02e+01
+    \end{minted}
+\idea{Método y método de tipo son diferentes}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Recap}
     \begin{itemize}
-        \item Concepto de compilación
-        \item Lenguaje interpretado vs. compilado
-        \item Python: lenguaje interpretado, orientado a objetos
-        \item Usamos la consola interactiva de Python
-        \item Tipos de variables: int, float, bool, string
-        \item Operaciones entre variables, aritmética y álgebra
-
+        \item Control de flujo (\code{if}/\code{elif}/\code{else})
+        \item Cómo definir funciones
+        \item Vimos el alcance (scope) de variables
+        \item Los strings son tipos de datos con funciones
+        \item La librería 'string'
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -2,9 +2,8 @@
 \usetheme{SimplePlus}
 \usepackage{booktabs}
 \usepackage{minted}
-\usepackage{fancyvrb}
 
-\title[short title]{Clase 7: Estructuras de datos}
+\title[short title]{Clase 5: Módulos y Python Científico}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -20,8 +19,7 @@
     \end{flushright}
 }
 
-%\date{26/07/2024, Vancouver, WCCM}
-%\setbeamercovered{transparent}
+\date{}
 
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -29,87 +27,239 @@
     \maketitle
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Módulos}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Motivación}
-En el ejemplo del IMC, se vuelve impracticable tener muchos datos:
-    \begin{minted}{python}
-        peso1 = 1.
-        altura1 = 1.0
-        peso2 = 2.0 
-        altura2 = 2.0
-        ...
-        peso1200 = 3.0
-        altura1200 = 3.0
-    \end{minted}
-
-Nos gustaría tener una manera de manejar cantidades \emph{arbitrarias} de datos y operar sobre ellas.
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Sintaxis de loop de iteración}
-    \begin{minted}{python}
-      lista = [1,2,3,4,5]
-      for e in lista:
-        print(e)
-    \end{minted}
-\pause El resultado será
-
-1\\
-2\\
-3\\
-4\\
-5
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Un poco de sintaxis}
-    $$ \texttt{a = [1,2,3,4,5,8]} $$
+    Ya conocemos módulos: \code{string}, \code{sys}
     \begin{itemize}
-        \item<+-> 'a' es una \emph{lista}
-        \item<+-> 'a' es un \emph{iterable} (se puede usar en ciclo \texttt{for})
-        \item<+-> 'a' tiene componentes (\texttt{a[0],a[1],...})
-        \item<+-> Listas no tienen tipos específicos: 
-            $$ \texttt{a = [1,'hola',-7.2]} $$
-        \item<+-> \texttt{range(10)} para iterar sobre números
+        \item \code{import string}
+        \item \code{import sys}
+    \end{itemize}
+    Así se cargan ciertas funcionalidades. 
+
+    \pause Hoy aprenderemos a crear nuevos
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Pip}
+    \textbf{P}ackage \textbf{I}nstaller for \textbf{P}ython
+    
+    \begin{itemize}
+        \item Gestor de paquetes que viene instalado junto a Python
+        \item Info online en \code{https://pypi.org/}
+        \item Fácil de usar por Bash
+            \begin{minted}{bash}
+        $ pip install pandas
+        $ python
+        > import pandas  # recién instalada!
+            \end{minted}
+    \end{itemize}
+    
+    \pause Dónde están los programas...?
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{el PATH}
+    Cuando escribo \code{ls} en Bash... de dónde sale? \\
+
+    \vspace{0.5cm}
+    La variable de entorno PATH tiene las carpetas donde buscar programas\footnote{Se puede modificar para tener programas en nuevas carpetas, i.e. \code{/opt}}
+
+    \pause \idea{Consola...}
+
+    
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Crear módulo}
+    \code{operaciones.py}
+    \begin{minted}{python}
+  def suma(x,y): return x+y
+
+  def mult(x,y): return x*y
+    \end{minted}
+
+  En Python:
+  \begin{minted}{python}
+  > import operaciones # Debe estar en el path
+  > # from operaciones import suma,prod
+  > operaciones.suma(2,3) # 5
+  > operaciones.mult(2,3) # 6
+  \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{el PATH en Python}
+    \begin{minted}{bash}
+  ~/clases/Bio210B$ python -m site
+   sys.path = [
+       '/home/nico/clases/Bio210B',
+       '/usr/lib/python3/dist-packages' # son más...
+    \end{minted}
+
+    \pause Se puede extender con PYTHONPATH
+    \begin{minted}{bash}
+  $ export PYTHONPATH=/home/nico/otraCarpeta
+  $ python -m site
+   sys.path = [
+       '/home/nico/clases/Bio210B',
+       '/home/nico/otraCarpeta',
+       '/usr/lib/python3/dist-packages'
+    \end{minted}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Nota: variables en Bash}
+    \begin{minted}{bash}
+  $ export PYTHONPATH=[...]
+    \end{minted}
+    genera una variable de ambiente. Se puede ver con
+    \begin{minted}{bash}
+  $ echo ${PYTHONPATH}
+    \end{minted}
+  Todas las definidas se ven con programa \code{env}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Python científico}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Motivación}
+    \begin{itemize}
+        \item Python es interpretado $\to$ lento
+        \item Pero Python usa librerías \emph{MUY rápidas}
+        \item Eso + sintaxis lo vuelven ideal para la ciencia
+    \end{itemize}
+    \begin{center}
+    \includegraphics[width=0.35\textwidth]{../images/baby-yoda-T.jpg} \hspace{1cm}\includegraphics[width=0.35\textwidth]{../images/baby-yoda-mesh.png}
+    \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{\texttt{math}}
+    \begin{minted}{python}
+  > import math
+  > math. # Tab
+math.acos(   math.copysign(  math.expm1(      math.lgamma(     math.pi          math.tanh(
+math.acosh(  math.cos(       math.fabs(       math.log(        math.pow(        math.tau
+math.asin(   math.cosh(      math.factorial(  math.log10(      math.prod(       math.trunc(
+math.asinh(  math.degrees(   math.floor(      math.log1p(      math.radians(    math.ulp(
+math.atan(   math.dist(      math.fmod(       math.log2(       math.remainder(  
+math.atan2(  math.e          math.frexp(      math.modf(       math.sin(        
+math.atanh(  math.erf(       math.fsum(       math.nan         math.sinh(       
+math.ceil(   math.erfc(      math.gamma(      math.nextafter(  math.sqrt(       
+math.comb(   math.exp(       math.gcd(        math.perm(       math.tan(  
+    \end{minted}
+    
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{NumPy}
+    \textbf{Num}erical \textbf{Py}thon
+    
+    \begin{itemize}
+        \item Permite hacer operaciones a grandes datos
+        \item Operaciones \emph{vectorizadas}
+        \item Submódulos útiles: 
+            \begin{itemize}
+                \item numpy.fft (Fourier transform)
+                \item numpy.linalg (Linear algebra)
+                \item numpy.polynomial (Polinomios)
+                \item numpy.random (Generador de números)
+            \end{itemize}
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Ejemplo: promedio}
-\idea{Consola para ver sus funciones... (\texttt{dir})}
+\begin{frame}[fragile]\frametitle{Numpy arrays}
+    \begin{minted}{python}
+  > import numpy as np
+  > # 50 números equiespaciados en [0,1]
+  > num = np.linspace(0,1,50)
+  > # Números en [0,1) con paso 0.1
+  > num = np.arange(0,1,0.1)
+    \end{minted}
+
+\pause \idea{Veamos tiempos de ejecución en sumar}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Otros tipos}
+\begin{frame}[fragile]\frametitle{Operaciones vectorizadas}
+    $$ \text{vector:} \qquad x\in \mathbb{R}^N \to \left.\begin{bmatrix} 1\\1.1\\\vdots \\ -0.1\end{bmatrix}\right\}\text{N números} $$
+
+    \begin{minted}{python}
+  > import numpy as np
+  > num = np.linspace(0,1,50)
+  > np.abs(num) # Val absoluto de todo
+  > np.exp(num) # exponencial
+  > np.sin(num) # seno, ... etc
+  > num.dot(num) # normas, producto interno, etc
+    \end{minted}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Matplotlib}
+    \centering
+    \only<1>{
+    \includegraphics[width=0.6\textwidth]{../images/matplotlib/faces.png}
+    }
+    \only<2>{
+    \includegraphics[width=0.5\textwidth]{../images/matplotlib/mandelbrot.png}
+    }
+    \only<3>{
+    \includegraphics[width=0.5\textwidth]{../images/matplotlib/polygon.png}
+    }
+    \only<4>{
+    \includegraphics[width=0.5\textwidth]{../images/matplotlib/time-series.png}
+    }
+    \only<5>{
+    \includegraphics[width=0.5\textwidth]{../images/matplotlib/tricontourf.png}
+    }
+    \only<6>{
+    \includegraphics[width=0.5\textwidth]{../images/matplotlib/3dstem.png}
+    }
+    \only<7>{
+    \includegraphics[width=0.5\textwidth]{../images/matplotlib/3dvoxel.png}
+    }
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Ejemplo simple}
+    \begin{minted}{python}
+  > import numpy as np
+  > import matplotlib.pyplot as plt
+  > xs = np.linspace(0, 2*np.pi, 1000) # [0,2 pi]
+  > ys = np.sin(xs)
+  > plt.plot(xs,ys) # Lista de puntos x e y
+  > plt.show()
+    \end{minted} 
+   
+    \pause Se puede agregar de todo... 
+
+    Ver documentación online: \texttt{matplotlib.org}.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Recap}
     \begin{itemize}
-        \item Tuplas o listas inmodificables: 
-            $$  \texttt{a = (1,2,7,8)} $$
-        \item Diccionarios o listas indexadas:
-            $$ \texttt{a = \{'altura': 1.80, 'peso': 90\}} $$
-            *Acceso con \texttt{a['altura']}
-        \item Conjuntos o listas no-ordenadas: 
-            $$ \texttt{a = \{1,5,9\}} $$
+        \item Dónde están los módulos por defecto
+        \item Cómo agregar un módulo
+        \item Cómo hacer módulo detectable con PYTHONPATH
+        \item \texttt{math}
+        \item \texttt{Numpy}
+        \item \texttt{Matplotlib}
     \end{itemize}
-
-\pause\idea{Exploremos las funciones de cada uno (\texttt{dir})}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Funciones mágicas}
-
-\begin{itemize}
-    \item Todas las funciones: $\texttt{dir(a)}$.
-    \item Funciones mágicas: \verb+__txt__+
-    \item Tipos sumables: %\texttt{\_\_add\_\_}
-        \begin{verbatim}
-    int.__add__(2,3)
-        \end{verbatim}
-    \item Subíndices: \verb+__getitem__+
-        \begin{verbatim}
-    a = [6,7,8]
-    list.__getitem__(a,1) # a[1]
-        \end{verbatim}
-\end{itemize}
-
-\vspace{2cm}
-\idea{Veamos...}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
     \maketitle
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Mini ejercicios}
+    \code{operaciones.py}
+    \begin{minted}{python}
+  def suma(x,y): return x+y
+
+  def mult(x,y): return x*y
+    \end{minted}
+
+    \begin{itemize}
+        \item Crear el módulo \code{operaciones} e importarlo desde un script.
+        \item Guardar el módulo en otro lado e importarlo usando \code{PYTHONPATH}
+    \end{itemize}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}

@@ -3,7 +3,7 @@
 \usepackage{booktabs}
 \usepackage{minted}
 
-\title[short title]{Clase 6: Strings}
+\title[short title]{Clase 4: I/O (Input/Output), interactividad}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -19,8 +19,8 @@
     \end{flushright}
 }
 
-\date{21/08/2024}
-\setbeamercovered{transparent}
+\date{}
+%\setbeamercovered{transparent}
 
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -28,68 +28,162 @@
     \maketitle
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[t,fragile]\frametitle{Definición}
-    \begin{itemize} 
-        \item<1-> Un 'string' es un tipo de dato que contiene texto. 
-            \begin{minted}{python}
-        > s = "hola :)"
-        > print(s) # Imprime 'hola :)'
-            \end{minted}
-        \item<2-> Está compuesto por caracteres, se pueden acceder por componentes: 
-            \begin{minted}{python}
-        > s = "hola :)"
-        > print(s[0], s[1], s[2]) # Imprime 'hol'
-            \end{minted}
-        \item<3-> Tienen MUCHAS funcionalidades
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Functiones del objeto}
-    Los strings, como muchos otros objetos, tienen funciones. Si tenemos \texttt{s = "hola string"}:
+\begin{frame}\frametitle{Motivación}
     \begin{itemize}
-        \item \texttt{s.upper()}: Nuevo string 'HOLA STRING'
-        \item \texttt{s.replace('str', 'k')}: Nuevo string 'hola king'
-        \item \texttt{s.find('a')}: Entrega índice '3'.
-        \item Hay MUCHAS (ver \texttt{dir(s)})
+        \item El genoma human pesa $\approx$ 1Gb (película en def standard)
+        \item El genoma del krill pesa $\approx$ 12Gb
+        \item CPU procesa hasta 64 Kb a la vez
     \end{itemize}
+    \hspace{2cm}\includegraphics[height=4cm]{../images/vitruvio.jpg}
+    \includegraphics[height=4cm]{../images/krill.jpg}
 
-En todas ellas, se general un \texttt{str} nuevo, el original queda intacto. Cuándo podría ser un problema esto? 
+\pause Necesitamos procesar datos sin cargar todo en memoria (\emph{streams})
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{La librería \texttt{string}}
-    Usaremos nuestra primera librería!
-    \begin{itemize}
-        \item Las librerías agregan funcionalidades específicas
-        \item Sintaxis para importar librerías: 
-            \begin{flushright} \texttt{> import string} \end{flushright}
-        \item Esto genera una variable del nombre de la librería con funciones
-    \end{itemize}
+\begin{frame}[fragile]\frametitle{Lectura de archivos}
+Archivo \texttt{pangramas.txt}:
+    \begin{verbatim}
+The quick brown fox jumps over the lazy dog
+Extraño pan de col y kiwi se quemó bajo fugaz vaho
+Ma la volpe col suo balzo ha raggiunto il quieto Fido
+Törkylempijä vongahdus
+    \end{verbatim}
 
-\vspace{1cm}
-\pause\idea{Veamos cómo se puede usar}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{El método \texttt{format}}
-    $$  \texttt{algo}\underbrace{.}_\text{llamar función}method() $$
-Sirve para imprimir variables:
     \begin{minted}{python}
-        > a = 20.17
-        > "a es {}".format(a) # imprime 20.17
-        > f"a es {a}" # imprime 20.17
-        > f"a es {a:2.1f}" # imprime 20.1
-        > f"a es {a:2.2e}" # imprime 2.02e+01
+    f = open("../archivos/pangrams.txt", "r") # (r)ead
+    f.read() # o readline(), o readlines()
+    f.close()
     \end{minted}
-\idea{Método y método de tipo son diferentes}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Escritura}
+    \begin{minted}{python}
+    f = open("../archivos/pangrams.txt", "w") # (w)rite
+    f.write() # o writelines()
+    f.close()
+    \end{minted}
+
+*Es siempre importante \emph{cerrar} el archivo
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Uso común}
+    Se usa contexto con {\color{purple}\texttt{with}} para cierre automático
+    \begin{minted}{python}
+    with  open("ejemplo.txt", "w") as f
+        f.write("texto nuevo\n") 
+    # with
+    [...]
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Modos de lectura}
+    \begin{itemize}
+        \item 'r': Lee archivo, error si no existe
+        \item 'w': Escribe en un archivo. Sobreescribe si existe
+        \item 'x': Crea archivo, error si ya existe
+        \item 'a': Agrega a archivo al final. Lo crea si no existe.
+
+    \end{itemize}
+    
+    \vspace{1cm}
+    \begin{minted}{python}
+    modo = "w" # r|w|x|a
+    with open("ejemplo.txt", modo) as f
+        [...]
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+\idea{Consola...}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Scripts interactivos}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Motivación}
+    \begin{minted}{python}
+    a = 2
+    textfile = "../carpeta/archivo.txt"
+    
+    # Usar 'a' y 'textfile'
+    \end{minted}
+    \begin{itemize}
+        \item Poco portable
+        \item Poco modular
+        \item Ej: correr código para 1000 valores de 'a' en 15 archivos
+    \end{itemize}
+
+\pause \idea{Buscamos solución fuera del código}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Input}
+    Solución \#1: Frenar ejecución hasta que usuario entregue valor
+    
+    \begin{minted}{python}
+    a = input("Ingrese valor de 'a': ")
+    print(a, type(a))
+    \end{minted}
+
+    \vspace{1cm}
+    El valor ingresado es un \code{str}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Argv}
+    Solución \#2: Usar parámetros de programa
+    \begin{minted}{python}
+    # programa.py
+    from sys import argv
+    name = argv[0]
+    arg1 = argv[1]
+    arg2 = argv[2]
+    print("argv:",name, arg1, arg2)
+    \end{minted}
+
+    Luego en bash:
+    \begin{minted}{bash}
+    $ python programa.py 'hola' 42
+    argv: programa.py hola 42
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+\idea{Consola...}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Recap}
     \begin{itemize}
-        \item Hoy vimos los strings
-        \item Los strings son tipos de datos con funciones
-        \item Aprendimos cómo importar la librería 'string'
-        \item Aprendimos algunas funcionalidaddes de 'string'
+        \item Lectura a través de \emph{stream}
+        \item Lectura de archivos con \code{open}
+        \item Contexto con \code{with}
+        \item Modos de lectura: \code{r},\code{w},\code{a}
+        \item Vimos cómo hacer scripts interactivos
+        \item \code{input} para esperar info del usuario
+        \item \code{argv} para que el input sea parte del programa
     \end{itemize}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \maketitle
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Mini ejercicios}
+    \begin{itemize}
+        \item Cree un script que lea un archivo que tenga un número por fila y los sume
+        \item Cree un programa que sume todos los números dados al programa: 
+        \begin{minted}{bash}
+    $ python programa.py 2 3 4 5  
+    Los números suman 14
+        \end{minted}
+
+\idea{Para convertir un string a float, use \code{float(myString)}}
+    \end{itemize}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
     \maketitle

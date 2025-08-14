@@ -1,5 +1,6 @@
 \PassOptionsToPackage{x11names}{xcolor}
 \documentclass[14pt,aspectratio=169,xcolor=dvipsnames]{beamer}
+\usepackage{minted}
 \usetheme{SimplePlus}
 
 %%%% used for timeline
@@ -11,7 +12,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title[short title]{Clase 1: Introducción a la programación}
+\title[short title]{Clase 1: Programación, Lenguajes y Python}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -27,7 +28,7 @@
     \end{flushright}
 }
 
-\date{07/08/2024}
+\date{}
 
 
 \begin{document}
@@ -60,6 +61,8 @@
 \texttt{https://swcarpentry.github.io/python-novice-inflammation/}
 
 \texttt{https://rosalind.info}
+
++ internet y LLMs
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[t]\frametitle{Ejemplo: Artritis}
@@ -78,7 +81,7 @@ Imaginen que tenemos una cura milagrosa para la artritis que actúa en 3 semanas
                 \includegraphics[width=0.3\textwidth]{../images/datos-artritis2.png}
             \end{flushright}
         }
-    \item<4-> Concluir!
+    \item<4-> Estadística $\to$ Concluir!
 \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -86,7 +89,7 @@ Imaginen que tenemos una cura milagrosa para la artritis que actúa en 3 semanas
 Cómo salgo de esta sala? (avanzar un paso, girar)
 
 \vspace{2cm}
-\pause Y si solo se girar a la derecha?
+\pause Y si solo sé girar a la derecha?
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -186,7 +189,7 @@ El OS coordina funcionamiento del computador. \pause
     \begin{itemize}
         \item La consola (Unix) es una forma de interacción con el PC
         \item Funciona a través de programas
-        \item Las interfaces gráficas usan consola
+        \item Las interfaces gráficas usan consola!
     \end{itemize}
     \begin{flushright}
         \includegraphics[width=0.4\textwidth]{../images/os-unix.png}
@@ -202,8 +205,8 @@ La consola Bash en Linux permite interactuar con el PC\footnote{Se puede instala
 \begin{itemize}
     \item \texttt{nico}: Usuario
     \item \texttt{nico-mini}: hostname, nombre de red del PC
-    \item \texttt{\~/Downloads}: Carpeta actual
-    \item \texttt{\~}: Carpeta 'home'
+    \item \texttt{\texttilde/Downloads}: Carpeta actual
+    \item \texttt{\texttilde}: Carpeta 'home'
 \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -220,7 +223,7 @@ En Linux, los archivos funcionan como uno espera:
                 \item Carpeta 3
                 \item Archivo 3
             \end{itemize}
-        \item $\vdots$
+        \item $\dots$
     \end{itemize}
 
 \end{frame}
@@ -256,17 +259,237 @@ La más útil: \texttt{--help/-h}.
 \idea{Veamos...}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Compilación de código}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t]\frametitle{La compilación}
+    \idea{Consiste en traducir nuestro lenguaje al del PC}
+
+    \vspace{1cm}
+    \begin{itemize}
+        \item<+-> Lo que nosotros entendemos: Lenguaje
+        \item<+-> Lo que entiende el computador: 
+    
+        100010101010110101011010110101011011010101011101010000
+            
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Ejemplo de compilación}
+\begin{small}
+    \begin{columns}[t]
+        \begin{column}[b]{0.4\textwidth}
+            Para humanos:
+            \vspace{2.0cm}
+            \begin{minted}{C}
+#include <stdio.h>
+   int main() {
+   printf("Hello, World!\n");
+   return 0;
+            }
+            \end{minted}
+
+    \vfill
+        \end{column}
+        \begin{column}{0.01\textwidth}
+            \rule{0.4pt}{6cm}
+
+        \end{column}
+        \begin{column}[b]{0.45\textwidth}
+            Para PC: 
+            \begin{minted}{gas}
+    .file    "hello.c"
+    .text
+    .section .rodata
+.LC0:
+    .string  "Hello, World!"
+    .text
+    .globl   main
+    .type    main, @function
+main:
+            \end{minted}
+
+    \vfill
+        \end{column}
+    \end{columns}
+\end{small}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{El trabajo de compilación}
+    \begin{enumerate}
+        \item Procesar el archivo con código
+        \item Generar símbolos de programas
+        \item Juntar símbolos para generar programa
+    \end{enumerate}
+
+    \pause \begin{center}
+        \begin{tabular}{c | c}
+           Pros    &   Contras \\ \midrule
+         \alertGreen{Eficiente} &   \alert{Inflexible}  \\
+        \end{tabular}
+    \end{center}
+
+\pause Ejemplos de programas compilados: \texttt{ls, cd, }$\hdots$
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Alternativa}
+Lenguajes compilados son eficientes pero...
+    \begin{itemize}
+        \item Más complejos
+        \item Requieren recompilar constantemente
+    \end{itemize}
+
+\vspace{1cm}
+\pause Alternativa: \textbf{Lenguajes interpretados}
+
+\pause
+    \begin{itemize}
+        \item Muchos subprogramas pre-compilados
+        \item No se compila, se ejecuta secuencialmente (una línea a la vez)
+        \item Permiten una consola interactiva
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Algunos ejemplos}
+    \begin{columns}
+        \begin{column}{0.45\textwidth}
+            Compilados
+            \begin{itemize}
+                \item C/C++/C\#
+                \item Java
+                \item Rust
+                \item Julia
+            \end{itemize}
+        \end{column}
+
+        \begin{column}{0.45\textwidth}
+            Interpretados
+            \begin{itemize}
+                \item Python
+                \item R
+                \item MATLAB
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Ranking de lenguajes (2024)}
+    \begin{center}
+        \includegraphics[width=0.4\textwidth]{../images/top-lenguajes.png}
+    \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Python}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Datos sobre Python}
+    \begin{itemize}
+        \item Lenguaje interpretado, orientado a objetos
+        \item Creado en 1991 por Guido van Rossum
+        \item Basado en C
+        \item Librerías de IA: PyTorch, Keras, TensorFlow
+        \item MUCHAS librerías científicas
+        \item Ejecuta extensión \texttt{'.py'}
+    \end{itemize}
+
+\begin{block}{}
+    \emph{[...] as a hobby project to keep himself busy during the Christmas holidays of 1989. }
+\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Cómo usar Python}
+    \begin{enumerate}
+        \item<1-> Como programa
+            \only<1>{
+                \begin{flushright}
+                    \texttt{nico@nico-pc:\texttilde/Codes\$ python test.py}
+                \end{flushright}
+            }
+        \item<2-> Como consola interactiva
+            \only<2>{
+                \begin{flushright}
+                    \texttt{nico@nico-pc:\texttilde/Codes\$ python} 
+                    \includegraphics[width=0.9\textwidth]{../images/python-intepreter.png}
+                \end{flushright}
+            }
+        \item<3-> \textbf{Jupyter/Collab/IDE (ayudantía)}
+    \end{enumerate}
+
+\vspace{1cm}
+\pause\idea{Veamos la consola}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t]\frametitle{Primeros códigos}
+    \begin{itemize}
+        \item Definición de variables (case sensitive)
+            $$ > \underbrace{\texttt{a = 2}}_\text{Asignación \emph{siempre} de derecha a izquierda} $$
+        \item Toda variable tiene un tipo 
+            \begin{itemize}
+                \item \texttt{> a = 2} : \hspace{0.3cm}\>\>\>\>\> 'a' es un 'int' (entero)
+                \item \texttt{> a = 3.14}: \>\>\>\>\>'a' es un 'float' (punto flotante)
+                \item \texttt{> a = "hola"}: 'a' es un 'string' (texto)
+                \item \texttt{> a = True}: \>\>\> 'a' es un 'bool' (booleano)\footnote{esto tendrá sentido más adelante}
+            \end{itemize}
+        \item Se pueden dejar comentarios con \#
+    \end{itemize}
+
+\idea{Veamos en consola usando la función \texttt{type}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Aritmética}
+Cuál es el valor resultante de las siguientes operaciones? 
+
+\vspace{1cm}
+    \begin{itemize}
+        \item \texttt{> a = 2+2}
+        \item \texttt{> a = 2+2*2}
+        \item \texttt{> a = 2/2*2}
+        \item \texttt{> a = 2**2}   \textcolor{gray}{(elevado)}
+        \item \texttt{> a = 'ho' + 'la'}
+    \end{itemize}
+
+\idea{Ojo: división entre enteros da un 'float'}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Nota sobre la división}
+La división se entiende como aplicada exclusivamente al número precedente. Eso implica lo siguiente: 
+    \begin{itemize}
+        \item \texttt{2/2} es $\frac 2 2$
+        \item \texttt{2/2*2} es $\left(\frac 2 2\right) \times 2$
+        \item \texttt{2/2/2} es $\frac{\left(\frac 2 2\right)}{2}= \frac{2}{2\times 2}$
+    \end{itemize}
+
+\pause \idea{Es más fácil imaginar $a/b$ como $a \times b^{-1}$}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Álgebra booleana}
+    Keywords importantes: 
+    \begin{itemize}
+        \item \texttt{and}, \texttt{or}, \texttt{not}
+        \item \texttt{==}, \texttt{<=}, \texttt{>=}, \texttt{<}, \texttt{>}
+    \end{itemize}
+
+En términos de precedencia, \alertBlue{\texttt{and}} es un producto y \alertBlue{\texttt{or}} es una suma: 
+
+$$ \texttt{a and b or c} = (\texttt{a and b}) \texttt{ or } c $$
+
+Notar que el resultado es siempre otro booleano.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Recap}
     \begin{itemize}
         \item Qué es programar, pensamiento algorítmico
         \item Sistemas operativos
-        \item Podemos interactuar con el PC a través de la consola
-        \item Linux se ordena con un sistema común de archivos
-        \item Las carpetas se pueden navegar y manipular con programas especializados
-        \item Los programas pueden aceptar opciones y/o argumentos
-        \item En caso de dudas, \texttt{--help/-h}
+        \item Podemos interactuar con el PC a través de la consola (Unix)
+        \item Concepto de compilación
+        \item Python: lenguaje interpretado, orientado a objetos
+        \item Usamos la consola interactiva de Python
+        \item Tipos de variables: int, float, bool, string
+        \item Operaciones entre variables, aritmética y álgebra
+
     \end{itemize}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
     \maketitle

@@ -3,7 +3,7 @@
 \usepackage{booktabs}
 \usepackage{minted}
 
-\title[short title]{Clase 10: Scripts interactivos}
+\title[short title]{Clase 8: Documentación y colaboración}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -18,9 +18,7 @@
       \includegraphics[height=2.5cm]{../images/logos/puc.png} 
     \end{flushright}
 }
-
-\date{04/09/2024}
-%\setbeamercovered{transparent}
+\date{}
 
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -28,63 +26,247 @@
     \maketitle
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Motivación}
-    \begin{minted}{python}
-    a = 2
-    textfile = "../carpeta/archivo.txt"
-    
-    # Usar 'a' y 'textfile'
-    \end{minted}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Documentación}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Motivación}
     \begin{itemize}
-        \item Poco portable
-        \item Poco modular
-        \item Ej: correr código para 1000 valores de 'a' en 15 archivos
+        \item El código \emph{envejece}
+        \item Uno \textbf{no} recuerda por qué hizo cosas
+        \item Los futuros usuarios de nuestro código \huge{menos}
     \end{itemize}
-
-\pause \idea{Buscamos solución fuera del código}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Input}
-    Solución \#1: Frenar ejecución hasta que usuario entregue valor
-    
+\begin{frame}[fragile]\frametitle{Docs de una función}
     \begin{minted}{python}
-    a = input("Ingrese valor de 'a': ")
-    print(a, type(a))
+    def suma(x,y):
+        """
+        Esta función entrega la suma de sus argumentos. 
+            
+        args: 
+            x: Un elemento sumable
+            y: Un segundo elemento sumable
+        """
+        z = x+y
+        return z
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Docs de una función}
+    \begin{minted}{python}
+    >>> help(suma)
     \end{minted}
 
     \vspace{1cm}
-    El valor ingresado es un \code{str}
+    Se guarda en la variable mágica \code{suma.\_\_doc\_\_}
+
+    \idea{Consola}
 \end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Argv}
-    Solución \#2: Usar parámetros de programa
+\begin{frame}[fragile]\frametitle{Docs de una clase}
+    \begin{footnotesize}
     \begin{minted}{python}
-    # programa.py
-    from sys import argv
-    name = argv[0]
-    arg1 = argv[1]
-    arg2 = argv[2]
-    print("argv:",name, arg1, arg2)
+    class Vec2D:
+        """
+        Clase que representa un vector en R2.
+        """
+        def __init__(self,x,y):
+            """
+            Constructor, toma como parámetros coordenadas x e y.
+            """
+            self.x = x
+            self.y = y
+        def norma(self):
+            """
+            Entrega la norma euclideana del vector. Requiere 'sqrt'
+            """
+            return sqrt(self.x**2 + self.y**2)
     \end{minted}
 
-    Luego en bash:
-    \begin{minted}{bash}
-    $ python programa.py 'hola' 42
-    argv: programa.py hola 42
-    \end{minted}
+    \vspace{-1cm}
+    \hfill    \idea{Consola}
+    \end{footnotesize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[fragile]\frametitle{Documentación avanzada}
+    Existe mucho software (Sphinx, Doxygen, etc). Veremos \code{Mkdocs}.
 
-\idea{Consola...}
+    \begin{minted}{bash}
+    # pip install mkdocs
+    # mkdocs new proyecto
+    # cd proyecto
+    # mkdocs serve
+    # mkdocs build
+    \end{minted} 
 
+    \vspace{1cm}
+    Se usa formato Markdown (popular por ser simple)
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\darkSlide{Veamos su documentación: \\https://www.mkdocs.org/getting-started/}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Otra opción}
+    \begin{minted}{bash}
+    # pip install pdoc3
+    # cd proyecto
+    # pdoc3 --html .
+    \end{minted}
+
+    \idea{Consola}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Desarrollo colaborativo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Motivación}
+    {\huge
+    \begin{center}
+        \alertBlue{Cómo compartir código?}
+    \end{center}
+    }
+    \begin{flushright}
+    \includegraphics[height=2cm]{../images/logos/git.png}
+    \end{flushright}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t,fragile]\frametitle{Cómo funciona git}
+  \begin{columns}
+    \begin{column}[t]{0.45\textwidth}
+        Original
+        \begin{minted}{python}
+def suma(x,y):
+    return x+y
+        \end{minted}
+    \end{column}
+    \begin{column}[t]{0.45\textwidth}
+        Modificado
+        \begin{minted}{python}
+def suma(x,y):
+    """
+    Función que suma
+    """
+    return x+y
+        \end{minted}
+    \end{column}
+  \end{columns}
+
+  \vspace{1cm}
+  \begin{itemize}
+  \item Diferencia: 3 líneas agregadas en la línea 2. 
+
+  \item Se guardan solo los \alert{incrementos} de archivos
+  \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Función general (offline)}
+    Flujo de trabajo:
+    \begin{itemize}
+        \item Cambios propuestos de archivos \phantom{ }
+            
+            \begin{minipage}{0.35\textwidth}
+            \begin{block}{}
+                Stage \hfill(\code{git add})
+            \end{block}
+            \end{minipage}
+        \item Deshacer cambios propuestos \phantom{ }
+            
+            \begin{minipage}{0.35\textwidth}
+            \begin{block}{}
+                Stage \hfill(\code{git reset})
+            \end{block}
+            \end{minipage}
+
+        \item Cambios incorporados \phantom{ }
+
+            \begin{minipage}{0.35\textwidth}
+            \begin{block}{}
+                Commit \hfill(\code{git commit})
+            \end{block}
+            \end{minipage}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t,fragile]\frametitle{Ejemplo}
+  \begin{columns}
+    \begin{column}[t]{0.45\textwidth}
+        Original
+        \begin{minted}{python}
+def suma(x,y):
+    return x+y
+        \end{minted}
+    \end{column}
+    \begin{column}[t]{0.45\textwidth}
+        Modificado
+        \begin{minted}{python}
+def suma(x,y):
+    """
+    Función que suma
+    """
+    return x+y
+        \end{minted}
+    \end{column}
+  \end{columns}
+    
+\begin{enumerate}
+    \item Tengo archivo original $\to$ lo modifico
+    \item Agrego cambios como nueva modificación propuesta \hfill (\alertGreen{stage})
+    \item Incorporo modificación \hfill (\alertGreen{commit})
+\end{enumerate}
+\idea{Consola}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Función general (online)}
+    Flujo de trabajo:
+    \begin{itemize}
+        \item Crear carpeta con \emph{copia local} de repositorio online
+            \begin{minipage}{0.35\textwidth}
+            \begin{block}{}
+                Clone \hfill(\code{git clone})
+            \end{block}
+            \end{minipage}
+
+        \item Descargar contenidos de repositorio online \phantom{ }
+            
+            \begin{minipage}{0.35\textwidth}
+            \begin{block}{}
+                Pull \hfill(\code{git pull})
+            \end{block}
+            \end{minipage}
+        \item Enviar cambios creados \phantom{ }
+
+            \begin{minipage}{0.35\textwidth}
+            \begin{block}{}
+                Commit \hfill(\code{git push})
+            \end{block}
+            \end{minipage}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Otras funcionalidades}
+    \begin{itemize}
+        \item Manejo de conflictos 
+        \item Crear ramas para desarrollo paralelo (\code{git branch})
+        \item Deshacer cambios (\code{git reset})
+        \item Ir a versiones anteriores del código (\code{git checkout})
+        \item Manejo de protocolos de seguridad (SSH)
+        \item ... y \alert{muchas} más
+    \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Recap}
     \begin{itemize}
-        \item Vimos cómo hacer scripts interactivos
-        \item \code{input} para esperar info del usuario
-        \item \code{argv} para que el input sea parte del programa
+        \item Documentación es fundamental
+        \item Existen muchas herramientas para hacerlo en modo semi-automático
+        \item \code{mkdocs} bonito pero trabajoso
+        \item \code{pdoc3} feo pero fácil
+        \item \code{git} es LA herramienta de desarrollo colaborativo
+        \item Se basa en un grafo de estados
+        \item Modificaciones locales: \code{add}, \code{commit}, \code{reset}
+        \item Modificaciones remotas: \code{clone}, \code{pull}, \code{push}
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -92,16 +274,31 @@
     \maketitle
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Mini ejercicios}
+\begin{frame}[noframenumbering]\frametitle{Mini ejercicios}
+    \begin{enumerate}
+        \item Instalar git
+        \item Crear cuenta en \code{github.com}
+        \item Crear repositorio en su cuenta
+        \item Clonar el repositorio localmente
+        \item Agregar un cambio
+        \item Hacer \emph{push} del cambio y verificar el cambio
+    \end{enumerate}
+    
+    \begin{center}
+        Turorial online: \code{https://www.w3schools.com/git/}
+    \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \maketitle
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]\frametitle{Mini ejercicios}
     \begin{itemize}
-        \item Cree un script que lea un archivo que tenga un número por fila y los sume
-        \item Cree un programa que sume todos los números dados al programa: 
-        \begin{minted}{bash}
-    $ python programa.py 2 3 4 5  
-    Los números suman 14
-        \end{minted}
-
-\idea{Para convertir un string a float, use \code{float(myString)}}
+        \item Crear una carpeta de nombre 'proyecto'
+        \item Dentro esa carpeta crear un archivo con dos funciones
+        \item Instalar pdoc3 y correr \code{pdoc3 --html .} desde la carpeta
+        \item Ver documentación en archivo html recién creado
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

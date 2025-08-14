@@ -1,13 +1,11 @@
 ####### W1
-# C1: Intro a programación
+# C1: Intro a programación, Lenguajes y python
     - Motivación con datos artritis
     - Motivación de cómo pensar (PC es tonto)
     - El computador: Distintos sistemas operativos, consola/terminal como punto de acceso
     - Concepto de compilación
     - Lenguajes comilados vs interpretados
     - Ver pros y cons
-
-# C2: Explorando tu PC
     - Estructura de carpetas
     - Tipos de archivos, estado y permisos
     - Comandos de navegación (cd,ls,pwd,mkdir,--help,etc)
@@ -17,8 +15,7 @@
     - Comentarios 
     - Python como calculadora. Precedencia y operaciones.
 
-L1,2: UNIX desde distintos sistemas: WSL, etc. Instalar y usar Python (IDE|Jupyter|Collab).
-
+L1: UNIX desde distintos sistemas: WSL, etc. Instalar y usar Python (IDLE|Jupyter|Collab).
 
 ####### W2
 # C3: Control de flujo y funciones
