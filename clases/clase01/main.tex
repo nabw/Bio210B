@@ -22,7 +22,7 @@
 }
 
 \titlegraphic{
-    \vspace{-1.8cm}
+    \vspace{-2.4cm}
     \begin{flushright}
       \includegraphics[height=2.5cm]{../images/logos/puc.png} 
     \end{flushright}
@@ -68,7 +68,13 @@
 \begin{frame}[t]\frametitle{Ejemplo: Artritis}
 Imaginen que tenemos una cura milagrosa para la artritis que actúa en 3 semanas. 
 \begin{itemize}
-    \item<1-> Seguimiento pacientes: Dosis después de primer síntoma
+    \item<1-> Seguimiento pacientes 
+
+        \only<1>{
+            \begin{flushright}
+                \textcolor{gray}{(Dosis después de primer síntoma)}
+            \end{flushright}
+        }
     \item<2-> Datos: Nro de inflamaciones por día
         \only<2>{
             \begin{flushright}
@@ -78,6 +84,7 @@ Imaginen que tenemos una cura milagrosa para la artritis que actúa en 3 semanas
     \item<3-> Visualización
         \only<3>{
             \begin{flushright}
+                \vspace{-3cm}
                 \includegraphics[width=0.3\textwidth]{../images/datos-artritis2.png}
             \end{flushright}
         }
@@ -123,65 +130,65 @@ El OS coordina funcionamiento del computador. \pause
     \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Sistemas operativos}
-    \begin{columns}
-        \begin{column}{0.45\textwidth}
-        \begin{small}
-        \begin{table}
-            \renewcommand\arraystretch{1.4}\arrayrulecolor{LightSteelBlue3}
-            %\captionsetup{singlelinecheck=false, font=blue, labelfont=sc, labelsep=quad}
-
-            %\begin{minipage}{7cm}
-                %\caption*{}
-            %\end{minipage}
-            \vskip -1.5ex
-
-            \begin{tabular}{@{\,}r <{\hskip 2pt} !{\foo} >{\raggedright\arraybackslash}p{5cm}}
-            \addlinespace[1.5ex]
-            1956   & General Motors  \\
-            1960's & UNIX  \\
-            1977   & Apple \\
-            1981   & MS-DOS \\
-            1991   & Linux (GNU/Linux) \\
-            1995   & Windows 95 \\
-            2000   & Darwin (macOS) \\
-            2007   & iOS \\
-            2008   & Android
-            \end{tabular}
-        \end{table}
-        \end{small}
-        \end{column}
-        \begin{column}{0.5\textwidth}
-            \only<1>{
-                \includegraphics[width=\textwidth]{../images/os-gm.png}
-                GM para primer IBM }
-            \only<2>{
-                \includegraphics[width=0.9\textwidth]{../images/os-unix.png}
-                Terminal UNIX}
-            \only<3>{
-                \includegraphics[width=0.8\textwidth]{../images/os-appleii.png}
-                Primer Apple ][}
-            \only<4>{
-                \includegraphics[width=\textwidth]{../images/os-msdos.png}
-                MSDOS (Microsoft)}
-            \only<5>{
-                \includegraphics[width=\textwidth]{../images/os-linux.png}
-                Linux desktop}
-            \only<6>{
-                \includegraphics[width=\textwidth]{../images/os-windows95.png}
-                Escritorio \emph{moderno} (Win95) }
-            \only<7>{
-                \includegraphics[width=\textwidth]{../images/os-darwin.png}
-                Bases de macOS}
-            \only<8>{
-                \includegraphics[width=\textwidth]{../images/os-ios.png}
-                }
-            \only<9>{
-                \includegraphics[width=0.8\textwidth]{../images/os-android.png}
-                }
-        \end{column}
-    \end{columns}
-\end{frame}
+%\begin{frame}\frametitle{Sistemas operativos}
+%    \begin{columns}
+%        \begin{column}{0.45\textwidth}
+%        \begin{small}
+%        \begin{table}
+%            \renewcommand\arraystretch{1.4}\arrayrulecolor{LightSteelBlue3}
+%            %\captionsetup{singlelinecheck=false, font=blue, labelfont=sc, labelsep=quad}
+%
+%            %\begin{minipage}{7cm}
+%                %\caption*{}
+%            %\end{minipage}
+%            \vskip -1.5ex
+%
+%            \begin{tabular}{@{\,}r <{\hskip 2pt} !{\foo} >{\raggedright\arraybackslash}p{5cm}}
+%            \addlinespace[1.5ex]
+%            1956   & General Motors  \\
+%            1960's & UNIX  \\
+%            1977   & Apple \\
+%            1981   & MS-DOS \\
+%            1991   & Linux (GNU/Linux) \\
+%            1995   & Windows 95 \\
+%            2000   & Darwin (macOS) \\
+%            2007   & iOS \\
+%            2008   & Android
+%            \end{tabular}
+%        \end{table}
+%        \end{small}
+%        \end{column}
+%        \begin{column}{0.5\textwidth}
+%            \only<1>{
+%                \includegraphics[width=\textwidth]{../images/os-gm.png}
+%                GM para primer IBM }
+%            \only<2>{
+%                \includegraphics[width=0.9\textwidth]{../images/os-unix.png}
+%                Terminal UNIX}
+%            \only<3>{
+%                \includegraphics[width=0.8\textwidth]{../images/os-appleii.png}
+%                Primer Apple ][}
+%            \only<4>{
+%                \includegraphics[width=\textwidth]{../images/os-msdos.png}
+%                MSDOS (Microsoft)}
+%            \only<5>{
+%                \includegraphics[width=\textwidth]{../images/os-linux.png}
+%                Linux desktop}
+%            \only<6>{
+%                \includegraphics[width=\textwidth]{../images/os-windows95.png}
+%                Escritorio \emph{moderno} (Win95) }
+%            \only<7>{
+%                \includegraphics[width=\textwidth]{../images/os-darwin.png}
+%                Bases de macOS}
+%            \only<8>{
+%                \includegraphics[width=\textwidth]{../images/os-ios.png}
+%                }
+%            \only<9>{
+%                \includegraphics[width=0.8\textwidth]{../images/os-android.png}
+%                }
+%        \end{column}
+%    \end{columns}
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{La consola}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
