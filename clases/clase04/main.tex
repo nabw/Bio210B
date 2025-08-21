@@ -3,7 +3,7 @@
 \usepackage{booktabs}
 \usepackage{minted}
 
-\title[short title]{Clase 4: I/O, interactividad}
+\title[short title]{Clase 4: Módulos y Python Científico}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -20,7 +20,6 @@
 }
 
 \date{}
-%\setbeamercovered{transparent}
 
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -29,144 +28,217 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{I/O (Input/Output)}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Motivación}
-    \begin{itemize}
-        \item El genoma human pesa $\approx$ 1Gb (película en def standard)
-        \item El genoma del krill pesa $\approx$ 12Gb
-        \item CPU procesa hasta 64 Kb a la vez
-    \end{itemize}
-    \hspace{2cm}\includegraphics[height=4cm]{../images/vitruvio.jpg}
-    \includegraphics[height=4cm]{../images/krill.jpg}
-
-\pause Necesitamos procesar datos sin cargar todo en memoria (\emph{streams})
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Lectura de archivos}
-Archivo \texttt{pangramas.txt}:
-    \begin{verbatim}
-The quick brown fox jumps over the lazy dog
-Extraño pan de col y kiwi se quemó bajo fugaz vaho
-Ma la volpe col suo balzo ha raggiunto il quieto Fido
-Törkylempijä vongahdus
-    \end{verbatim}
-
-    \begin{minted}{python}
-    f = open("../archivos/pangrams.txt", "r") # (r)ead
-    f.read() # o readline(), o readlines()
-    f.close()
-    \end{minted}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Escritura}
-    \begin{minted}{python}
-    f = open("../archivos/pangrams.txt", "w") # (w)rite
-    f.write() # o writelines()
-    f.close()
-    \end{minted}
-
-*Es siempre importante \emph{cerrar} el archivo
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Uso común}
-    Se usa contexto con {\color{purple}\texttt{with}} para cierre automático
-    \begin{minted}{python}
-    with  open("ejemplo.txt", "w") as f
-        f.write("texto nuevo\n") 
-    # fin de 'with'
-    [...]
-    \end{minted}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Modos de lectura}
-    \begin{itemize}
-        \item 'r': Lee archivo, error si no existe
-        \item 'w': Escribe en un archivo. Sobreescribe si existe
-        \item 'x': Crea archivo, error si ya existe
-        \item 'a': Agrega a archivo al final. Lo crea si no existe.
-
-    \end{itemize}
-    
-    \vspace{1cm}
-    \begin{minted}{python}
-    modo = "w" # r|w|x|a
-    with open("ejemplo.txt", modo) as f
-        [...]
-    \end{minted}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-
-\idea{Consola...}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Scripts interactivos}
+\section{Módulos}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Motivación}
-    \begin{minted}{python}
-    a = 2
-    textfile = "../carpeta/archivo.txt"
-    procesar(a, textfile)
-    \end{minted}
+    Ya conocemos módulos: \code{string}, \code{sys}
     \begin{itemize}
-        \item Poco portable
-        \item Poco modular
-        \item Ej: correr código para 1000 valores de 'a' en 15 archivos
+        \item \code{import string}
+        \item \code{import sys}
     \end{itemize}
+    Así se cargan ciertas funcionalidades. 
 
-\pause \idea{Buscamos solución fuera del código}
+    \pause Hoy aprenderemos a crear nuevos
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Input}
-    Solución \#1: Frenar ejecución hasta que usuario entregue valor
+\begin{frame}[fragile]\frametitle{Pip}
+    \textbf{P}ackage \textbf{I}nstaller for \textbf{P}ython
     
-    \begin{minted}{python}
-    a = input("Ingrese valor de 'a': ")
-    print(a, type(a))
-    \end{minted}
-
-    \vspace{1cm}
-    El valor ingresado es un \code{str}
+    \begin{itemize}
+        \item Gestor de paquetes que viene instalado junto a Python
+        \item Info online en \code{https://pypi.org/}
+        \item Fácil de usar por Bash
+            \begin{minted}{bash}
+        $ pip install pandas
+        $ python
+        > import pandas  # recién instalada!
+            \end{minted}
+    \end{itemize}
+    
+    \pause Dónde están los programas...?
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Argv}
-    Solución \#2: Usar parámetros de programa
+\begin{frame}\frametitle{el PATH}
+    Cuando escribo \code{ls} en Bash... de dónde sale? \\
+
+    \vspace{0.5cm}
+    La variable de entorno PATH tiene las carpetas donde buscar programas\footnote{Se puede modificar para tener programas en nuevas carpetas, i.e. \code{/opt}}
+
+    \pause \idea{Consola...( echo \$\{PATH\} )}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Crear módulo}
+    \code{operaciones.py:}
     \begin{minted}{python}
-    # programa.py
-    from sys import argv
-    name = argv[0]
-    arg1 = argv[1]
-    arg2 = argv[2]
-    print("argv:", name, arg1, arg2)
+  def suma(x,y): return x+y
+
+  def mult(x,y): return x*y
     \end{minted}
 
-    Luego en bash:
+  En Python:
+  \begin{minted}{python}
+  > import operaciones # Debe estar en el path
+  > # from operaciones import suma,prod
+  > operaciones.suma(2,3) # 5
+  > operaciones.mult(2,3) # 6
+  \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{el PATH en Python}
     \begin{minted}{bash}
-    $ python programa.py 'hola' 42
-    argv: programa.py hola 42
+  ~/clases/Bio210B$ python -m site
+   sys.path = [
+       '/home/nico/clases/Bio210B',
+       '/usr/lib/python3/dist-packages' # son más...
     \end{minted}
+
+    \pause Se puede extender con PYTHONPATH
+    \begin{minted}{bash}
+  $ export PYTHONPATH=/home/nico/otraCarpeta
+  $ python -m site
+   sys.path = [
+       '/home/nico/clases/Bio210B',
+       '/home/nico/otraCarpeta',
+       '/usr/lib/python3/dist-packages'
+    \end{minted}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[fragile]\frametitle{Nota: variables en Bash}
+    \begin{minted}{bash}
+  $ export PYTHONPATH=[...]
+    \end{minted}
+    genera una variable de ambiente. Se puede ver con
+    \begin{minted}{bash}
+  $ echo ${PYTHONPATH}
+    \end{minted}
+  Todas las definidas se ven con programa \code{env} de Bas
 
-\idea{Consola...}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Python científico}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Motivación}
+    \begin{itemize}
+        \item Python es interpretado $\to$ lento
+        \item Pero Python usa librerías \emph{MUY rápidas}
+        \item Eso + sintaxis lo vuelven ideal para la ciencia
+    \end{itemize}
+    \begin{center}
+    \includegraphics[width=0.35\textwidth]{../images/baby-yoda-T.jpg} \hspace{1cm}\includegraphics[width=0.35\textwidth]{../images/baby-yoda-mesh.png}
+    \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{\texttt{math}}
+    \begin{minted}{python}
+  > import math
+  > math. # Tab
+math.acos(   math.copysign(  math.expm1(      math.lgamma(     math.pi          math.tanh(
+math.acosh(  math.cos(       math.fabs(       math.log(        math.pow(        math.tau
+math.asin(   math.cosh(      math.factorial(  math.log10(      math.prod(       math.trunc(
+math.asinh(  math.degrees(   math.floor(      math.log1p(      math.radians(    math.ulp(
+math.atan(   math.dist(      math.fmod(       math.log2(       math.remainder(  
+math.atan2(  math.e          math.frexp(      math.modf(       math.sin(        
+math.atanh(  math.erf(       math.fsum(       math.nan         math.sinh(       
+math.ceil(   math.erfc(      math.gamma(      math.nextafter(  math.sqrt(       
+math.comb(   math.exp(       math.gcd(        math.perm(       math.tan(  
+    \end{minted}
+    
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{NumPy}
+    \textbf{Num}erical \textbf{Py}thon
+    
+    \begin{itemize}
+        \item Permite hacer operaciones a grandes datos
+        \item Operaciones \emph{vectorizadas}
+        \item Submódulos útiles: 
+            \begin{itemize}
+                \item numpy.fft (Fourier transform)
+                \item numpy.linalg (Linear algebra)
+                \item numpy.polynomial (Polinomios)
+                \item numpy.random (Generador de números)
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Numpy arrays}
+    \begin{minted}{python}
+  > import numpy as np
+  > # 50 números equiespaciados en [0,1]
+  > num = np.linspace(0,1,50)
+  > # Números en [0,1) con paso 0.1
+  > num = np.arange(0,1,0.1)
+    \end{minted}
 
+\pause \idea{Veamos tiempos de ejecución en sumar}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Operaciones vectorizadas}
+    $$ \text{vector:} \qquad x\in \mathbb{R}^N \to \left.\begin{bmatrix} 1\\1.1\\\vdots \\ -0.1\end{bmatrix}\right\}\text{N números} $$
+
+    \begin{minted}{python}
+  > import numpy as np
+  > num = np.linspace(0,1,50)
+  > np.abs(num) # Val absoluto de todo
+  > np.exp(num) # exponencial
+  > np.sin(num) # seno, ... etc
+  > num.dot(num) # normas, producto interno, etc
+    \end{minted}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Matplotlib}
+    \centering
+    \only<1>{
+    \includegraphics[width=0.6\textwidth]{../images/matplotlib/faces.png}
+    }
+    \only<2>{
+    \includegraphics[width=0.5\textwidth]{../images/matplotlib/mandelbrot.png}
+    }
+    \only<3>{
+    \includegraphics[width=0.5\textwidth]{../images/matplotlib/polygon.png}
+    }
+    \only<4>{
+    \includegraphics[width=0.5\textwidth]{../images/matplotlib/time-series.png}
+    }
+    \only<5>{
+    \includegraphics[width=0.5\textwidth]{../images/matplotlib/tricontourf.png}
+    }
+    \only<6>{
+    \includegraphics[width=0.5\textwidth]{../images/matplotlib/3dstem.png}
+    }
+    \only<7>{
+    \includegraphics[width=0.5\textwidth]{../images/matplotlib/3dvoxel.png}
+    }
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Ejemplo simple}
+    \begin{minted}{python}
+  > import numpy as np
+  > import matplotlib.pyplot as plt
+  > xs = np.linspace(0, 2*np.pi, 1000) # [0,2 pi]
+  > ys = np.sin(xs)
+  > plt.plot(xs,ys) # Lista de puntos x e y
+  > plt.show()
+    \end{minted} 
+   
+    \pause Se puede agregar de todo... 
+
+    Ver documentación online: \texttt{matplotlib.org}.
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Recap}
     \begin{itemize}
-        \item Lectura a través de \emph{stream}
-        \item Lectura de archivos con \code{open}
-        \item Contexto con \code{with}
-        \item Modos de lectura: \code{r},\code{w},\code{a}
-        \item Vimos cómo hacer scripts interactivos
-        \item \code{input} para esperar info del usuario
-        \item \code{argv} para que el input sea parte del programa
+        \item Dónde están los módulos por defecto
+        \item Cómo agregar un módulo
+        \item Cómo hacer módulo detectable con PYTHONPATH
+        \item \texttt{math}
+        \item \texttt{Numpy}
+        \item \texttt{Matplotlib}
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -175,16 +247,18 @@ Törkylempijä vongahdus
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Mini ejercicios}
-    \begin{itemize}
-        \item Cree un script que lea un archivo que tenga un número por fila y los sume
-        \item Cree un programa que sume todos los números dados al programa: 
-        \begin{minted}{bash}
-    $ python programa.py 2 3 4 5  
-    Los números suman 14
-        \end{minted}
+    \code{operaciones.py}
+    \begin{minted}{python}
+  def suma(x,y): return x+y
 
-\idea{Para convertir un string a float, use \code{float(myString)}}
+  def mult(x,y): return x*y
+    \end{minted}
+
+    \begin{itemize}
+        \item Crear el módulo \code{operaciones} e importarlo desde un script.
+        \item Guardar el módulo en otro lado e importarlo usando \code{PYTHONPATH}
     \end{itemize}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
