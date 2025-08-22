@@ -1,18 +1,9 @@
-\PassOptionsToPackage{x11names}{xcolor}
 \documentclass[14pt,aspectratio=169,xcolor=dvipsnames]{beamer}
-\usepackage{minted}
 \usetheme{SimplePlus}
-
-%%%% used for timeline
-\usepackage{colortbl}
-\usepackage{caption}
 \usepackage{booktabs}
-\DeclareCaptionFont{blue}{\color{LightSteelBlue3}}
-\newcommand{\foo}{\color{LightSteelBlue3}\makebox[0pt]{\textbullet}\hskip-0.5pt\vrule width 1pt\hspace{\labelsep}}
+\usepackage{minted}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\title[short title]{Clase 1: Programación, Lenguajes y Python}
+\title[short title]{Clase 1: Condicionales, Funciones y Strings}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -22,14 +13,14 @@
 }
 
 \titlegraphic{
-    \vspace{-2.4cm}
+    \vspace{-1.8cm}
     \begin{flushright}
       \includegraphics[height=2.5cm]{../images/logos/puc.png} 
     \end{flushright}
 }
 
 \date{}
-
+\setbeamercovered{transparent}
 
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -37,470 +28,236 @@
     \maketitle
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introducción a la programación}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[t]\frametitle{Qué es programar}
-  \idea{ Hacer que el computador haga algo a partir de instrucciones}
+\section{Control de flujo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\darkSlide{Ejemplo de salir de sala}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis bools: if/elif/else}
 
-\begin{itemize}
-    \item Instrucciones: \emph{lenguaje de programación}
-    \item Ejs: 
-        \begin{itemize}
-            \item Web (HTML,CSS,PHP,JS)
-            \item Apps (Java)
-            \item {\only<2>{\bf\color{MediumGreen}}Ciencia (Python,R,Julia,MATLAB)}
-            \item Esta presentación (\LaTeX)
-        \end{itemize}
-\end{itemize}
+    \begin{minted}{python}
+        d = 1 # Diámetro de figura
+        if figuraEsCuadrado: # resultado debe ser bool
+            area = d**2 # INDENTACIÓN
+        elif figuraEsCirculo: # elif significa else if
+            area = pi * (d/2)**2
+        else # llego acá si no pasa otra
+            print("Error")
+    \end{minted}    
+    \idea{Consola}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Funciones}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Motivación}
+Supongamos queremos calcular IMC
 
-\vspace{1cm}
-\pause \alertGreen{El foco del curso estará en programación científica}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Lecturas muy recomendadas}
-\texttt{https://swcarpentry.github.io/python-novice-inflammation/}
-
-\texttt{https://rosalind.info}
-
-+ internet y LLMs
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[t]\frametitle{Ejemplo: Artritis}
-Imaginen que tenemos una cura milagrosa para la artritis que actúa en 3 semanas. 
-\begin{itemize}
-    \item<1-> Seguimiento pacientes 
-
-        \only<1>{
-            \begin{flushright}
-                \textcolor{gray}{(Dosis después de primer síntoma)}
-            \end{flushright}
-        }
-    \item<2-> Datos: Nro de inflamaciones por día
-        \only<2>{
-            \begin{flushright}
-                \includegraphics[width=0.5\textwidth]{../images/datos-artritis.png}
-            \end{flushright}
-        }
-    \item<3-> Visualización
-        \only<3>{
-            \begin{flushright}
-                \vspace{-3cm}
-                \includegraphics[width=0.3\textwidth]{../images/datos-artritis2.png}
-            \end{flushright}
-        }
-    \item<4-> Estadística $\to$ Concluir!
-\end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Ej II: Pensamiento algorítmico}
-Cómo salgo de esta sala? (avanzar un paso, girar)
-
-\vspace{2cm}
-\pause Y si solo sé girar a la derecha?
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Ej II: Lo que hicimos}
-    \begin{itemize}
-        \item Considerar un pequeño conjunto de instrucciones
-        \item Generar nuevas instrucciones más complejas {\color{gray}(como la célula!)}
-        \item Combinar instrucciones para un objetivo
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Interacción con el PC}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Sistemas operativos}
-El OS coordina funcionamiento del computador. \pause
-    \begin{itemize}
-        \item<+-> Windows (MS-DOS)
-        \item<+-> Mac OS (BSD Darwin)
-        \item<+-> BSD (FreeBSD, OpenBSD)
-        \item<+-> GNU/Linux (Debian, Ubuntu, Fedora, $\hdots$)
-        \item<+-> Android
-        \item<+-> iOS
-        \item<+-> Symbian
-        \item<+-> BeOS, Haiku
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Sistemas operativos}
-    \begin{center}
-        \includegraphics[width=0.5\textwidth]{../images/distrowatch.png}
-    \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}\frametitle{Sistemas operativos}
-%    \begin{columns}
-%        \begin{column}{0.45\textwidth}
-%        \begin{small}
-%        \begin{table}
-%            \renewcommand\arraystretch{1.4}\arrayrulecolor{LightSteelBlue3}
-%            %\captionsetup{singlelinecheck=false, font=blue, labelfont=sc, labelsep=quad}
-%
-%            %\begin{minipage}{7cm}
-%                %\caption*{}
-%            %\end{minipage}
-%            \vskip -1.5ex
-%
-%            \begin{tabular}{@{\,}r <{\hskip 2pt} !{\foo} >{\raggedright\arraybackslash}p{5cm}}
-%            \addlinespace[1.5ex]
-%            1956   & General Motors  \\
-%            1960's & UNIX  \\
-%            1977   & Apple \\
-%            1981   & MS-DOS \\
-%            1991   & Linux (GNU/Linux) \\
-%            1995   & Windows 95 \\
-%            2000   & Darwin (macOS) \\
-%            2007   & iOS \\
-%            2008   & Android
-%            \end{tabular}
-%        \end{table}
-%        \end{small}
-%        \end{column}
-%        \begin{column}{0.5\textwidth}
-%            \only<1>{
-%                \includegraphics[width=\textwidth]{../images/os-gm.png}
-%                GM para primer IBM }
-%            \only<2>{
-%                \includegraphics[width=0.9\textwidth]{../images/os-unix.png}
-%                Terminal UNIX}
-%            \only<3>{
-%                \includegraphics[width=0.8\textwidth]{../images/os-appleii.png}
-%                Primer Apple ][}
-%            \only<4>{
-%                \includegraphics[width=\textwidth]{../images/os-msdos.png}
-%                MSDOS (Microsoft)}
-%            \only<5>{
-%                \includegraphics[width=\textwidth]{../images/os-linux.png}
-%                Linux desktop}
-%            \only<6>{
-%                \includegraphics[width=\textwidth]{../images/os-windows95.png}
-%                Escritorio \emph{moderno} (Win95) }
-%            \only<7>{
-%                \includegraphics[width=\textwidth]{../images/os-darwin.png}
-%                Bases de macOS}
-%            \only<8>{
-%                \includegraphics[width=\textwidth]{../images/os-ios.png}
-%                }
-%            \only<9>{
-%                \includegraphics[width=0.8\textwidth]{../images/os-android.png}
-%                }
-%        \end{column}
-%    \end{columns}
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{La consola}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Principio}
-    \begin{itemize}
-        \item La consola (Unix) es una forma de interacción con el PC
-        \item Funciona a través de programas
-        \item Las interfaces gráficas usan consola!
-    \end{itemize}
-    \begin{flushright}
-        \includegraphics[width=0.4\textwidth]{../images/os-unix.png}
-    \end{flushright}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{La consola: Inicio}
-La consola Bash en Linux permite interactuar con el PC\footnote{Se puede instalar en Windows con WSL, queda para ayudantía}
-
-    \begin{center}
-        \includegraphics[width=0.6\textwidth]{../images/consola.png}
-    \end{center}
-\begin{itemize}
-    \item \texttt{nico}: Usuario
-    \item \texttt{nico-mini}: hostname, nombre de red del PC
-    \item \texttt{\texttilde/Downloads}: Carpeta actual
-    \item \texttt{\texttilde}: Carpeta 'home'
-\end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Sistema de archivos}
-En Linux, los archivos funcionan como uno espera:
-    \begin{itemize}
-        \item Carpeta 1
-            \begin{itemize}
-                \item Archivo 1
-                \item Archivo 2
-            \end{itemize}
-        \item Carpeta 2
-            \begin{itemize}
-                \item Carpeta 3
-                \item Archivo 3
-            \end{itemize}
-        \item $\dots$
-    \end{itemize}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Navegación básica en Bash}
-    \begin{itemize}
-        \item \texttt{ls}: Mostrar contenido de carpeta
-        \item \texttt{cd}: Cambiar de directorio
-        \item \texttt{mkdir}: Crear carpeta
-        \item \texttt{rm}: Eliminar archivo o carpeta
-        \item \texttt{cp}: Copiar archivo o carpeta
-        \item \texttt{nano}: Editor de texto
-        \item \texttt{cat}: Mostrar archivo
-    \end{itemize}
-
-\vspace{1cm} 
-Pro-tip: Autocompletar con \texttt{tab}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Concepto de programa}
-Ver contenidos de 'Documents':
-
-    $$ \texttt{\$ }\underbrace{\texttt{ls}}_\text{Comando}  \underbrace{Documents}_\text{Argumento} $$
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Argumentos y opciones}
+\rule{\textwidth}{1pt}
+\scriptsize
+\begin{minted}{python}
+    # Enlistar algunos pesos y alturas
+    peso1 = 62.2
+    altura1 = 1.50
+    peso2 = 94.5
+    altura2 = 1.87
     
-    $$ \texttt{\$ }\underbrace{\texttt{ls}}_\text{Comando} \quad \underbrace{\texttt{-l -a --color}}_\text{Opciones} \quad \underbrace{Documents}_\text{Argumento} $$
+    # Calcular IMC
+    imc1 = peso1 / altura1 / altura1 # p / h^2. Por qué?
+    imc2 = peso2 / altura2 / altura2
+\end{minted}
+\rule{\textwidth}{1pt}
+\pause Sería mejor... 
+\begin{minted}{python}
+    imc1 = calcularIMC(peso1, altura1)
+    imc2 = calcularIMC(peso2, altura2)
+\end{minted}
+\rule{\textwidth}{1pt}
 
-La más útil: \texttt{--help/-h}. 
-
-\vspace{1cm}
-\idea{Veamos...}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Compilación de código}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[t]\frametitle{La compilación}
-    \idea{Consiste en traducir nuestro lenguaje al del PC}
-
-    \vspace{1cm}
+\begin{frame}\frametitle{Motivación}
     \begin{itemize}
-        \item<+-> Lo que nosotros entendemos: Lenguaje
-        \item<+-> Lo que entiende el computador: 
-    
-        100010101010110101011010110101011011010101011101010000
-            
+        \item Las funciones \emph{reducen complejidad}
+        \item Las funciones \emph{vuelven código reutilizable}
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Ejemplo de compilación}
-\begin{small}
-    \begin{columns}[t]
-        \begin{column}[b]{0.4\textwidth}
-            Para humanos:
-            \vspace{2.0cm}
-            \begin{minted}{C}
-#include <stdio.h>
-   int main() {
-   printf("Hello, World!\n");
-   return 0;
-            }
-            \end{minted}
+\begin{frame}[fragile]\frametitle{Sintaxis}
 
-    \vfill
-        \end{column}
-        \begin{column}{0.01\textwidth}
-            \rule{0.4pt}{6cm}
-
-        \end{column}
-        \begin{column}[b]{0.45\textwidth}
-            Para PC: 
-            \begin{minted}{gas}
-    .file    "hello.c"
-    .text
-    .section .rodata
-.LC0:
-    .string  "Hello, World!"
-    .text
-    .globl   main
-    .type    main, @function
-main:
-            \end{minted}
-
-    \vfill
-        \end{column}
-    \end{columns}
-\end{small}
+\begin{minted}{python}
+    def functionName(arg1, arg2, ...):
+        # [...]
+        return expression # Retorno tiene tipo 
+        # Se puede omitir (return None)
+\end{minted}
+\rule{\textwidth}{1pt}
+Por ejemplo, en el caso del IMC
+\begin{minted}{python}
+    def calcularIMC(peso, altura):
+        return peso / altura**2
+\end{minted}
+\rule{\textwidth}{1pt}
+\idea{Ojo con conflictos de nombre (dentro y fuera de función)}
+%\idea{Ojo: Tipos de retorno}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{El trabajo de compilación}
-    \begin{enumerate}
-        \item Procesar el archivo con código
-        \item Generar símbolos de programas
-        \item Juntar símbolos para generar programa
-    \end{enumerate}
+\begin{frame}[fragile]\frametitle{La función \texttt{print}}
+Esta función muestra el valor de una variable. 
+\begin{itemize}
+    \item Archivo de ejemplo 'test.py':
+    \begin{minted}{python}
+    a = 2
+    b = 3*a
+    print(b)
+    \end{minted}
+    \item Lo que vemos al ejecutarlo: 
 
-    \pause \begin{center}
-        \begin{tabular}{c | c}
-           Pros    &   Contras \\ \midrule
-         \alertGreen{Eficiente} &   \alert{Inflexible}  \\
+        \begin{tabular}{l}
+            \texttt{ \$ python test.py} \\
+            \texttt{ \$ 6}
         \end{tabular}
-    \end{center}
+\end{itemize}
 
-\pause Ejemplos de programas compilados: \texttt{ls, cd, }$\hdots$
+\idea{Veamos algunos ejemplos en consola}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Alternativa}
-Lenguajes compilados son eficientes pero...
+\begin{frame}[fragile]\frametitle{Argumentos por keyword}
+    Podemos definir argumentos \emph{por defecto}
+    \begin{minted}{python}
+    def printName(nombre="Nicolás", apellido="Barnafi"):
+        print("Me llamo ", nombre, " ", apellido)
+
+    printName("nicolás", "barnafi") # en orden
+    printName("nicolás")            # 1 por defecto
+    printName()                     # 2 por defecto
+    printName(nombre="nico")        # keyword arg
+    printName(apellido="bfi")       # keyword arg
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis mal documentada}
+    \begin{minted}{python}
+    def printName(nombre="Nicolás", apellido="Barnafi"):
+        print("Me llamo ", nombre, " ", apellido)
+
+    lista = ["nico", "barnafi"]
+    diccionario = {"nombre": "nico", 
+                   "apellido": "barnafi"}
+    printName(*lista) # por lista
+    printName(**kwargs) # por diccionario
+    \end{minted}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Ejemplo}
+\idea{Veamos cómo calcular el área de círculos}
+
+$$ A(r) = \pi r^2 $$
+\idea{Qué pasa con los argumentos equivocados?}
+
+\vspace{1cm}
+\pause Type-checking: \texttt{type(a) == int}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Scope o alcance de nombres}
+Qué pasa en este código?
+
+\begin{minted}{python}
+a = 2
+def f(a):
+    b = a**2
+    return b
+print(f(3))
+\end{minted}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Strings}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t,fragile]\frametitle{Definición}
+    \begin{itemize} 
+        \item<1-> Un 'string' es un tipo de dato que contiene texto. 
+            \begin{minted}{python}
+        > s = "hola :)"
+        > print(s) # Imprime 'hola :)'
+            \end{minted}
+        \item<2-> Está compuesto por caracteres, se pueden acceder por componentes: 
+            \begin{minted}{python}
+        > s = "hola :)"
+        > print(s[0], s[1], s[2]) # Imprime 'hol'
+            \end{minted}
+        \item<3-> Tienen MUCHAS funcionalidades
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Functiones del objeto}
+    Los strings, como muchos otros objetos, tienen funciones. 
+
+    Si tenemos \texttt{s = "hola string"}:
     \begin{itemize}
-        \item Más complejos
-        \item Requieren recompilar constantemente
+        \item \texttt{s.upper()}: Nuevo string 'HOLA STRING'
+        \item \texttt{s.replace('str', 'k')}: Nuevo string 'hola king'
+        \item \texttt{s.find('a')}: Entrega índice '3'.
+        \item Hay MUCHAS (ver \texttt{dir(s)})
+    \end{itemize}
+
+En todas ellas, se general un \texttt{str} nuevo, el original queda intacto. Cuándo podría ser un problema esto? 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{La librería \texttt{string}}
+    Usaremos nuestra primera librería!
+    \begin{itemize}
+        \item Las librerías agregan funcionalidades específicas
+        \item Sintaxis para importar librerías: 
+            \begin{flushright} \texttt{> import string} \end{flushright}
+        \item Esto genera una variable del nombre de la librería con funciones
     \end{itemize}
 
 \vspace{1cm}
-\pause Alternativa: \textbf{Lenguajes interpretados}
-
-\pause
-    \begin{itemize}
-        \item Muchos subprogramas pre-compilados
-        \item No se compila, se ejecuta secuencialmente (una línea a la vez)
-        \item Permiten una consola interactiva
-    \end{itemize}
+\pause\idea{Veamos cómo se puede usar}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Algunos ejemplos}
-    \begin{columns}
-        \begin{column}{0.45\textwidth}
-            Compilados
-            \begin{itemize}
-                \item C/C++/C\#
-                \item Java
-                \item Rust
-                \item Julia
-            \end{itemize}
-        \end{column}
-
-        \begin{column}{0.45\textwidth}
-            Interpretados
-            \begin{itemize}
-                \item Python
-                \item R
-                \item MATLAB
-            \end{itemize}
-        \end{column}
-    \end{columns}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Ranking de lenguajes (2024)}
-    \begin{center}
-        \includegraphics[width=0.4\textwidth]{../images/top-lenguajes.png}
-    \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Python}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Datos sobre Python}
-    \begin{itemize}
-        \item Lenguaje interpretado, orientado a objetos
-        \item Creado en 1991 por Guido van Rossum
-        \item Basado en C
-        \item Librerías de IA: PyTorch, Keras, TensorFlow
-        \item MUCHAS librerías científicas
-        \item Ejecuta extensión \texttt{'.py'}
-    \end{itemize}
-
-\begin{block}{}
-    \emph{[...] as a hobby project to keep himself busy during the Christmas holidays of 1989. }
-\end{block}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Cómo usar Python}
-    \begin{enumerate}
-        \item<1-> Como programa
-            \only<1>{
-                \begin{flushright}
-                    \texttt{nico@nico-pc:\texttilde/Codes\$ python test.py}
-                \end{flushright}
-            }
-        \item<2-> Como consola interactiva
-            \only<2>{
-                \begin{flushright}
-                    \texttt{nico@nico-pc:\texttilde/Codes\$ python} 
-                    \includegraphics[width=0.9\textwidth]{../images/python-intepreter.png}
-                \end{flushright}
-            }
-        \item<3-> \textbf{Jupyter/Collab/IDE (ayudantía)}
-    \end{enumerate}
-
-\vspace{1cm}
-\pause\idea{Veamos la consola}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[t]\frametitle{Primeros códigos}
-    \begin{itemize}
-        \item Definición de variables (case sensitive)
-            $$ > \underbrace{\texttt{a = 2}}_\text{Asignación \emph{siempre} de derecha a izquierda} $$
-        \item Toda variable tiene un tipo 
-            \begin{itemize}
-                \item \texttt{> a = 2} : \hspace{0.3cm}\>\>\>\>\> 'a' es un 'int' (entero)
-                \item \texttt{> a = 3.14}: \>\>\>\>\>'a' es un 'float' (punto flotante)
-                \item \texttt{> a = "hola"}: 'a' es un 'string' (texto)
-                \item \texttt{> a = True}: \>\>\> 'a' es un 'bool' (booleano)\footnote{esto tendrá sentido más adelante}
-            \end{itemize}
-        \item Se pueden dejar comentarios con \#
-    \end{itemize}
-
-\idea{Veamos en consola usando la función \texttt{type}}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Aritmética}
-Cuál es el valor resultante de las siguientes operaciones? 
-
-\vspace{1cm}
-    \begin{itemize}
-        \item \texttt{> a = 2+2}
-        \item \texttt{> a = 2+2*2}
-        \item \texttt{> a = 2/2*2}
-        \item \texttt{> a = 2**2}   \textcolor{gray}{(elevado)}
-        \item \texttt{> a = 'ho' + 'la'}
-    \end{itemize}
-
-\idea{Ojo: división entre enteros da un 'float'}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Nota sobre la división}
-La división se entiende como aplicada exclusivamente al número precedente. Eso implica lo siguiente: 
-    \begin{itemize}
-        \item \texttt{2/2} es $\frac 2 2$
-        \item \texttt{2/2*2} es $\left(\frac 2 2\right) \times 2$
-        \item \texttt{2/2/2} es $\frac{\left(\frac 2 2\right)}{2}= \frac{2}{2\times 2}$
-    \end{itemize}
-
-\pause \idea{Es más fácil imaginar $a/b$ como $a \times b^{-1}$}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Álgebra booleana}
-    Keywords importantes: 
-    \begin{itemize}
-        \item \texttt{and}, \texttt{or}, \texttt{not}
-        \item \texttt{==}, \texttt{<=}, \texttt{>=}, \texttt{<}, \texttt{>}
-    \end{itemize}
-
-En términos de precedencia, \alertBlue{\texttt{and}} es un producto y \alertBlue{\texttt{or}} es una suma: 
-
-$$ \texttt{a and b or c} = (\texttt{a and b}) \texttt{ or } c $$
-
-Notar que el resultado es siempre otro booleano.
+\begin{frame}[fragile]\frametitle{El método \texttt{format}}
+    $$  \texttt{algo}\underbrace{.}_\text{llamar función}method() $$
+Sirve para imprimir variables:
+    \begin{minted}{python}
+        > a = 20.17
+        > "a es {}".format(a) # imprime 20.17
+        > f"a es {a}" # imprime 20.17
+        > f"a es {a:2.1f}" # imprime 20.1
+        > f"a es {a:2.2e}" # imprime 2.02e+01
+    \end{minted}
+\idea{Método de objeto $\neq$  método de tipo}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Recap}
     \begin{itemize}
-        \item Qué es programar, pensamiento algorítmico
-        \item Sistemas operativos
-        \item Podemos interactuar con el PC a través de la consola (Unix)
-        \item Concepto de compilación
-        \item Python: lenguaje interpretado, orientado a objetos
-        \item Usamos la consola interactiva de Python
-        \item Tipos de variables: int, float, bool, string
-        \item Operaciones entre variables, aritmética y álgebra
-
+        \item Control de flujo (\code{if}/\code{elif}/\code{else})
+        \item Cómo definir funciones
+        \item Vimos el alcance (scope) de variables
+        \item Los strings son tipos de datos con funciones
+        \item La librería 'string'
     \end{itemize}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
     \maketitle
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Mini ejercicios}
+    \begin{enumerate}
+        \item Implemente y ejecute todos los códigos vistos en clases
+        \item Implemente una función que diga si un número es par. Podrá servir lo siguiente:
+    \end{enumerate}
+    \begin{minted}{python}
+        a = 100
+        a % 2 # Resto de dividir por 2
+    \end{minted}
+\end{frame}
 
 \end{document}

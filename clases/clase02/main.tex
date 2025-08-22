@@ -2,8 +2,9 @@
 \usetheme{SimplePlus}
 \usepackage{booktabs}
 \usepackage{minted}
+\usepackage{fancyvrb}
 
-\title[short title]{Clase 2: Condicionales, Funciones y Strings}
+\title[short title]{Clase 2: Estructuras de datos e iteradores}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -18,9 +19,8 @@
       \includegraphics[height=2.5cm]{../images/logos/puc.png} 
     \end{flushright}
 }
-
 \date{}
-\setbeamercovered{transparent}
+
 
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -29,223 +29,173 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Control de flujo}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\darkSlide{Ejemplo de salir de sala}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Sintaxis bools: if/elif/else}
-
-    \begin{minted}{python}
-        d = 1 # Diámetro de figura
-        if figuraEsCuadrado: # resultado debe ser bool
-            area = d**2 # INDENTACIÓN
-        elif figuraEsCirculo: # elif significa else if
-            area = pi * (d/2)**2
-        else # llego acá si no pasa otra
-            print("Error")
-    \end{minted}    
-    \idea{Consola}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Funciones}
+\section{Estructuras de datos}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Motivación}
-Supongamos queremos calcular IMC
+En el ejemplo del IMC, se vuelve impracticable tener muchos datos:
+    \begin{minted}{python}
+        peso1 = 1.
+        altura1 = 1.0
+        peso2 = 2.0 
+        altura2 = 2.0
+        ...
+        peso1200 = 3.0
+        altura1200 = 3.0
+    \end{minted}
 
-\rule{\textwidth}{1pt}
-\scriptsize
-\begin{minted}{python}
-    # Enlistar algunos pesos y alturas
-    peso1 = 62.2
-    altura1 = 1.50
-    peso2 = 94.5
-    altura2 = 1.87
-    
-    # Calcular IMC
-    imc1 = peso1 / altura1 / altura1 # p / h^2. Por qué?
-    imc2 = peso2 / altura2 / altura2
-\end{minted}
-\rule{\textwidth}{1pt}
-\pause Sería mejor... 
-\begin{minted}{python}
-    imc1 = calcularIMC(peso1, altura1)
-    imc2 = calcularIMC(peso2, altura2)
-\end{minted}
-\rule{\textwidth}{1pt}
-
+Nos gustaría tener una manera de manejar cantidades \emph{arbitrarias} de datos y operar sobre ellas.
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Motivación}
+\begin{frame}[fragile]\frametitle{Sintaxis de loop de iteración}
+    \begin{minted}{python}
+      lista = [1,2,3,4,5]
+      for e in lista:
+        print(e)
+    \end{minted}
+\pause El resultado será
+
+1\\
+2\\
+3\\
+4\\
+5
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Un poco de sintaxis}
+    $$ \texttt{a = [1,2,3,4,5,8]} $$
     \begin{itemize}
-        \item Las funciones \emph{reducen complejidad}
-        \item Las funciones \emph{vuelven código reutilizable}
+        \item<+-> 'a' es una \emph{lista}
+        \item<+-> 'a' es un \emph{iterable} (se puede usar en ciclo \texttt{for})
+        \item<+-> 'a' tiene componentes (\texttt{a[0],a[1],...})
+        \item<+-> Listas no tienen tipos específicos: 
+            $$ \texttt{a = [1,'hola',-7.2]} $$
+        \item<+-> \texttt{range(10)} para iterar sobre números $0,\dots,9$
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Sintaxis}
-
-\begin{minted}{python}
-    def functionName(arg1, arg2, ...):
-        # [...]
-        return expression # Retorno tiene tipo 
-        # Se puede omitir (return None)
-\end{minted}
-\rule{\textwidth}{1pt}
-Por ejemplo, en el caso del IMC
-\begin{minted}{python}
-    def calcularIMC(peso, altura):
-        return peso / altura**2
-\end{minted}
-\rule{\textwidth}{1pt}
-\idea{Ojo con conflictos de nombre (dentro y fuera de función)}
-%\idea{Ojo: Tipos de retorno}
+\begin{frame}\frametitle{Ejemplo: promedio}
+\idea{Consola para ver sus funciones... (\texttt{dir})}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{La función \texttt{print}}
-Esta función muestra el valor de una variable. 
-\begin{itemize}
-    \item Archivo de ejemplo 'test.py':
-    \begin{minted}{python}
-    a = 2
-    b = 3*a
-    print(b)
-    \end{minted}
-    \item Lo que vemos al ejecutarlo: 
+\begin{frame}\frametitle{Otros tipos}
+    \begin{itemize}
+        \item Tuplas o listas inmodificables: 
+            $$  \texttt{a = (1,2,7,8)} $$
+        \item Diccionarios o listas indexadas:
+            $$ \texttt{a = \{'altura': 1.80, 'peso': 90\}} $$
+            *Acceso con \texttt{a['altura']}
+        \item Conjuntos o listas no-ordenadas: 
+            $$ \texttt{a = \{1,5,9\}} $$
+    \end{itemize}
 
-        \begin{tabular}{l}
-            \texttt{ \$ python test.py} \\
-            \texttt{ \$ 6}
-        \end{tabular}
+\pause\idea{Exploremos las funciones de cada uno (\texttt{dir})}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Funciones mágicas}
+
+\begin{itemize}
+    \item Todas las funciones: $\texttt{dir(a)}$.
+    \item Funciones mágicas: \verb+__txt__+
+    \item Tipos sumables: %\texttt{\_\_add\_\_}
+        \begin{verbatim}
+    int.__add__(2,3)
+        \end{verbatim}
+    \item Subíndices: \verb+__getitem__+
+        \begin{verbatim}
+    a = [6,7,8]
+    list.__getitem__(a,1) # a[1]
+        \end{verbatim}
 \end{itemize}
 
-\idea{Veamos algunos ejemplos en consola}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Argumentos por keyword}
-    Podemos definir argumentos \emph{por defecto}
-    \begin{minted}{python}
-    def printName(nombre="Nicolás", apellido="Barnafi"):
-        print("Me llamo ", nombre, " ", apellido)
-
-    printName("nicolás", "barnafi") # en orden
-    printName("nicolás")            # 1 por defecto
-    printName()                     # 2 por defecto
-    printName(nombre="nico")        # keyword arg
-    printName(apellido="bfi")       # keyword arg
-    \end{minted}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Sintaxis mal documentada}
-    \begin{minted}{python}
-    def printName(nombre="Nicolás", apellido="Barnafi"):
-        print("Me llamo ", nombre, " ", apellido)
-
-    lista = ["nico", "barnafi"]
-    diccionario = {"nombre": "nico", 
-                   "apellido": "barnafi"}
-    printName(*lista) # por lista
-    printName(**kwargs) # por diccionario
-    \end{minted}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Ejemplo}
-\idea{Veamos cómo calcular el área de círculos}
-
-$$ A(r) = \pi r^2 $$
-\idea{Qué pasa con los argumentos equivocados?}
-
-\vspace{1cm}
-\pause Type-checking: \texttt{type(a) == int}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Scope o alcance de nombres}
-Qué pasa en este código?
-
-\begin{minted}{python}
-a = 2
-def f(a):
-    b = a**2
-    return b
-print(f(3))
-\end{minted}
-
+\vspace{2cm}
+\idea{Veamos...}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Strings}
+\section{Iteraciones}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[t,fragile]\frametitle{Definición}
-    \begin{itemize} 
-        \item<1-> Un 'string' es un tipo de dato que contiene texto. 
-            \begin{minted}{python}
-        > s = "hola :)"
-        > print(s) # Imprime 'hola :)'
-            \end{minted}
-        \item<2-> Está compuesto por caracteres, se pueden acceder por componentes: 
-            \begin{minted}{python}
-        > s = "hola :)"
-        > print(s[0], s[1], s[2]) # Imprime 'hol'
-            \end{minted}
-        \item<3-> Tienen MUCHAS funcionalidades
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Functiones del objeto}
-    Los strings, como muchos otros objetos, tienen funciones. 
+\begin{frame}[fragile]\frametitle{Motivación}
+    Todo bien con el ciclo for, pero...
 
-    Si tenemos \texttt{s = "hola string"}:
     \begin{itemize}
-        \item \texttt{s.upper()}: Nuevo string 'HOLA STRING'
-        \item \texttt{s.replace('str', 'k')}: Nuevo string 'hola king'
-        \item \texttt{s.find('a')}: Entrega índice '3'.
-        \item Hay MUCHAS (ver \texttt{dir(s)})
+        \item A veces no sabemos cuántas veces iterar
+        \item A veces iteramos hasta cumplir algún criterio. Ej: estudiar
     \end{itemize}
-
-En todas ellas, se general un \texttt{str} nuevo, el original queda intacto. Cuándo podría ser un problema esto? 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{La librería \texttt{string}}
-    Usaremos nuestra primera librería!
-    \begin{itemize}
-        \item Las librerías agregan funcionalidades específicas
-        \item Sintaxis para importar librerías: 
-            \begin{flushright} \texttt{> import string} \end{flushright}
-        \item Esto genera una variable del nombre de la librería con funciones
-    \end{itemize}
-
-\vspace{1cm}
-\pause\idea{Veamos cómo se puede usar}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{El método \texttt{format}}
-    $$  \texttt{algo}\underbrace{.}_\text{llamar función}method() $$
-Sirve para imprimir variables:
+\begin{frame}[fragile]\frametitle{Sintaxis de loop de iteración}
     \begin{minted}{python}
-        > a = 20.17
-        > "a es {}".format(a) # imprime 20.17
-        > f"a es {a}" # imprime 20.17
-        > f"a es {a:2.1f}" # imprime 20.1
-        > f"a es {a:2.2e}" # imprime 2.02e+01
+        while condition: # condition es un bool
+            # código
+            # se vuelve a ejecutar 
+            # mientras 'condition' sea True
     \end{minted}
-\idea{Método de objeto $\neq$  método de tipo}
+    
+    \vspace{1cm}
+    \begin{itemize}
+        \item Lavarse las manos
+        \item Estudiar
+    \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Recap}
+\begin{frame}[fragile]\frametitle{Ej: Ahorro con \texttt{break/continue}}
+\begin{small}
+    \begin{minted}{python}
+        plata = 0
+        dias = 0 # contador
+        while True: 
+            if dia == "sabado" or dia == "domingo": 
+                dia = avanzarDia(dia)
+                dias += 1
+                continue # Volver al inicio del while
+            plata += trabajar()
+            if plata >= objetivo:
+                break # Salir del while
+            dia = avanzarDia(dia)
+            dias += 1
+        print("Meta alcanzada en {} días".format(dias))
+    \end{minted}
+\end{small}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Trucos de python}
+    \begin{minted}{python}
+        apellidos = ["Nguyen", "Janssen", "Smith"]
+        ids = [100,101,102]
+    \end{minted}
     \begin{itemize}
-        \item Control de flujo (\code{if}/\code{elif}/\code{else})
-        \item Cómo definir funciones
-        \item Vimos el alcance (scope) de variables
-        \item Los strings son tipos de datos con funciones
-        \item La librería 'string'
+        \item Juntar listas:
+        \begin{minted}{python}
+        for apellido,id in zip(apellidos,ids):
+            # [...]
+    \end{minted}
+        \item Agregar contador:
+    \begin{minted}{python}
+        for i,apellido in enumerate(apellidos):
+            # [...]
+    \end{minted}
     \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Practiquemos un poco}
+\idea{Consola...}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
     \maketitle
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Mini ejercicios}
+    \begin{enumerate}
+        \item Dividir un número dado por 2 hasta que sea menor que $10^{-4}$ y reportar número de divisiones
+        \item Crear una lista con números hasta 1000 y luego quitar todos los impares   
+    \end{enumerate}
+    \begin{minted}{python}
+        a = 100
+        a % 2 # Resto de dividir por 2
+    \end{minted}
+\end{frame}
+
 \end{document}

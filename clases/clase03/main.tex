@@ -2,9 +2,8 @@
 \usetheme{SimplePlus}
 \usepackage{booktabs}
 \usepackage{minted}
-\usepackage{fancyvrb}
 
-\title[short title]{Clase 3: Estructuras de datos e iteradores}
+\title[short title]{Clase 3: I/O, interactividad}
 \subtitle{}
 \author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
 \institute[UC|CMM] 
@@ -19,8 +18,9 @@
       \includegraphics[height=2.5cm]{../images/logos/puc.png} 
     \end{flushright}
 }
-\date{}
 
+\date{}
+%\setbeamercovered{transparent}
 
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -29,158 +29,145 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Estructuras de datos}
+\section{I/O (Input/Output)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Motivación}
-En el ejemplo del IMC, se vuelve impracticable tener muchos datos:
+\begin{frame}\frametitle{Motivación}
+    \begin{itemize}
+        \item El genoma human pesa $\approx$ 1Gb (película en def standard)
+        \item El genoma del krill pesa $\approx$ 12Gb
+        \item CPU procesa hasta 64 Kb a la vez
+    \end{itemize}
+    \hspace{2cm}\includegraphics[height=4cm]{../images/vitruvio.jpg}
+    \includegraphics[height=4cm]{../images/krill.jpg}
+
+\pause Necesitamos procesar datos sin cargar todo en memoria (\emph{streams})
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Lectura de archivos}
+Archivo \texttt{pangramas.txt}:
+    \begin{verbatim}
+The quick brown fox jumps over the lazy dog
+Extraño pan de col y kiwi se quemó bajo fugaz vaho
+Ma la volpe col suo balzo ha raggiunto il quieto Fido
+Törkylempijä vongahdus
+    \end{verbatim}
+
     \begin{minted}{python}
-        peso1 = 1.
-        altura1 = 1.0
-        peso2 = 2.0 
-        altura2 = 2.0
-        ...
-        peso1200 = 3.0
-        altura1200 = 3.0
+    f = open("../archivos/pangrams.txt", "r") # (r)ead
+    f.read() # o readline(), o readlines()
+    f.close()
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Escritura}
+    \begin{minted}{python}
+    f = open("../archivos/pangrams.txt", "w") # (w)rite
+    f.write() # o writelines()
+    f.close()
     \end{minted}
 
-Nos gustaría tener una manera de manejar cantidades \emph{arbitrarias} de datos y operar sobre ellas.
+*Es siempre importante \emph{cerrar} el archivo
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Sintaxis de loop de iteración}
+\begin{frame}[fragile]\frametitle{Uso común}
+    Se usa contexto con {\color{purple}\texttt{with}} para cierre automático
     \begin{minted}{python}
-      lista = [1,2,3,4,5]
-      for e in lista:
-        print(e)
+    with  open("ejemplo.txt", "w") as f
+        f.write("texto nuevo\n") 
+    # fin de 'with'
+    [...]
     \end{minted}
-\pause El resultado será
-
-1\\
-2\\
-3\\
-4\\
-5
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Un poco de sintaxis}
-    $$ \texttt{a = [1,2,3,4,5,8]} $$
+\begin{frame}[fragile]\frametitle{Modos de lectura}
     \begin{itemize}
-        \item<+-> 'a' es una \emph{lista}
-        \item<+-> 'a' es un \emph{iterable} (se puede usar en ciclo \texttt{for})
-        \item<+-> 'a' tiene componentes (\texttt{a[0],a[1],...})
-        \item<+-> Listas no tienen tipos específicos: 
-            $$ \texttt{a = [1,'hola',-7.2]} $$
-        \item<+-> \texttt{range(10)} para iterar sobre números $0,\dots,9$
+        \item 'r': Lee archivo, error si no existe
+        \item 'w': Escribe en un archivo. Sobreescribe si existe
+        \item 'x': Crea archivo, error si ya existe
+        \item 'a': Agrega a archivo al final. Lo crea si no existe.
+
     \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Ejemplo: promedio}
-\idea{Consola para ver sus funciones... (\texttt{dir})}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Otros tipos}
-    \begin{itemize}
-        \item Tuplas o listas inmodificables: 
-            $$  \texttt{a = (1,2,7,8)} $$
-        \item Diccionarios o listas indexadas:
-            $$ \texttt{a = \{'altura': 1.80, 'peso': 90\}} $$
-            *Acceso con \texttt{a['altura']}
-        \item Conjuntos o listas no-ordenadas: 
-            $$ \texttt{a = \{1,5,9\}} $$
-    \end{itemize}
-
-\pause\idea{Exploremos las funciones de cada uno (\texttt{dir})}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Funciones mágicas}
-
-\begin{itemize}
-    \item Todas las funciones: $\texttt{dir(a)}$.
-    \item Funciones mágicas: \verb+__txt__+
-    \item Tipos sumables: %\texttt{\_\_add\_\_}
-        \begin{verbatim}
-    int.__add__(2,3)
-        \end{verbatim}
-    \item Subíndices: \verb+__getitem__+
-        \begin{verbatim}
-    a = [6,7,8]
-    list.__getitem__(a,1) # a[1]
-        \end{verbatim}
-\end{itemize}
-
-\vspace{2cm}
-\idea{Veamos...}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Iteraciones}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Motivación}
-    Todo bien con el ciclo for, pero...
-
-    \begin{itemize}
-        \item A veces no sabemos cuántas veces iterar
-        \item A veces iteramos hasta cumplir algún criterio. Ej: estudiar
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Sintaxis de loop de iteración}
-    \begin{minted}{python}
-        while condition: # condition es un bool
-            # código
-            # se vuelve a ejecutar 
-            # mientras 'condition' sea True
-    \end{minted}
     
     \vspace{1cm}
-    \begin{itemize}
-        \item Lavarse las manos
-        \item Estudiar
-    \end{itemize}
+    \begin{minted}{python}
+    modo = "w" # r|w|x|a
+    with open("ejemplo.txt", modo) as f
+        [...]
+    \end{minted}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Ej: Ahorro con \texttt{break/continue}}
-\begin{small}
-    \begin{minted}{python}
-        plata = 0
-        dias = 0 # contador
-        while True: 
-            if dia == "sabado" or dia == "domingo": 
-                dia = avanzarDia(dia)
-                dias += 1
-                continue # Volver al inicio del while
-            plata += trabajar()
-            if plata >= objetivo:
-                break # Salir del while
-            dia = avanzarDia(dia)
-            dias += 1
-        print("Meta alcanzada en {} días".format(dias))
-    \end{minted}
-\end{small}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]\frametitle{Trucos de python}
-    \begin{minted}{python}
-        apellidos = ["Nguyen", "Janssen", "Smith"]
-        ids = [100,101,102]
-    \end{minted}
-    \begin{itemize}
-        \item Juntar listas:
-        \begin{minted}{python}
-        for apellido,id in zip(apellidos,ids):
-            # [...]
-    \end{minted}
-        \item Agregar contador:
-    \begin{minted}{python}
-        for i,apellido in enumerate(apellidos):
-            # [...]
-    \end{minted}
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}\frametitle{Practiquemos un poco}
+\begin{frame}
+
 \idea{Consola...}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Scripts interactivos}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Motivación}
+    \begin{minted}{python}
+    a = 2
+    textfile = "../carpeta/archivo.txt"
+    procesar(a, textfile)
+    \end{minted}
+    \begin{itemize}
+        \item Poco portable
+        \item Poco modular
+        \item Ej: correr código para 1000 valores de 'a' en 15 archivos
+    \end{itemize}
+
+\pause \idea{Buscamos solución fuera del código}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Input}
+    Solución \#1: Frenar ejecución hasta que usuario entregue valor
+    
+    \begin{minted}{python}
+    a = input("Ingrese valor de 'a': ")
+    print(a, type(a))
+    \end{minted}
+
+    \vspace{1cm}
+    El valor ingresado es un \code{str}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Argv}
+    Solución \#2: Usar parámetros de programa
+    \begin{minted}{python}
+    # programa.py
+    from sys import argv
+    name = argv[0]
+    arg1 = argv[1]
+    arg2 = argv[2]
+    print("argv:", name, arg1, arg2)
+    \end{minted}
+
+    Luego en bash:
+    \begin{minted}{bash}
+    $ python programa.py 'hola' 42
+    argv: programa.py hola 42
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+\idea{Consola...}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Recap}
+    \begin{itemize}
+        \item Lectura a través de \emph{stream}
+        \item Lectura de archivos con \code{open}
+        \item Contexto con \code{with}
+        \item Modos de lectura: \code{r},\code{w},\code{a}
+        \item Vimos cómo hacer scripts interactivos
+        \item \code{input} para esperar info del usuario
+        \item \code{argv} para que el input sea parte del programa
+    \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -188,14 +175,16 @@ Nos gustaría tener una manera de manejar cantidades \emph{arbitrarias} de datos
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Mini ejercicios}
-    \begin{enumerate}
-        \item Dividir un número dado por 2 hasta que sea menor que $10^{-4}$ y reportar número de divisiones
-        \item Crear una lista con números hasta 1000 y luego quitar todos los impares   
-    \end{enumerate}
-    \begin{minted}{python}
-        a = 100
-        a % 2 # Resto de dividir por 2
-    \end{minted}
-\end{frame}
+    \begin{itemize}
+        \item Cree un script que lea un archivo que tenga un número por fila y los sume
+        \item Cree un programa que sume todos los números dados al programa: 
+        \begin{minted}{bash}
+    $ python programa.py 2 3 4 5  
+    Los números suman 14
+        \end{minted}
 
+\idea{Para convertir un string a float, use \code{float(myString)}}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
