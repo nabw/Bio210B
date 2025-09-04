@@ -50,6 +50,7 @@ Archivo \texttt{pangramas.txt}:
 The quick brown fox jumps over the lazy dog
 Extraño pan de col y kiwi se quemó bajo fugaz vaho
 Ma la volpe col suo balzo ha raggiunto il quieto Fido
+Portez ce vieux whisky au juge blond qui fume
 Törkylempijä vongahdus
     \end{verbatim}
 
@@ -175,6 +176,7 @@ Törkylempijä vongahdus
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Mini ejercicios}
+    \begin{footnotesize}
     \begin{itemize}
         \item Cree un script que lea un archivo que tenga un número por fila y los sume
         \item Cree un programa que sume todos los números dados al programa: 
@@ -182,9 +184,12 @@ Törkylempijä vongahdus
     $ python programa.py 2 3 4 5  
     Los números suman 14
         \end{minted}
+        \idea{Para convertir un string a float, use \code{float(myString)}}
+    \item Cree un programa que pida su edad y sexo con \code{input}, y con eso le diga los años que le quedan para jubilar. Si la edad no es un entero positivo, le debe volver a pedir la edad hasta que lo sea.
+        \idea{Para ver si puede convertir un string a dígito, use \code{string.isdigit()}}
 
-\idea{Para convertir un string a float, use \code{float(myString)}}
     \end{itemize}
+    \end{footnotesize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
