@@ -176,18 +176,30 @@ for animal in animals:
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile,noframenumbering]\frametitle{Mini ejercicios}
+    \begin{footnotesize}
     \begin{itemize}
         \item Crear una clase Cuadrado que reciba como entrada el largo de sus aristas. Cree una función de clase que entregue el área del cuadrado.
         \item Extienda el ejemplo anterior al caso de un cubo.
-    \begin{footnotesize}
     \begin{minted}{python}
 class Cuadrado:
    def __init__(self, l):
    def area(self):
     \end{minted}
-    \end{footnotesize}
+        \item Explore el siguiente código:
+    \begin{minted}{python}
+class A:
+    def a(self): print("Aa")
 
+class B:
+    def a(self):
+        A.a(self)
+        print("Ba")
+
+b = B()
+b.a()
+        \end{minted}
     \end{itemize}
+    \end{footnotesize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
