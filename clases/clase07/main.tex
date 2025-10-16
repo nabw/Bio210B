@@ -261,6 +261,41 @@ def suma(x,y):
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Testing}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Motivación}
+    \begin{enumerate}
+        \item Agrego cambio en función
+        \item Pruebo nuevo código
+        \item Falla un caso de borde escondidísimo
+    \end{enumerate}
+
+    \idea{Tener una cadena de pruebas automáticas}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Solución: Pytest}
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{../images/pytest.png}
+    \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+
+    \begin{minted}{python}
+    > myLib.py
+    def suma(a,b): return a+b
+
+    > test.py
+    from myLib import suma
+    
+    def test_suma(): #debe comenzar con 'test'
+        assert suma(1,2) == 3
+    \end{minted}
+    \begin{minted}{bash}
+    $ pytest test.py
+    \end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{Recap}
     \begin{itemize}
         \item Documentación es fundamental
