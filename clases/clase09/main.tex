@@ -204,6 +204,25 @@ Consecuencias:
 \idea{Consola}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Usar salidas}
+    \begin{itemize}
+        \item Usar el valor de la variable
+            \begin{minted}{bash}
+            $ echo VARIABLE="${VARIABLE}"
+            \end{minted}
+        \item Usar la salida de un código
+            \begin{minted}{bash}
+            $ A=$(python codigo.py)
+            $ B=$(head "$A")
+            \end{minted}
+        \item Resultado de operaciones (+,-,*,/) [\code{int}]
+            \begin{minted}{bash}
+            $ B=3
+            $ A=$((2+$B))
+            \end{minted}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Orquestación: Ejercicio}
     Creemos: 
     \begin{enumerate}
