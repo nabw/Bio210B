@@ -13,7 +13,7 @@
 }
 
 \titlegraphic{
-    \vspace{-1.8cm}
+    \vspace{-2.4cm}
     \begin{flushright}
       \includegraphics[height=2.5cm]{../images/logos/puc.png} 
     \end{flushright}
@@ -59,42 +59,62 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{\code{if}}
     \begin{small}
-        \begin{minted}{bash}
-    if [ condition ]; then
+    \begin{columns}
+        \begin{column}{0.45\textwidth}
+            \begin{minted}{bash}
+    if [ condition ]; then {
         # código por ejecutar
-    elif [ condition2 ]; then
+    }
+    elif [ condition2 ]; then {
         # más código
-    else
+    }
+    else {
         # código final
+    }
     fi
-        \end{minted}
-    Acá, tenemos notación de operaciones booleanas:
-        \begin{itemize}
-            \item $>,\geq,<,\leq$: \code{-gt},\code{-ge},\code{-lt},\code{-le}
-            \item \code{not} (\code{!}), \code{and} (\code{-a}), \code{or} (\code{-o})
-            \item Ver si existe archivo/carpeta/variable: \code{-e}/\code{-d}/\code{-n}\footnote{\code{-n} ve que la variable no sea un string vacío}
-        \end{itemize}
+            \end{minted}
+        \end{column}
+        \begin{column}{0.45\textwidth}
+            Acá, tenemos notación de operaciones booleanas:
+            \begin{itemize}
+                \item $>,\geq,<,\leq$: \code{-gt},\code{-ge},\code{-lt},\code{-le}
+                \item \code{not} (\code{!}), \code{and} (\code{-a}), \code{or} (\code{-o})
+                \item Ver si existe archivo/carpeta/variable: \code{-e}/\code{-d}/\code{-n}\footnote{\code{-n} ve si variable no es string vacío}
+            \end{itemize}
+        \end{column}
+    \end{columns}
     \end{small}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{Ejemplo}
-    \begin{small}
-    \begin{minted}{bash}
+    \begin{footnotesize}
+    \begin{columns}
+        \begin{column}{0.7\textwidth}
+            \begin{minted}{bash}
 A=2
-if [ ${A} -gt 1 ]; then
+if [ ${A} -gt 1 ]; then {
     echo GT
-else {echo LT}
+}
+else {
+    echo LT
+}
 fi
-
 A=""
-if [ -n "${A}" ]; then
+if [ -n "${A}" ]; then { # Comillas!
     echo "SI"
-else { echo NO }
+}
+else {
+    echo NO
+}
 fi
 
-    \end{minted}    
-**Notar comillas dentro el segundo \code{if}.  \hfill \idea{Consola}
-    \end{small}
+            \end{minted}
+        \end{column}
+        \begin{column}{0.25\textwidth}
+            \idea{Consola}
+        \end{column}
+    \end{columns}
+    \end{footnotesize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]\frametitle{\code{for}}
@@ -117,6 +137,10 @@ fi
     \begin{minted}{bash}
 function helloWorld {
   echo "Hello World"
+}
+# Equivalente: 
+helloWorld () {
+    echo "Hello World"
 }
     \end{minted}
 \end{frame}
@@ -142,11 +166,11 @@ function helloWorld {
     \begin{itemize}
         \item Source: Ejecutar en proceso actual
         \begin{minted}{bash}
-            # source script.sh
+            $ source script.sh
         \end{minted}
         \item Bash: Crear sub-proceso
         \begin{minted}{bash}
-            # source script.sh
+            $ sh script.sh # O 'bash script.sh'
         \end{minted}
     \end{itemize}
 
@@ -161,17 +185,21 @@ Consecuencias:
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]{Pipes y redirecciones}
-    \begin{small}
+    \begin{footnotesize}
     \begin{minted}{bash}
   $ echo "hola"  # Imprime 'hola'
   $ # Toma el texto generado por 'echo' y lo pone en 'out.txt'
   $ echo "hola" > out.txt 
   $ # Toma el texto y lo pone al final de 'out.txt'
   $ echo "hola" >> out.txt 
+  $ # Toma salida de 'cat out.txt' y lo entrega como input a grep
   $ cat 'out.txt' | grep "ho"
+  $ # Tome la salida del primer comando, 1) la imprime y 2) la guarda en out.txt
+  $ cat 'in.txt' | tee out.txt  # -a para 'append'
+  $ # Entrega contenido de 'in.txt' a función 'echo'
+  $ echo < in.txt
     \end{minted} 
-    \end{small}
-La última línea: toma la salida de \code{cat out.txt} y se lo entrega como input a la función \code{grep}.
+    \end{footnotesize}
 
 \idea{Consola}
 \end{frame}
