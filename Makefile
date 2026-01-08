@@ -9,3 +9,6 @@ $(SUBDIRS):
 		echo "Entering $@"; \
 		$(MAKE) -C $@; \
 	fi
+
+programa:
+	libreoffice --headless --convert-to pdf Programa.docx
