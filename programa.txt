@@ -1,5 +1,5 @@
 ####### W1
-# C1: Intro a programación, Lenguajes y python
+# C0: Intro a programación, Lenguajes y python
     - Motivación con datos artritis
     - Motivación de cómo pensar (PC es tonto)
     - El computador: Distintos sistemas operativos, consola/terminal como punto de acceso
@@ -18,117 +18,112 @@
 L1: UNIX desde distintos sistemas: WSL, etc. Instalar y usar Python (IDLE|Jupyter|Collab).
 
 ####### W2
-# C3: Control de flujo y funciones
+# C1: Control de flujo, funciones y strings
     - if/then/else
     - Motivación: Encapsular complejidad
     - Sintaxis y type hinting
     - Ver hartos ejemplos de funciones y funciones anidadas
     - Ejemplo MUY útil: print()
-
-# C4: Strings y funciones de strings
     - Operaciones en strings
     - Primer módulo: string
     - Complicaciones de string: '', "", """ """
 
-L3,4: Desarrollo de primeros códigos para manipular strings.
+L2: Desarrollo de primeros códigos para manipular strings.
 
 ####### W3
-# C5: Loops sobre estructuras de datos; listas, tuplas y conjuntos
+# C2: Loops sobre estructuras de datos (listas, tuplas y conjuntos) e iteradores
     - Motivación y sintaxis de 'for'
     - Operaciones en estructuras de datos, listas de listas
     - Tipos no-básicos, referencias y modificaciones in-place
     - List comprehensions para mayor eficiencia (vs append)
-
-# C6: Iteraciones
     - for vs while
     - Truquitos: contadores, while True
     - Enumeraciones (zip,map,enumerate) *para evitar problemas de memoria: yield*
 
-L5,6: Ver hartos ejemplos. Propongo rehacer funciones de strings y listas a mano.
+L3: Ver hartos ejemplos. Propongo rehacer funciones de strings y listas a mano.
 
 ####### W4
-# C7: IO
+# C3: IO, interactividad y validación
     - open y r/w
     - Lectura y escritura
     - Ejemplos
-
-# C8: Programa interactivo y validación
     - input vs argv
     - type checking
     - try/except; assert
     - static check
 
-L7,8: Leer una base de datos con entradas malas y calcular algo (tipo la media).
+L4: Leer una base de datos con entradas malas y calcular algo (tipo la media).
 
 ####### W5
-# C9: Módulos
+# C4: Módulos y Python científico (Numpy, Matplotlib)
     - Ver qué es un módulo y cómo crearlos
     - Ejemplos hasta ahora: sys, string
-
-# C10: Python científico: Numpy, Matplotlib
     - Mostrar impacto en velocidad
     - Ver ejemplos de manejo de arreglos
     - Operaciones vectorizadas
     - Tipos de gráficos
 
-L9,10: Crear un módulo de lectura de .csv y que grafique cosas.
+L5: Crear un módulo de lectura de .csv y que grafique cosas.
 
 ####### W6
-# C11,12: Python científico II: Estadística y manejo de datos
+# C5: Python científico II: Estadística y manejo de datos
     - scipy
     - statistics
     - pandas (numpy para representar datos)
     - Ver qué cosas se pueden hacer también con Numpy
     - Regresiones lineales (ver sintaxis de cada librería)
 
-L11,12: Agarrar una base de datos, hacer un ajuste lineal y/o cuadrático (ej: imc), graficar varias cosas.
+L6: Agarrar una base de datos, hacer un ajuste lineal y/o cuadrático (ej: imc), graficar varias cosas.
 
 ####### W7
-# C13,14: Clases y polimorfismo
+# C6: Clases y polimorfismo
     - Motivación y sintaxis
     - Ver ejemplos simples: Familia, Figuras geométricas
     - Funciones de base: __init__, __add__, __mult__, __getitem__, etc
 
-L13,14: Aplicación para modelamiento de problema biológico.
+L7: Aplicación para modelamiento de problema biológico.
 
 ####### W8
-# C15: Documentación
+# C7: Documentación y colaboración
     - Motivar MUCHO
     - docstrings, README
     - help
-
-# C16: Desarrollo colaborativo
     - git
 
-L15,16: Hacer algo colaborativo en clase donde tod@s aporten a un repositorio común.
+L8: Hacer algo colaborativo en clase donde tod@s aporten a un repositorio común.
 
 ####### W9
-# C17: Lenguaje para estadística: R
+# C8: Lenguaje para estadística: R
     - Contexto de R e instalación (Rstudio)
     - Diferencias con Python (ver column-wise compare de sintaxis)
-   
-# C18: Uso de R
     - Lectura de datos (o carga de datos libremente disponibles)
     - Creación y ajuste de modelo estadístico
     - Lectura de indicadores
 
-L17,18: Hacer algo con R, tipo ajustes polinomiales para funciones no triviales.
+L9: Hacer algo con R, tipo ajustes polinomiales para funciones no triviales.
 
 ####### W10
-# C19: Bash y orquestación 
+# C9: Bash y orquestación 
     - Navegación y autocomplete
     - Variables y funciones
     - Scripts, source vs bash
-
-# C20: Bash
     - Orquestación de programas
     - Pipes y flujos: cat, sed, |, <, <<, >, >>
 
-L19,20: Crear dos programas en R y Python que se comuniquen con un script en Bash. ** Mencionar que se pueden ejecutar programas desde python (probablemente desde R también).
+L10: Crear dos programas en R y Python que se comuniquen con un script en Bash. ** Mencionar que se pueden ejecutar programas desde python (probablemente desde R también).
 
-####### W11--
+##### ESTRUCTURA CURSO
 
--- Temas de proyectos:
+- Clases:
+    - Mitad 1: Clase corta, empezar a programar
+    - Mitad 2: Programar, Control
+- Tarea todas las semanas, se sube en ayudantía
+- Ayudantía: 
+    - Mitad 1: Repaso, ejercicios
+    - Mitad 2: Subir tarea, inicio guiado
+
+
+-- Temas de proyectos: [DEPRECADO]
 
 5. Estructuras de datos biológicos
 5.1 Formatos de datos de secuencia
@@ -146,12 +141,97 @@ L19,20: Crear dos programas en R y Python que se comuniquen con un script en Bas
 7.3 Apoyo y soporte en resolución de problemas
 
 
-##### EVALUACIONES
+####################################
+####################################
+####################################
+##### PROGRAMA PARA 5 CREDITOS #####
+####################################
+####################################
+####################################
 
-- Clases:
-    - Mitad 1: Clase corta, empezar a programar
-    - Mitad 2: Programar, Control
-- Tarea todas las semanas, se sube en ayudantía
-- Ayudantía: 
-    - Mitad 1: Repaso, ejercicios
-    - Mitad 2: Subir tarea, inicio guiado
+
+####### W1
+# C0: Intro a programación, Lenguajes y python
+    - Motivación con datos artritis
+    - Motivación de cómo pensar (PC es tonto)
+    - El computador: Distintos sistemas operativos, consola/terminal como punto de acceso
+    - Concepto de compilación
+    - Lenguajes comilados vs interpretados
+    - Ver pros y cons
+    - Estructura de carpetas
+    - Tipos de archivos, estado y permisos
+    - Comandos de navegación (cd,ls,pwd,mkdir,--help,etc)
+    - Concepto de programas
+    - Mostrar un poco del contexto de Python
+    - Tipos básicos (int,float,char,string como conjunto de chars)
+    - Comentarios 
+    - Python como calculadora. Precedencia y operaciones.
+
+####### W2
+# C1: Control de flujo, funciones y strings
+    - if/then/else
+    - Motivación: Encapsular complejidad
+    - Sintaxis y type hinting
+    - Ver hartos ejemplos de funciones y funciones anidadas
+    - Ejemplo MUY útil: print()
+    - Operaciones en strings
+    - Primer módulo: string
+    - Complicaciones de string: '', "", """ """
+
+####### W3
+# C2: Loops sobre estructuras de datos (listas, tuplas y conjuntos) e iteradores
+    - Motivación y sintaxis de 'for'
+    - Operaciones en estructuras de datos, listas de listas
+    - Tipos no-básicos, referencias y modificaciones in-place
+    - List comprehensions para mayor eficiencia (vs append)
+    - for vs while
+    - Truquitos: contadores, while True
+    - Enumeraciones (zip,map,enumerate) *para evitar problemas de memoria: yield*
+
+####### W4
+# C3: IO, interactividad y validación
+    - open y r/w
+    - Lectura y escritura
+    - Ejemplos
+    - input vs argv
+    - type checking
+    - try/except; assert
+    - static check
+
+####### W5
+# C4: Módulos y Python científico (Numpy, Matplotlib)
+    - Ver qué es un módulo y cómo crearlos
+    - Ejemplos hasta ahora: sys, string
+    - statistics, math
+    - Mostrar impacto en velocidad de numpy
+    - Ver ejemplos de manejo de arreglos
+    - Operaciones vectorizadas
+    - Tipos de gráficos (matplotlib)
+    - scipy
+    - pandas (numpy para representar datos)
+    - Regresiones lineales (ver sintaxis de cada librería)
+
+####### W7
+# C5: Clases, polimorfismo y documentación
+    - Motivación y sintaxis
+    - Ver ejemplos simples: Familia, Figuras geométricas
+    - Funciones de base: __init__, __add__, __mult__, __getitem__, etc
+    - Motivar MUCHO
+    - docstrings, README
+    - help
+    # - git ---> hacer en lab o algo así...
+
+####### W9
+# C6: Lenguajes: R, bash y orquestación
+    - Contexto de R e instalación (Rstudio)
+    - Diferencias con Python (ver column-wise compare de sintaxis)
+    - Lectura de datos (o carga de datos libremente disponibles)
+    - Creación y ajuste de modelo estadístico
+    - Lectura de indicadores
+    - Navegación y autocomplete
+    - Variables y funciones
+    - Scripts, source vs bash
+    - Orquestación de programas
+    - Pipes y flujos: cat, sed, |, <, <<, >, >>
+
+
