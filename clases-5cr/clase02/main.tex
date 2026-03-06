@@ -1,0 +1,202 @@
+\documentclass[14pt,aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimplePlus}
+\usepackage{booktabs}
+\usepackage{minted}
+\usepackage{fancyvrb}
+
+\title[short title]{Clase 2: Estructuras de datos e iteradores}
+\subtitle{}
+\author[NA Barnafi] {Nicolás Alejandro Barnafi Wittwer}
+\institute[UC|CMM] 
+{
+    Pontificia Universidad Católica de Chile \\
+    Centro de Modelamiento Matemático
+}
+
+\titlegraphic{
+    \vspace{-1.8cm}
+    \begin{flushright}
+      \includegraphics[height=2.5cm]{../images/logos/puc.png} 
+    \end{flushright}
+}
+\date{}
+
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \maketitle
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Estructuras de datos}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Motivación}
+En el ejemplo del IMC, se vuelve impracticable tener muchos datos:
+    \begin{minted}{python}
+        peso1 = 1.
+        altura1 = 1.0
+        peso2 = 2.0 
+        altura2 = 2.0
+        ...
+        peso1200 = 3.0
+        altura1200 = 3.0
+    \end{minted}
+
+Nos gustaría tener una manera de manejar cantidades \emph{arbitrarias} de datos y operar sobre ellas.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis de loop de iteración}
+    \begin{minted}{python}
+      lista = [1,2,3,4,5]
+      for e in lista:
+        print(e)
+    \end{minted}
+\pause El resultado será
+
+1\\
+2\\
+3\\
+4\\
+5
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Un poco de sintaxis}
+    $$ \texttt{a = [1,2,3,4,5,8]} $$
+    \begin{itemize}
+        \item<+-> 'a' es una \emph{lista}
+        \item<+-> 'a' es un \emph{iterable} (se puede usar en ciclo \texttt{for})
+        \item<+-> 'a' tiene componentes (\texttt{a[0],a[1],...})
+        \item<+-> Listas no tienen tipos específicos: 
+            $$ \texttt{a = [1,'hola',-7.2]} $$
+        \item<+-> \texttt{range(10)} para iterar sobre números $0,\dots,9$
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Ejemplo: promedio}
+\idea{Consola para ver sus funciones... (\texttt{dir})}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Otros tipos}
+    \begin{itemize}
+        \item Tuplas o listas inmodificables: 
+            $$  \texttt{a = (1,2,7,8)} $$
+        \item Diccionarios o listas indexadas:
+            $$ \texttt{a = \{'altura': 1.80, 'peso': 90\}} $$
+            *Acceso con \texttt{a['altura']}
+        \item Conjuntos o listas no-ordenadas: 
+            $$ \texttt{a = \{1,5,9\}} $$
+    \end{itemize}
+
+\pause\idea{Exploremos las funciones de cada uno (\texttt{dir})}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Funciones mágicas}
+
+\begin{itemize}
+    \item Todas las funciones: $\texttt{dir(a)}$.
+    \item Funciones mágicas: \verb+__txt__+
+    \item Tipos sumables: %\texttt{\_\_add\_\_}
+        \begin{verbatim}
+    int.__add__(2,3)
+        \end{verbatim}
+    \item Subíndices: \verb+__getitem__+
+        \begin{verbatim}
+    a = [6,7,8]
+    list.__getitem__(a,1) # a[1]
+        \end{verbatim}
+\end{itemize}
+
+\vspace{2cm}
+\idea{Veamos...}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Iteraciones}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Motivación}
+    Todo bien con el ciclo for, pero...
+
+    \begin{itemize}
+        \item A veces no sabemos cuántas veces iterar
+        \item A veces iteramos hasta cumplir algún criterio. Ej: estudiar
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Sintaxis de loop de iteración}
+    \begin{minted}{python}
+        while condition: # condition es un bool
+            # código
+            # se vuelve a ejecutar 
+            # mientras 'condition' sea True
+    \end{minted}
+    
+    \vspace{1cm}
+    \begin{itemize}
+        \item Lavarse las manos
+        \item Estudiar
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Ej: Ahorro con \texttt{break/continue}}
+\begin{small}
+    \begin{minted}{python}
+        plata = 0
+        dias = 0 # contador
+        while True: 
+            if dia == "sabado" or dia == "domingo": 
+                dia = avanzarDia(dia)
+                dias += 1
+                continue # Volver al inicio del while
+            plata += trabajar()
+            if plata >= objetivo:
+                break # Salir del while
+            dia = avanzarDia(dia)
+            dias += 1
+        print("Meta alcanzada en {} días".format(dias))
+    \end{minted}
+\end{small}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Trucos de python}
+    \begin{minted}{python}
+        apellidos = ["Nguyen", "Janssen", "Smith"]
+        ids = [100,101,102]
+    \end{minted}
+    \begin{itemize}
+        \item Juntar listas:
+        \begin{minted}{python}
+        for apellido,id in zip(apellidos,ids):
+            # [...]
+    \end{minted}
+        \item Agregar contador:
+    \begin{minted}{python}
+        for i,apellido in enumerate(apellidos):
+            # [...]
+    \end{minted}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Practiquemos un poco}
+\idea{Consola...}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \maketitle
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]\frametitle{Mini ejercicios}
+    \begin{enumerate}
+        \item Dividir un número dado por 2 hasta que sea menor que $10^{-4}$ y reportar número de divisiones
+        \item Crear una lista con números hasta 1000 y luego quitar todos los impares   
+            \begin{minted}{python}
+                a = 100
+                a % 2 # Resto de dividir por 2
+            \end{minted}
+        \item Repetir el ejercicio anterior pero sacando solo los números primos
+    \end{enumerate}
+\end{frame}
+
+\end{document}
